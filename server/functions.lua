@@ -94,7 +94,7 @@ function EnsureProfileData(citizenid, fullname, callsign, badgeNumber, rank, dep
             SET fullname = COALESCE(?, fullname),
                 callsign = COALESCE(?, callsign),
                 badge_number = COALESCE(?, badge_number),
-                rank = COALESCE(?, rank),
+                `rank` = COALESCE(?, `rank`),
                 department = COALESCE(?, department)
             WHERE citizenid = ?
         ]], {
