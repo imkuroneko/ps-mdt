@@ -113,20 +113,20 @@
 			bolos: 34, warrants: 18, totalFined: 285000, totalMonths: 342, citations: 67,
 		};
 		awards = [
-			{ id: 1, name: "First Report", description: "File your first incident report", icon: "description", category: "Reports", goalType: "reports", goalAmount: 1, progress: 1, earned: true, earnedDate: "2024-01-15" },
-			{ id: 2, name: "50 Reports Filed", description: "File 50 incident reports", icon: "description", category: "Reports", goalType: "reports", goalAmount: 50, progress: 50, earned: true, earnedDate: "2024-06-20" },
-			{ id: 3, name: "100 Reports Filed", description: "File 100 incident reports", icon: "description", category: "Reports", goalType: "reports", goalAmount: 100, progress: 100, earned: true, earnedDate: "2024-11-10" },
-			{ id: 4, name: "500 Reports Filed", description: "File 500 incident reports", icon: "description", category: "Reports", goalType: "reports", goalAmount: 500, progress: 147, earned: false },
-			{ id: 5, name: "First Arrest", description: "File your first arrest report", icon: "local_police", category: "Arrests", goalType: "arrests", goalAmount: 1, progress: 1, earned: true, earnedDate: "2024-01-20" },
-			{ id: 6, name: "50 Arrests", description: "File 50 arrest reports", icon: "local_police", category: "Arrests", goalType: "arrests", goalAmount: 50, progress: 50, earned: true, earnedDate: "2024-08-15" },
-			{ id: 7, name: "200 Arrests", description: "File 200 arrest reports", icon: "local_police", category: "Arrests", goalType: "arrests", goalAmount: 200, progress: 89, earned: false },
-			{ id: 8, name: "Case Worker", description: "Work on 25 cases", icon: "folder", category: "Cases", goalType: "cases", goalAmount: 25, progress: 23, earned: false },
-			{ id: 9, name: "50 Evidence Logged", description: "Log 50 pieces of evidence", icon: "inventory_2", category: "Evidence", goalType: "evidence", goalAmount: 50, progress: 50, earned: true, earnedDate: "2024-09-05" },
-			{ id: 10, name: "25 BOLOs Issued", description: "Issue 25 BOLOs", icon: "notification_important", category: "BOLOs", goalType: "bolos", goalAmount: 25, progress: 25, earned: true, earnedDate: "2024-07-01" },
-			{ id: 11, name: "10 Warrants Issued", description: "Issue 10 warrants", icon: "gavel", category: "Warrants", goalType: "warrants", goalAmount: 10, progress: 10, earned: true, earnedDate: "2024-10-12" },
-			{ id: 12, name: "$100K Fined", description: "Fine citizens a total of $100,000", icon: "payments", category: "Fines", goalType: "totalFined", goalAmount: 100000, progress: 100000, earned: true, earnedDate: "2024-05-22" },
-			{ id: 13, name: "$500K Fined", description: "Fine citizens a total of $500,000", icon: "payments", category: "Fines", goalType: "totalFined", goalAmount: 500000, progress: 285000, earned: false },
-			{ id: 14, name: "500 Months Sentenced", description: "Sentence a total of 500 months", icon: "schedule", category: "Sentencing", goalType: "totalMonths", goalAmount: 500, progress: 342, earned: false },
+			{ id: 1, name: "Primer Reporte", description: "Presenta tu primer reporte de incidente", icon: "description", category: "Reportes", goalType: "reports", goalAmount: 1, progress: 1, earned: true, earnedDate: "2024-01-15" },
+			{ id: 2, name: "50 Reportes Presentados", description: "Presenta 50 reportes de incidente", icon: "description", category: "Reportes", goalType: "reports", goalAmount: 50, progress: 50, earned: true, earnedDate: "2024-06-20" },
+			{ id: 3, name: "100 Reportes Presentados", description: "Presenta 100 reportes de incidente", icon: "description", category: "Reportes", goalType: "reports", goalAmount: 100, progress: 100, earned: true, earnedDate: "2024-11-10" },
+			{ id: 4, name: "500 Reportes Presentados", description: "Presenta 500 reportes de incidente", icon: "description", category: "Reportes", goalType: "reports", goalAmount: 500, progress: 147, earned: false },
+			{ id: 5, name: "Primer Arresto", description: "Presenta tu primer reporte de arresto", icon: "local_police", category: "Arrestos", goalType: "arrests", goalAmount: 1, progress: 1, earned: true, earnedDate: "2024-01-20" },
+			{ id: 6, name: "50 Arrestos", description: "Presenta 50 reportes de arresto", icon: "local_police", category: "Arrestos", goalType: "arrests", goalAmount: 50, progress: 50, earned: true, earnedDate: "2024-08-15" },
+			{ id: 7, name: "200 Arrestos", description: "Presenta 200 reportes de arresto", icon: "local_police", category: "Arrestos", goalType: "arrests", goalAmount: 200, progress: 89, earned: false },
+			{ id: 8, name: "Investigador de Casos", description: "Trabaja en 25 casos", icon: "folder", category: "Casos", goalType: "cases", goalAmount: 25, progress: 23, earned: false },
+			{ id: 9, name: "50 Evidencias Registradas", description: "Registra 50 piezas de evidencia", icon: "inventory_2", category: "Evidencia", goalType: "evidence", goalAmount: 50, progress: 50, earned: true, earnedDate: "2024-09-05" },
+			{ id: 10, name: "25 BOLOs Emitidos", description: "Emite 25 BOLOs", icon: "notification_important", category: "BOLOs", goalType: "bolos", goalAmount: 25, progress: 25, earned: true, earnedDate: "2024-07-01" },
+			{ id: 11, name: "10 Órdenes Emitidas", description: "Emite 10 órdenes judiciales", icon: "gavel", category: "Órdenes", goalType: "warrants", goalAmount: 10, progress: 10, earned: true, earnedDate: "2024-10-12" },
+			{ id: 12, name: "$100K en Multas", description: "Multa ciudadanos por un total de $100,000", icon: "payments", category: "Multas", goalType: "totalFined", goalAmount: 100000, progress: 100000, earned: true, earnedDate: "2024-05-22" },
+			{ id: 13, name: "$500K en Multas", description: "Multa ciudadanos por un total de $500,000", icon: "payments", category: "Multas", goalType: "totalFined", goalAmount: 500000, progress: 285000, earned: false },
+			{ id: 14, name: "500 Meses Sentenciados", description: "Sentencia un total de 500 meses", icon: "schedule", category: "Sentencias", goalType: "totalMonths", goalAmount: 500, progress: 342, earned: false },
 		];
 		leaderboard = [
 			{ rank: 1, name: "Mike Torres", callsign: "1-L-1", department: "LSPD", reports: 312, arrests: 198, cases: 45, warrants: 38, totalFined: 620000, totalMonths: 890, score: 2450, isCurrentUser: false },
@@ -158,7 +158,7 @@
 	{#if isLoading}
 		<div class="loading-state">
 			<div class="loading-spinner"></div>
-			<p>Loading...</p>
+			<p>Cargando...</p>
 		</div>
 	{:else if view === "stats"}
 		<div class="stats-view">
@@ -166,22 +166,22 @@
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-blue">description</span>
 					<span class="stat-value">{myStats.reports}</span>
-					<span class="stat-label">Reports</span>
+					<span class="stat-label">Reportes</span>
 				</div>
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-red">local_police</span>
 					<span class="stat-value">{myStats.arrests}</span>
-					<span class="stat-label">Arrests</span>
+					<span class="stat-label">Arrestos</span>
 				</div>
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-purple">folder</span>
 					<span class="stat-value">{myStats.cases}</span>
-					<span class="stat-label">Cases</span>
+					<span class="stat-label">Casos</span>
 				</div>
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-cyan">inventory_2</span>
 					<span class="stat-value">{myStats.evidence}</span>
-					<span class="stat-label">Evidence</span>
+					<span class="stat-label">Evidencia</span>
 				</div>
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-orange">notification_important</span>
@@ -191,24 +191,24 @@
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-amber">gavel</span>
 					<span class="stat-value">{myStats.warrants}</span>
-					<span class="stat-label">Warrants</span>
+					<span class="stat-label">Órdenes</span>
 				</div>
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-green">payments</span>
 					<span class="stat-value">{formatMoney(myStats.totalFined)}</span>
-					<span class="stat-label">Fined</span>
+					<span class="stat-label">Multado</span>
 				</div>
 				<div class="stat-card">
 					<span class="material-icons stat-icon si-pink">schedule</span>
 					<span class="stat-value">{myStats.totalMonths.toLocaleString()}</span>
-					<span class="stat-label">Months Sentenced</span>
+					<span class="stat-label">Meses Sentenciados</span>
 				</div>
 			</div>
 
 			{#if earnedAwards.length > 0}
 				<div class="awards-section">
 					<div class="section-header">
-						<span class="section-title">Earned ({earnedAwards.length})</span>
+						<span class="section-title">Obtenidos ({earnedAwards.length})</span>
 					</div>
 					<div class="awards-list">
 						{#each earnedAwards as award (award.id)}
@@ -232,7 +232,7 @@
 			{#if inProgressAwards.length > 0}
 				<div class="awards-section">
 					<div class="section-header">
-						<span class="section-title">In Progress ({inProgressAwards.length})</span>
+						<span class="section-title">En Progreso ({inProgressAwards.length})</span>
 					</div>
 					<div class="awards-list">
 						{#each inProgressAwards as award (award.id)}
@@ -256,36 +256,36 @@
 			{/if}
 
 			{#if awards.length === 0}
-				<div class="empty-state">No awards configured. Ask an admin to set some up in Settings.</div>
+				<div class="empty-state">No hay logros configurados. Pide a un admin que los configure en Ajustes.</div>
 			{/if}
 		</div>
 
 	{:else if view === "leaderboard"}
 		<div class="leaderboard-view">
 			<div class="leaderboard-controls">
-				<span class="sort-label">Sort by</span>
+				<span class="sort-label">Ordenar por</span>
 				<select class="sort-select" bind:value={leaderboardSort}>
-					<option value="score">Overall</option>
-					<option value="reports">Reports</option>
-					<option value="arrests">Arrests</option>
-					<option value="warrants">Warrants</option>
-					<option value="totalFined">Fined</option>
-					<option value="totalMonths">Months</option>
+					<option value="score">General</option>
+					<option value="reports">Reportes</option>
+					<option value="arrests">Arrestos</option>
+					<option value="warrants">Órdenes</option>
+					<option value="totalFined">Multado</option>
+					<option value="totalMonths">Meses</option>
 				</select>
 			</div>
 
 			<div class="leaderboard-table">
 				<div class="table-header">
 					<span class="col-rank">#</span>
-					<span class="col-name">Officer</span>
-					<span class="col-dept">Dept</span>
-					<span class="col-stat">Reports</span>
-					<span class="col-stat">Arrests</span>
-					<span class="col-stat">Cases</span>
-					<span class="col-stat">Warrants</span>
-					<span class="col-stat">Fined</span>
-					<span class="col-stat">Months</span>
-					<span class="col-score">Score</span>
+					<span class="col-name">Oficial</span>
+					<span class="col-dept">Dep.</span>
+					<span class="col-stat">Reportes</span>
+					<span class="col-stat">Arrestos</span>
+					<span class="col-stat">Casos</span>
+					<span class="col-stat">Órdenes</span>
+					<span class="col-stat">Multado</span>
+					<span class="col-stat">Meses</span>
+					<span class="col-score">Puntuación</span>
 				</div>
 				{#each sortedLeaderboard as entry, i (entry.name)}
 					<div class="table-row" class:current-user={entry.isCurrentUser}>
@@ -304,7 +304,7 @@
 						<span class="col-score">{entry.score.toLocaleString()}</span>
 					</div>
 				{:else}
-					<div class="empty-state">No leaderboard data.</div>
+					<div class="empty-state">Sin datos en la tabla de clasificación.</div>
 				{/each}
 			</div>
 		</div>

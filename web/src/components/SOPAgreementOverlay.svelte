@@ -48,8 +48,8 @@
 
 		<!-- Title area -->
 		<div class="sop-header">
-			<h2 class="sop-title">Standard Operating Procedures</h2>
-			<p class="sop-subtitle">Review the following before accessing the terminal</p>
+			<h2 class="sop-title">Procedimiento de Operaciones Estándar</h2>
+			<p class="sop-subtitle">Revise lo siguiente antes de acceder a la terminal</p>
 		</div>
 
 		<!-- Scrollable content -->
@@ -58,7 +58,7 @@
 				<div class="sop-section mission-section">
 					<div class="section-label">
 						<span class="material-icons label-icon">flag</span>
-						<span>Mission Statement</span>
+						<span>Declaración de Misión</span>
 					</div>
 					<div class="section-card">
 						<div class="section-content">
@@ -72,7 +72,7 @@
 				<div class="sop-section intro-section">
 					<div class="section-label">
 						<span class="material-icons label-icon">gavel</span>
-						<span>Terms of Access</span>
+						<span>Términos de Acceso</span>
 					</div>
 					<div class="section-card intro-card">
 						<div class="section-content">
@@ -84,11 +84,11 @@
 				<div class="sop-section intro-section">
 					<div class="section-label">
 						<span class="material-icons label-icon">gavel</span>
-						<span>Terms of Access</span>
+						<span>Términos de Acceso</span>
 					</div>
 					<div class="section-card intro-card">
 						<div class="section-content">
-							<p>The Standard Operating Procedures have been updated. By acknowledging below, you confirm that you have read, understand, and agree to comply with all department policies and procedures.</p>
+							<p>Los Procedimientos de Operaciones Estándar han sido actualizados. Al reconocer a continuación, confirma que ha leído, entendido y acepta cumplir con todas las políticas y procedimientos del departamento.</p>
 						</div>
 					</div>
 				</div>
@@ -99,7 +99,7 @@
 		<div class="sop-footer">
 			<label class="sop-agree-row">
 				<input type="checkbox" bind:checked={agreed} class="sop-checkbox" />
-				<span class="agree-text">I have read, understand, and agree to abide by the Standard Operating Procedures</span>
+				<span class="agree-text">He leído, entendido y acepto cumplir con los Procedimientos de Operaciones Estándar</span>
 			</label>
 
 			<button
@@ -110,10 +110,10 @@
 			>
 				{#if submitting}
 					<div class="btn-spinner"></div>
-					Processing...
+					Procesando...
 				{:else}
 					<span class="material-icons btn-icon">verified</span>
-					Acknowledge & Continue
+					Aceptar y Continuar
 				{/if}
 			</button>
 		</div>

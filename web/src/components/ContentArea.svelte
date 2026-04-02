@@ -134,20 +134,20 @@
 
 	function getPageLabel(pageId: string): string {
 		const labels: Record<string, string> = {
-			citizens: "Citizens",
+			citizens: "Ciudadanos",
 			bolos: "BOLOs",
-			vehicles: "Vehicles",
-			weapons: "Weapons",
-			cases: "Cases",
-			evidence: "Evidence",
-			reports: "Reports",
-			warrants: "Warrants",
-			charges: "Charges",
-			awards: "Awards",
-			cameras: "Cameras",
-			bodycams: "Bodycams",
-			management: "Settings",
-			settings: "Preferences",
+			vehicles: "Vehículos",
+			weapons: "Armas",
+			cases: "Casos",
+			evidence: "Evidencia",
+			reports: "Informes",
+			warrants: "Órdenes",
+			charges: "Cargos",
+			awards: "Premios",
+			cameras: "ámaras",
+			bodycams: "Cámaras Corporales",
+			management: "Configuración",
+			settings: "Preferencias",
 		};
 		return labels[pageId] || pageId;
 	}
@@ -171,14 +171,14 @@
 			<div class="denied-overlay">
 				<div class="denied-card">
 					<span class="material-icons denied-icon">lock</span>
-					<span class="denied-title">Permission Denied</span>
+					<span class="denied-title">Permiso Denegado</span>
 					<span class="denied-desc">
-						You do not have permission to access <strong>{getPageLabel(activeComponent)}</strong>.
-						Contact a supervisor to request access.
+						No tienes permiso para acceder a <strong>{getPageLabel(activeComponent)}</strong>.
+						Contacta a un supervisor para solicitar acceso.
 					</span>
 					<button class="denied-btn" onclick={() => tabService.setActiveTab("Dashboard")}>
 						<span class="material-icons denied-btn-icon">arrow_back</span>
-						Back to Dashboard
+						Volver al Panel
 					</button>
 				</div>
 			</div>
@@ -242,7 +242,7 @@
 		{:else}
 			<PlaceholderContent
 				componentId={activeComponent}
-				message="Component not found"
+				message="Componente no encontrado"
 			/>
 		{/if}
 		{/if}

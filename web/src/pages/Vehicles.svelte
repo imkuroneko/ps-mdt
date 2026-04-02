@@ -284,18 +284,18 @@
 				</div>
 				<div class="topbar-flags">
 					{#if selectedVehicle.stolen}
-						<span class="pill pill-red">Stolen</span>
+						<span class="pill pill-red">Robado</span>
 					{/if}
 					{#if selectedVehicle.boloactive}
 						<span class="pill pill-orange">BOLO</span>
 					{/if}
-					<span class="pill {getStatusClass(selectedVehicle.status || 'valid')}">{selectedVehicle.status || 'Valid'}</span>
+					<span class="pill {getStatusClass(selectedVehicle.status || 'valid')}">{selectedVehicle.status === 'valid' ? 'Válido' : selectedVehicle.status === 'stolen' ? 'Robado' : selectedVehicle.status === 'bolo' ? 'BOLO' : selectedVehicle.status === 'suspended' ? 'Suspendido' : selectedVehicle.status === 'expired' ? 'Expirado' : selectedVehicle.status === 'impounded' ? 'Incautado' : selectedVehicle.status || 'Válido'}</span>
 				</div>
 			{/if}
 		</div>
 
 		{#if vehicleDetailLoading}
-			<div class="loading-state">Loading vehicle details...</div>
+			<div class="loading-state">Cargando detalles del vehículo...</div>
 		{:else if vehicleDetailError}
 			<div class="error-state">{vehicleDetailError}</div>
 		{:else if selectedVehicle}
@@ -311,28 +311,28 @@
 							{/if}
 						</div>
 						<div class="info-card-body">
-							<span class="info-card-label">Owner</span>
+							<span class="info-card-label">Propietario</span>
 							<span class="info-card-value">{selectedVehicle.owner}</span>
 						</div>
 					</div>
-					<div class="info-item"><span class="info-label">Plate</span><span class="info-value mono">{selectedVehicle.plate}</span></div>
-					<div class="info-item"><span class="info-label">Model</span><span class="info-value">{selectedVehicle.label}</span></div>
-					<div class="info-item"><span class="info-label">Class</span><span class="info-value">{selectedVehicle.class}</span></div>
-					<div class="info-item"><span class="info-label">Type</span><span class="info-value">{selectedVehicle.type}</span></div>
-					<div class="info-item"><span class="info-label">Brand</span><span class="info-value">{selectedVehicle.brand || 'Unknown'}</span></div>
-					<div class="info-item"><span class="info-label">Reports</span><span class="info-value">{selectedVehicle.seenIn || 0}</span></div>
-					<div class="info-item"><span class="info-label">Points</span><span class="info-value" class:accent-red={(selectedVehicle.points ?? 0) > 0}>{selectedVehicle.points ?? 0}</span></div>
+					<div class="info-item"><span class="info-label">Matrícula</span><span class="info-value mono">{selectedVehicle.plate}</span></div>
+					<div class="info-item"><span class="info-label">Modelo</span><span class="info-value">{selectedVehicle.label}</span></div>
+					<div class="info-item"><span class="info-label">Clase</span><span class="info-value">{selectedVehicle.class}</span></div>
+					<div class="info-item"><span class="info-label">Tipo</span><span class="info-value">{selectedVehicle.type}</span></div>
+					<div class="info-item"><span class="info-label">Marca</span><span class="info-value">{selectedVehicle.brand || 'Desconocida'}</span></div>
+					<div class="info-item"><span class="info-label">Reportes</span><span class="info-value">{selectedVehicle.seenIn || 0}</span></div>
+					<div class="info-item"><span class="info-label">Puntos</span><span class="info-value" class:accent-red={(selectedVehicle.points ?? 0) > 0}>{selectedVehicle.points ?? 0}</span></div>
 					<div class="info-item">
-						<span class="info-label">State</span>
+						<span class="info-label">Estado</span>
 						<span class="info-value" class:state-active={selectedVehicle.core_state === 0} class:state-garaged={selectedVehicle.core_state === 1} class:state-impounded-state={selectedVehicle.core_state === 2}>
-							{selectedVehicle.core_state === 0 ? 'Out' : selectedVehicle.core_state === 1 ? 'Garaged' : selectedVehicle.core_state === 2 ? 'Impounded' : 'Unknown'}
+							{selectedVehicle.core_state === 0 ? 'En uso' : selectedVehicle.core_state === 1 ? 'En garaje' : selectedVehicle.core_state === 2 ? 'Incautado' : 'Desconocido'}
 						</span>
 					</div>
 				</div>
 
 				{#if selectedVehicle.flags && selectedVehicle.flags.length}
 					<div class="section">
-						<div class="section-title">Flags</div>
+						<div class="section-title">Marcadores</div>
 						<div class="flags-row">
 							{#each selectedVehicle.flags as flag}
 								<span class={getFlagClass(flag)}>{flag}</span>
@@ -343,42 +343,42 @@
 
 				{#if selectedVehicle.information}
 					<div class="section">
-						<div class="section-title">Information</div>
+						<div class="section-title">Información</div>
 						<p class="section-text">{selectedVehicle.information}</p>
 					</div>
 				{/if}
 
 				<div class="section">
-					<div class="section-title">DMV Updates</div>
+					<div class="section-title">Actualización DMV</div>
 					<div class="dmv-form">
 						<div class="form-row">
 							<label class="form-field">
-								<span>Points</span>
+								<span>Puntos</span>
 								<input type="number" min="0" bind:value={vehicleForm.points} />
 							</label>
 							<label class="form-field">
-								<span>Status</span>
+								<span>Estado</span>
 								<select bind:value={vehicleForm.status}>
-									<option value="valid">Valid</option>
-									<option value="suspended">Suspended</option>
-									<option value="expired">Expired</option>
-									<option value="impounded">Impounded</option>
+									<option value="valid">Válido</option>
+									<option value="suspended">Suspendido</option>
+									<option value="expired">Expirado</option>
+									<option value="impounded">Incautado</option>
 								</select>
 							</label>
 							<label class="form-field form-grow">
-								<span>Reason</span>
-								<input type="text" placeholder="Optional note" bind:value={vehicleForm.reason} />
+								<span>Motivo</span>
+								<input type="text" placeholder="Nota opcional" bind:value={vehicleForm.reason} />
 							</label>
 						</div>
 						<button class="save-btn" onclick={saveVehicle} disabled={vehicleSaving} type="button">
-							{vehicleSaving ? "Saving..." : "Save DMV"}
+							{vehicleSaving ? "Guardando..." : "Guardar DMV"}
 						</button>
 					</div>
 				</div>
 
 				{#if selectedVehicle.bolos && selectedVehicle.bolos.length}
 					<div class="section">
-						<div class="section-title">Related BOLOs</div>
+						<div class="section-title">BOLOs relacionados</div>
 						<div class="bolos-list">
 							{#each selectedVehicle.bolos as bolo}
 								<div class="bolo-item">
@@ -396,9 +396,9 @@
 				{/if}
 
 				<div class="section">
-					<div class="section-title">Linked Reports <span class="report-count">{linkedReports.length}</span></div>
+					<div class="section-title">Reportes vinculados <span class="report-count">{linkedReports.length}</span></div>
 					{#if linkedReportsLoading}
-						<div class="section-empty">Loading reports...</div>
+						<div class="section-empty">Cargando reportes...</div>
 					{:else if linkedReports.length > 0}
 						<div class="linked-reports-list">
 							{#each linkedReports as lr}
@@ -407,12 +407,12 @@
 										<span class="lr-title">{lr.title}</span>
 										<span class="lr-meta">{lr.type} &middot; {lr.authorplaintext} &middot; {lr.datecreated}</span>
 									</div>
-									<button class="lr-view-btn" onclick={() => goToReport(lr.id)}>View</button>
+									<button class="lr-view-btn" onclick={() => goToReport(lr.id)}>Ver</button>
 								</div>
 							{/each}
 						</div>
 					{:else}
-						<div class="section-empty">No reports linked to this vehicle</div>
+						<div class="section-empty">No hay reportes vinculados a este vehículo</div>
 					{/if}
 				</div>
 			</div>
@@ -424,36 +424,36 @@
 		<div class="topbar">
 			<div class="search-box">
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-				<input type="text" bind:value={searchQuery} placeholder="Search vehicles by owner, plate, class..." />
+				<input type="text" bind:value={searchQuery} placeholder="Buscar vehículos por propietario, matrícula, clase..." />
 			</div>
 			<button class="refresh-btn" onclick={refreshVehicles} disabled={loading}>
-				{loading ? "Loading..." : "Refresh"}
+				{loading ? "Cargando..." : "Actualizar"}
 			</button>
 		</div>
 
 		<div class="filter-tabs">
-			<button class="filter-tab" class:active={statusFilter === "all"} onclick={() => { statusFilter = "all"; vehiclePage = 1; }}>All</button>
-			<button class="filter-tab" class:active={statusFilter === "active"} onclick={() => { statusFilter = "active"; vehiclePage = 1; }}>Active</button>
-			<button class="filter-tab" class:active={statusFilter === "garaged"} onclick={() => { statusFilter = "garaged"; vehiclePage = 1; }}>Garaged</button>
-			<button class="filter-tab" class:active={statusFilter === "impounded"} onclick={() => { statusFilter = "impounded"; vehiclePage = 1; }}>Impounded</button>
-			<button class="filter-tab" class:active={statusFilter === "stolen"} onclick={() => { statusFilter = "stolen"; vehiclePage = 1; }}>Stolen</button>
+			<button class="filter-tab" class:active={statusFilter === "all"} onclick={() => { statusFilter = "all"; vehiclePage = 1; }}>Todos</button>
+			<button class="filter-tab" class:active={statusFilter === "active"} onclick={() => { statusFilter = "active"; vehiclePage = 1; }}>Activos</button>
+			<button class="filter-tab" class:active={statusFilter === "garaged"} onclick={() => { statusFilter = "garaged"; vehiclePage = 1; }}>En garaje</button>
+			<button class="filter-tab" class:active={statusFilter === "impounded"} onclick={() => { statusFilter = "impounded"; vehiclePage = 1; }}>Incautados</button>
+			<button class="filter-tab" class:active={statusFilter === "stolen"} onclick={() => { statusFilter = "stolen"; vehiclePage = 1; }}>Robados</button>
 		</div>
 
 		<div class="list-panel">
 			<div class="list-header">
-				<span class="col-name">Vehicle</span>
-				<span class="col-plate">Plate</span>
-				<span class="col-owner">Owner</span>
-				<span class="col-class">Class</span>
-				<span class="col-points">Points</span>
-				<span class="col-status">Status</span>
-				<span class="col-flags">Flags</span>
+				<span class="col-name">Vehículo</span>
+				<span class="col-plate">Matrícula</span>
+				<span class="col-owner">Propietario</span>
+				<span class="col-class">Clase</span>
+				<span class="col-points">Puntos</span>
+				<span class="col-status">Estado</span>
+				<span class="col-flags">Marcadores</span>
 			</div>
 			<div class="list-body">
 				{#if loading}
-					<div class="empty-state">Loading vehicles...</div>
+					<div class="empty-state">Cargando vehículos...</div>
 				{:else if filteredVehicles.length === 0}
-					<div class="empty-state">{searchQuery ? "No vehicles match your search." : "No vehicles found."}</div>
+					<div class="empty-state">{searchQuery ? "Ningún vehículo coincide con la búsqueda." : "No se encontraron vehículos."}</div>
 				{:else}
 					{#each filteredVehicles as vehicle}
 						<button class="vehicle-row" onclick={() => viewVehicle(vehicle.plate)}>
@@ -463,7 +463,7 @@
 							<span class="col-class">{vehicle.class}</span>
 							<span class="col-points" class:accent-red={(vehicle.points ?? 0) > 0}>{vehicle.points ?? 0}</span>
 							<span class="col-status">
-								<span class="status-pill {getStatusClass(vehicle.status || 'valid')}">{vehicle.status || 'Valid'}</span>
+								<span class="status-pill {getStatusClass(vehicle.status || 'valid')}">{vehicle.status === 'valid' ? 'Válido' : vehicle.status === 'stolen' ? 'Robado' : vehicle.status === 'bolo' ? 'BOLO' : vehicle.status === 'suspended' ? 'Suspendido' : vehicle.status === 'expired' ? 'Expirado' : vehicle.status === 'impounded' ? 'Incautado' : vehicle.status || 'Válido'}</span>
 							</span>
 							<span class="col-flags">
 								{#each vehicle.flags || [] as flag}

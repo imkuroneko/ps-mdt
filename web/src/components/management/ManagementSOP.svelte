@@ -143,7 +143,7 @@
 			newCategoryTitle = "";
 			newCategoryIcon = "description";
 			await loadCategories();
-			showStatus("Category created");
+			showStatus("Categoría creada");
 		}
 	}
 
@@ -157,7 +157,7 @@
 		if (result?.success) {
 			editingCategoryId = null;
 			await loadCategories();
-			showStatus("Category updated");
+			showStatus("Categoría actualizada");
 		}
 	}
 
@@ -170,7 +170,7 @@
 		if (result?.success) {
 			if (selectedCategoryId === id) selectedCategoryId = null;
 			await loadCategories();
-			showStatus("Category deleted");
+			showStatus("Categoría eliminada");
 		}
 	}
 
@@ -192,7 +192,7 @@
 		if (result?.success) {
 			newSectionTitle = "";
 			await loadCategories();
-			showStatus("Section created");
+			showStatus("Sección creada");
 		}
 	}
 
@@ -215,7 +215,7 @@
 			sectionInitialized = false;
 			editingSectionId = null;
 			await loadCategories();
-			showStatus("Section saved");
+			showStatus("Sección guardada");
 		}
 	}
 
@@ -234,7 +234,7 @@
 		if (result?.success) {
 			if (editingSectionId === id) cancelEditSection();
 			await loadCategories();
-			showStatus("Section deleted");
+			showStatus("Sección eliminada");
 		}
 	}
 
@@ -248,7 +248,7 @@
 			{ success: true }
 		);
 		if (result?.success) {
-			showStatus("Mission statement saved");
+			showStatus("Declaración de misión guardada");
 		}
 	}
 
@@ -262,7 +262,7 @@
 			{ success: true }
 		);
 		if (result?.success) {
-			showStatus("Introduction saved");
+			showStatus("Introducción guardada");
 		}
 	}
 
@@ -279,7 +279,7 @@
 			if (result?.success) {
 				settings.version = result.version;
 				confirmPublish = false;
-				showStatus(`SOP published - Version ${result.version}`);
+				showStatus(`SOP publicado - Versión ${result.version}`);
 			}
 		} finally { publishing = false; }
 	}
@@ -304,27 +304,27 @@
 
 	<div class="sop-tabs">
 		<button class="sop-tab" class:active={activeTab === "mission"} onclick={() => activeTab = "mission"}>
-			<span class="material-icons">flag</span> Mission Statement
+			<span class="material-icons">flag</span> Declaración de Misión
 		</button>
 		<button class="sop-tab" class:active={activeTab === "categories"} onclick={() => activeTab = "categories"}>
-			<span class="material-icons">folder</span> Categories & Sections
+			<span class="material-icons">folder</span> Categorías y Secciones
 		</button>
 		<button class="sop-tab" class:active={activeTab === "intro"} onclick={() => activeTab = "intro"}>
-			<span class="material-icons">article</span> Introduction
+			<span class="material-icons">article</span> Introducción
 		</button>
 		<button class="sop-tab" class:active={activeTab === "publish"} onclick={() => activeTab = "publish"}>
-			<span class="material-icons">publish</span> Publish
+			<span class="material-icons">publish</span> Publicar
 		</button>
 	</div>
 
 	<div class="sop-tab-content">
 		{#if activeTab === "mission"}
 			<div class="intro-tab">
-				<p class="intro-desc">The mission statement is displayed at the top of the SOP page and in the agreement overlay. Define your department's mission, values, and M.O.S. requirements.</p>
+				<p class="intro-desc">La declaración de misión se muestra en la parte superior de la página SOP y en la superposición del acuerdo. Define la misión, valores y requisitos M.O.S. de tu departamento.</p>
 				<div class="editor-container" bind:this={missionEditorEl}></div>
 				<div class="editor-actions">
 					<button class="btn-save" onclick={saveMission}>
-						<span class="material-icons">save</span> Save Mission Statement
+						<span class="material-icons">save</span> Guardar Declaración de Misión
 					</button>
 				</div>
 			</div>
@@ -334,22 +334,22 @@
 				<!-- Category List -->
 				<div class="cat-panel">
 					<div class="panel-header">
-						<h3>Categories</h3>
+						<h3>Categorías</h3>
 					</div>
 					<div class="cat-list">
 						{#each categories as cat}
 							{#if editingCategoryId === cat.id}
 								<div class="cat-edit-row">
-									<input type="text" bind:value={editCategoryTitle} placeholder="Category title" class="input-sm" />
+									<input type="text" bind:value={editCategoryTitle} placeholder="Título de la categoría" class="input-sm" />
 									<select bind:value={editCategoryIcon} class="icon-select">
 										{#each ICON_OPTIONS as icon}
 											<option value={icon}>{icon}</option>
 										{/each}
 									</select>
-									<button class="btn-icon-sm" onclick={saveCategory} title="Save">
+									<button class="btn-icon-sm" onclick={saveCategory} title="Guardar">
 										<span class="material-icons">check</span>
 									</button>
-									<button class="btn-icon-sm cancel" onclick={() => editingCategoryId = null} title="Cancel">
+									<button class="btn-icon-sm cancel" onclick={() => editingCategoryId = null} title="Cancelar">
 										<span class="material-icons">close</span>
 									</button>
 								</div>
@@ -364,10 +364,10 @@
 									<span class="material-icons cat-row-icon">{cat.icon || 'description'}</span>
 									<span class="cat-row-title">{cat.title}</span>
 									<span class="cat-row-count">{cat.sections.length}</span>
-									<button class="btn-icon-xs" onclick={(e) => { e.stopPropagation(); startEditCategory(cat); }} title="Edit">
+									<button class="btn-icon-xs" onclick={(e) => { e.stopPropagation(); startEditCategory(cat); }} title="Editar">
 										<span class="material-icons">edit</span>
 									</button>
-									<button class="btn-icon-xs danger" onclick={(e) => { e.stopPropagation(); deleteCategory(cat.id); }} title="Delete">
+									<button class="btn-icon-xs danger" onclick={(e) => { e.stopPropagation(); deleteCategory(cat.id); }} title="Eliminar">
 										<span class="material-icons">delete</span>
 									</button>
 								</div>
@@ -375,7 +375,7 @@
 						{/each}
 					</div>
 					<div class="add-row">
-						<input type="text" bind:value={newCategoryTitle} placeholder="New category..." class="input-sm" onkeydown={(e) => e.key === 'Enter' && createCategory()} />
+						<input type="text" bind:value={newCategoryTitle} placeholder="Nueva categoría..." class="input-sm" onkeydown={(e) => e.key === 'Enter' && createCategory()} />
 						<select bind:value={newCategoryIcon} class="icon-select">
 							{#each ICON_OPTIONS as icon}
 								<option value={icon}>{icon}</option>
@@ -392,7 +392,7 @@
 					{#if !selectedCategory}
 						<div class="panel-empty">
 							<span class="material-icons">arrow_back</span>
-							<p>Select a category to manage its sections</p>
+						<p>Selecciona una categoría para gestionar sus secciones</p>
 						</div>
 					{:else}
 						<div class="panel-header">
@@ -405,14 +405,14 @@
 						{#if editingSectionId}
 							<!-- Section Editor -->
 							<div class="section-editor">
-								<input type="text" bind:value={editSectionTitle} placeholder="Section title" class="input-full" />
+								<input type="text" bind:value={editSectionTitle} placeholder="Título de la sección" class="input-full" />
 								<div class="editor-container" bind:this={sectionEditorEl}></div>
 								<div class="editor-actions">
 									<button class="btn-save" onclick={saveSection}>
-										<span class="material-icons">check</span> Save Section
+										<span class="material-icons">check</span> Guardar Sección
 									</button>
 									<button class="btn-cancel" onclick={cancelEditSection}>
-										<span class="material-icons">close</span> Cancel
+										<span class="material-icons">close</span> Cancelar
 									</button>
 								</div>
 							</div>
@@ -422,20 +422,20 @@
 									<div class="sec-row">
 										<span class="sec-num">{i + 1}.</span>
 										<span class="sec-title">{section.title}</span>
-										<button class="btn-icon-xs" onclick={() => startEditSection(section)} title="Edit">
+										<button class="btn-icon-xs" onclick={() => startEditSection(section)} title="Editar">
 											<span class="material-icons">edit</span>
 										</button>
-										<button class="btn-icon-xs danger" onclick={() => deleteSection(section.id)} title="Delete">
+										<button class="btn-icon-xs danger" onclick={() => deleteSection(section.id)} title="Eliminar">
 											<span class="material-icons">delete</span>
 										</button>
 									</div>
 								{/each}
 								{#if selectedCategory.sections.length === 0}
-									<div class="sec-empty">No sections yet. Add one below.</div>
+									<div class="sec-empty">Sin secciones aún. Añade una abajo.</div>
 								{/if}
 							</div>
 							<div class="add-row">
-								<input type="text" bind:value={newSectionTitle} placeholder="New section title..." class="input-sm" onkeydown={(e) => e.key === 'Enter' && createSection()} />
+								<input type="text" bind:value={newSectionTitle} placeholder="Nuevo título de sección..." class="input-sm" onkeydown={(e) => e.key === 'Enter' && createSection()} />
 								<button class="btn-add" onclick={createSection} disabled={!newSectionTitle.trim()}>
 									<span class="material-icons">add</span>
 								</button>
@@ -447,11 +447,11 @@
 
 		{:else if activeTab === "intro"}
 			<div class="intro-tab">
-				<p class="intro-desc">This introduction is shown to officers when they are required to acknowledge the SOP. Use it to summarize key policies and expectations.</p>
+				<p class="intro-desc">Esta introducción se muestra a los oficiales cuando deben reconocer el SOP. Úsala para resumir políticas clave y expectativas.</p>
 				<div class="editor-container" bind:this={introEditorEl}></div>
 				<div class="editor-actions">
 					<button class="btn-save" onclick={saveIntro}>
-						<span class="material-icons">save</span> Save Introduction
+						<span class="material-icons">save</span> Guardar Introducción
 					</button>
 				</div>
 			</div>
@@ -460,26 +460,26 @@
 			<div class="publish-tab">
 				<div class="publish-card">
 					<span class="material-icons publish-icon">publish</span>
-					<h3>Publish SOP</h3>
-					<p class="publish-version">Current Version: <strong>{settings.version || 'Not published'}</strong></p>
+					<h3>Publicar SOP</h3>
+					<p class="publish-version">Versión Actual: <strong>{settings.version || 'No publicado'}</strong></p>
 					{#if settings.updated_by}
-						<p class="publish-meta">Last published by {settings.updated_by}</p>
+						<p class="publish-meta">Última publicación por {settings.updated_by}</p>
 					{/if}
 					<p class="publish-warning">
-						Publishing will increment the SOP version and <strong>require all officers to re-acknowledge</strong> the SOP before they can access the MDT.
+						La publicación incrementará la versión del SOP y <strong>requerirá que todos los oficiales reconozcan nuevamente</strong> el SOP antes de poder acceder a la MDT.
 					</p>
 					{#if !confirmPublish}
 						<button class="btn-publish" onclick={() => confirmPublish = true}>
-							<span class="material-icons">publish</span> Publish New Version
+							<span class="material-icons">publish</span> Publicar Nueva Versión
 						</button>
 					{:else}
 						<div class="confirm-box">
-							<p>Are you sure? All officers will be required to re-acknowledge.</p>
+							<p>¿Estás seguro? Se requerirá que todos los oficiales reconozcan nuevamente.</p>
 							<div class="confirm-actions">
 								<button class="btn-confirm" onclick={publishSOP} disabled={publishing}>
-									{#if publishing}Publishing...{:else}Yes, Publish{/if}
+									{#if publishing}Publicando...{:else}Sí, Publicar{/if}
 								</button>
-								<button class="btn-cancel-sm" onclick={() => confirmPublish = false}>Cancel</button>
+								<button class="btn-cancel-sm" onclick={() => confirmPublish = false}>Cancelar</button>
 							</div>
 						</div>
 					{/if}
@@ -858,7 +858,7 @@
 	}
 
 	.editor-container :global(.tiptap p.is-editor-empty:first-child::before) {
-		content: 'Start writing...';
+		content: 'Comienza a escribir...';
 		color: rgba(255, 255, 255, 0.25);
 		float: left;
 		pointer-events: none;

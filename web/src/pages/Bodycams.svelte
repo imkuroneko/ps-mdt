@@ -52,7 +52,7 @@
 				(Array.isArray(response) ? response : []) ??
 				[];
 		} catch (error) {
-			globalNotifications.error("Failed to load bodycams");
+			globalNotifications.error("Inconvenientes al cargar las bodycams");
 			bodycams = [];
 		} finally {
 			isLoading = false;
@@ -125,29 +125,29 @@
 	<div class="topbar">
 		<input
 			type="text"
-			placeholder="Search by name, callsign or rank..."
+			placeholder="Buscar por nombre, callsign o rango..."
 			bind:value={searchQuery}
 			class="search-input"
 		/>
 		<div class="topbar-right">
-			<span class="result-count">{filteredBodycams.length} officer{filteredBodycams.length !== 1 ? "s" : ""}</span>
+			<span class="result-count">{filteredBodycams.length} oficial{filteredBodycams.length !== 1 ? "es" : ""}</span>
 			<button
 				class="btn-secondary"
 				onclick={loadBodycams}
 				disabled={isLoading}
 			>
-				{isLoading ? "Loading..." : "Refresh"}
+				{isLoading ? "Cargando..." : "Actualizar"}
 			</button>
 		</div>
 	</div>
 
 	<div class="list-panel">
 		<div class="table-header">
-			<span class="col-callsign">Callsign</span>
-			<span class="col-name">Officer</span>
-			<span class="col-rank">Rank</span>
-			<span class="col-status">Status</span>
-			<span class="col-viewers">Viewers</span>
+			<span class="col-callsign">Código de Llamada</span>
+			<span class="col-name">Oficial</span>
+			<span class="col-rank">Rango</span>
+			<span class="col-status">Estado</span>
+			<span class="col-viewers">Espectadores</span>
 			<span class="col-action"></span>
 		</div>
 
@@ -155,15 +155,15 @@
 			{#if isLoading && bodycams.length === 0}
 				<div class="empty-state">
 					<div class="loading-spinner"></div>
-					<p>Loading bodycams...</p>
+					<p>Cargando bodycams...</p>
 				</div>
 			{:else if filteredBodycams.length === 0}
 				<div class="empty-state">
-					<p class="empty-title">No Bodycams Found</p>
+					<p class="empty-title">No se encontraron bodycams</p>
 					<p class="empty-sub">
 						{searchQuery
-							? "No officers match your search criteria."
-							: "No officers with bodycams are currently on duty."}
+							? "No oficiales coinciden con tus criterios de búsqueda."
+							: "No hay oficiales con bodycams en servicio actualmente."}
 					</p>
 				</div>
 			{:else}
@@ -176,9 +176,9 @@
 						<span class="col-rank">{bodycam.rank}</span>
 						<span class="col-status">
 							{#if bodycam.isOnline}
-								<span class="pill pill-green">Online</span>
-							{:else}
-								<span class="pill pill-grey">Offline</span>
+							<span class="pill pill-green">En línea</span>
+						{:else}
+							<span class="pill pill-grey">Fuera de línea</span>
 							{/if}
 						</span>
 						<span class="col-viewers">
@@ -192,7 +192,7 @@
 							{#if bodycam.isOnline}
 								<button class="view-btn" onclick={() => viewBodycam(bodycam)}>
 									<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-									View
+								Ver
 								</button>
 							{/if}
 						</span>

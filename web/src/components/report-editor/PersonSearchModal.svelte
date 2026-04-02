@@ -76,7 +76,7 @@
 				<input
 					bind:this={inputRef}
 					type="text"
-					placeholder="Search by name or ID..."
+					placeholder="Buscar por nombre o ID..."
 					bind:value={localQuery}
 					oninput={handleInput}
 					class="search-input"
@@ -93,7 +93,7 @@
 								>
 								<span class="result-details">
 									{#if person.badgeId}
-										Badge: {person.badgeId} | {person.rank}
+										Placa: {person.badgeId} | {person.rank}
 									{:else if person.citizenid}
 										ID: {person.citizenid}
 									{/if}

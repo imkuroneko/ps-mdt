@@ -35,7 +35,7 @@
 		<button
 			class="remove-btn"
 			onclick={() => onRemove(id)}
-			aria-label="Remove person"
+			aria-label="Eliminar persona"
 		>
 			<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
 				<path
@@ -58,7 +58,7 @@
 		{/if}
 		{#if notes !== undefined}
 			<textarea
-				placeholder="Notes"
+				placeholder="Notas"
 				value={notes}
 				oninput={(e) => onUpdate(id, "notes", e.currentTarget.value)}
 				class="notes-input"

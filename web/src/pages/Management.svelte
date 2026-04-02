@@ -22,19 +22,19 @@
 	const DOJ_HIDDEN_TABS: View[] = ["bulletins", "activity", "jailfines", "tracking", "licenses", "awards", "colors", "sop", "visibility", "fto", "tags", "templates"];
 
 	const allTabs: { key: View; label: string; permission?: string }[] = [
-		{ key: "bulletins", label: "Bulletins", permission: "management_bulletins" },
-		{ key: "activity", label: "Activity", permission: "management_activity" },
-		{ key: "permissions", label: "Permissions", permission: "management_permissions" },
-		{ key: "tags", label: "Tags", permission: "management_tags" },
-		{ key: "jailfines", label: "Jail / Fines", permission: "management_settings" },
-		{ key: "tracking", label: "Tracking", permission: "management_tracking" },
-		{ key: "templates", label: "Templates", permission: "management_settings" },
-		{ key: "licenses", label: "Licenses", permission: "management_settings" },
-		{ key: "awards", label: "Awards", permission: "management_settings" },
-		{ key: "colors", label: "Colors", permission: "management_settings" },
+		{ key: "bulletins", label: "Boletines", permission: "management_bulletins" },
+		{ key: "activity", label: "Actividad", permission: "management_activity" },
+		{ key: "permissions", label: "Permisos", permission: "management_permissions" },
+		{ key: "tags", label: "Etiquetas", permission: "management_tags" },
+		{ key: "jailfines", label: "Cárcel / Multas", permission: "management_settings" },
+		{ key: "tracking", label: "Rastreo", permission: "management_tracking" },
+		{ key: "templates", label: "Plantillas", permission: "management_settings" },
+		{ key: "licenses", label: "Licencias", permission: "management_settings" },
+		{ key: "awards", label: "Logros", permission: "management_settings" },
+		{ key: "colors", label: "Colores", permission: "management_settings" },
 		{ key: "sop", label: "SOP", permission: "sop_manage" },
 		{ key: "fto", label: "FTO", permission: "fto_manage" },
-		{ key: "visibility", label: "Visibility", permission: "management_permissions" },
+		{ key: "visibility", label: "Visibilidad", permission: "management_permissions" },
 	];
 
 	let tabs = $derived(

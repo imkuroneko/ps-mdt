@@ -75,13 +75,13 @@
 	}
 
 	const typeOptions: { value: string; label: string }[] = [
-		{ value: "all", label: "All Types" },
-		{ value: "restraining_order", label: "Restraining Order" },
-		{ value: "subpoena", label: "Subpoena" },
-		{ value: "bail_conditions", label: "Bail Conditions" },
-		{ value: "search_warrant", label: "Search Warrant" },
-		{ value: "arrest_warrant", label: "Arrest Warrant" },
-		{ value: "other", label: "Other" },
+		{ value: "all", label: "Todos los Tipos" },
+		{ value: "restraining_order", label: "Orden de Restricción" },
+		{ value: "subpoena", label: "Citación" },
+		{ value: "bail_conditions", label: "Condiciones de Fianza" },
+		{ value: "search_warrant", label: "Orden de Búsqueda" },
+		{ value: "arrest_warrant", label: "Orden de Arresto" },
+		{ value: "other", label: "Otro" },
 	];
 
 	const statusOptions = ["active", "expired", "revoked", "all"];
@@ -175,7 +175,7 @@
 			);
 			orders = data.orders || [];
 		} catch {
-			globalNotifications.error("Failed to load court orders");
+			globalNotifications.error("No se pudieron cargar las órdenes judiciales");
 		}
 		isLoading = false;
 	}
@@ -208,13 +208,13 @@
 			if (result.success) {
 				showCreateModal = false;
 				newOrder = { type: "restraining_order", title: "", target_citizenid: "", target_name: "", content: "", effective_date: "", expiry_date: "" };
-				globalNotifications.success("Court order created");
+				globalNotifications.success("Orden judicial creada");
 				await loadOrders();
 			} else {
-				globalNotifications.error(result.error || "Failed to create court order");
+				globalNotifications.error(result.error || "No se pudo crear la orden judicial");
 			}
 		} catch {
-			globalNotifications.error("Failed to create court order");
+			globalNotifications.error("No se pudo crear la orden judicial");
 		}
 		isLoading = false;
 	}
@@ -229,14 +229,14 @@
 				{ success: true },
 			);
 			if (result.success) {
-				globalNotifications.success("Court order revoked");
+				globalNotifications.success("Orden judicial revocada");
 				goBack();
 				await loadOrders();
 			} else {
-				globalNotifications.error(result.error || "Failed to revoke court order");
+				globalNotifications.error(result.error || "No se pudo revocar la orden judicial");
 			}
 		} catch {
-			globalNotifications.error("Failed to revoke court order");
+			globalNotifications.error("No se pudo revocar la orden judicial");
 		}
 		isLoading = false;
 	}
@@ -248,7 +248,7 @@
 		<div class="topbar">
 			<button class="back-btn" onclick={goBack}>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-				Back to Orders
+				Volver a Órdenes
 			</button>
 			<span class="topbar-case-number">{selectedOrder.order_number}</span>
 			<span class="pill {getTypePillClass(selectedOrder.type)}">{formatLabel(selectedOrder.type)}</span>
@@ -259,58 +259,57 @@
 			<div class="detail-layout">
 				<div class="detail-main">
 					<div class="section">
-						<div class="section-title">Order Information</div>
+						<div class="section-title">Información de la Orden</div>
 						<h3 class="order-title">{selectedOrder.title}</h3>
 						<div class="field-row">
 							<div class="field-group">
-								<span class="field-label">Order Number</span>
+								<span class="field-label">Número de Orden</span>
 								<span class="field-value">{selectedOrder.order_number}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Type</span>
+								<span class="field-label">Tipo</span>
 								<span class="pill {getTypePillClass(selectedOrder.type)}">{formatLabel(selectedOrder.type)}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Status</span>
+								<span class="field-label">Estado</span>
 								<span class="pill {getStatusPillClass(selectedOrder.status)}">{formatLabel(selectedOrder.status)}</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="section">
-						<div class="section-title">Target</div>
+						<div class="section-title">Objetivo</div>
 						<div class="field-row">
 							<div class="field-group">
-								<span class="field-label">Name</span>
+								<span class="field-label">Nombre</span>
 								<span class="field-value">{selectedOrder.target_name}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Citizen ID</span>
+								<span class="field-label">ID de Ciudadano</span>
 								<span class="field-value mono">{selectedOrder.target_citizenid}</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="section">
-						<div class="section-title">Content</div>
-						<p class="summary-text">{selectedOrder.content || "No content."}</p>
+						<div class="section-title">Contenido</div>
+						<p class="summary-text">{selectedOrder.content || "Sin contenido."}</p>
 					</div>
 				</div>
 
 				<div class="detail-side">
 					<div class="section">
-						<div class="section-title">Dates</div>
-						<div class="field-group">
-							<span class="field-label">Effective Date</span>
-							<span class="field-value">{formatDateValue(selectedOrder.effective_date)}</span>
-						</div>
-						<div class="field-group">
-							<span class="field-label">Expiry Date</span>
-							<span class="field-value">{formatDateValue(selectedOrder.expiry_date)}</span>
-						</div>
-						<div class="field-group">
-							<span class="field-label">Issued By</span>
-							<span class="field-value">{selectedOrder.issued_by || "-"}</span>
+					<div class="section-title">Fechas</div>
+					<div class="field-group">
+						<span class="field-label">Fecha Efectiva</span>
+						<span class="field-value">{formatDateValue(selectedOrder.effective_date)}</span>
+					</div>
+					<div class="field-group">
+						<span class="field-label">Fecha de Vencimiento</span>
+						<span class="field-value">{formatDateValue(selectedOrder.expiry_date)}</span>
+					</div>
+					<div class="field-group">
+						<span class="field-label">Emitido Por</span>
 						</div>
 					</div>
 
@@ -329,7 +328,7 @@
 		<!-- LIST VIEW -->
 		<div class="topbar">
 			<div class="search-box">
-				<input type="text" placeholder="Search orders..." bind:value={searchQuery} />
+				<input type="text" placeholder="Buscar órdenes..." bind:value={searchQuery} />
 			</div>
 			<div class="filter-pills">
 				{#each statusOptions as opt}
@@ -344,9 +343,9 @@
 				{/each}
 			</select>
 			<div class="topbar-actions">
-				<span class="result-count">{allFilteredOrders.length} order{allFilteredOrders.length !== 1 ? "s" : ""}</span>
-				<button class="action-btn" onclick={loadOrders} disabled={isLoading}>{isLoading ? "Loading..." : "Refresh"}</button>
-				<button class="primary-btn" onclick={() => (showCreateModal = true)}>New Court Order</button>
+				<span class="result-count">{allFilteredOrders.length} orden{allFilteredOrders.length !== 1 ? "es" : ""}</span>
+				<button class="action-btn" onclick={loadOrders} disabled={isLoading}>{isLoading ? "Cargando..." : "Actualizar"}</button>
+				<button class="primary-btn" onclick={() => (showCreateModal = true)}>Nueva Orden Judicial</button>
 			</div>
 		</div>
 
@@ -354,22 +353,22 @@
 			{#if isLoading && orders.length === 0}
 				<div class="center-state">
 					<div class="loading-spinner"></div>
-					<p>Loading court orders...</p>
+					<p>Cargando órdenes judiciales...</p>
 				</div>
 			{:else if allFilteredOrders.length === 0}
 				<div class="center-state">
-					<h3>No Court Orders Found</h3>
-					<p>{searchQuery ? "No orders match your search criteria." : "No court orders available."}</p>
+					<h3>No se encontraron órdenes judiciales</h3>
+					<p>{searchQuery ? "Ninguna orden coincide con tus criterios de búsqueda." : "No hay órdenes judiciales disponibles."}</p>
 				</div>
 			{:else}
 				<div class="table-header">
-					<span>Order #</span>
-					<span>Type</span>
-					<span>Title</span>
-					<span>Target</span>
-					<span>Status</span>
-					<span>Effective</span>
-					<span>Expires</span>
+					<span>Orden #</span>
+					<span>Tipo</span>
+					<span>Título</span>
+					<span>Objetivo</span>
+					<span>Estado</span>
+					<span>Efectiva</span>
+					<span>Vence</span>
 				</div>
 				<div class="table-body">
 					{#each allFilteredOrders as item}
@@ -394,29 +393,29 @@
 	<div class="modal-backdrop" onclick={() => (showCreateModal = false)} role="presentation">
 		<div class="modal" onclick={(e) => e.stopPropagation()} role="dialog">
 			<div class="modal-header">
-				<span class="modal-title">New Court Order</span>
+				<span class="modal-title">Nueva Orden Judicial</span>
 				<button class="modal-close" onclick={() => (showCreateModal = false)}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label class="form-label">Type</label>
+					<label class="form-label">Tipo</label>
 					<select class="form-select" bind:value={newOrder.type}>
-						<option value="restraining_order">Restraining Order</option>
-						<option value="subpoena">Subpoena</option>
-						<option value="bail_conditions">Bail Conditions</option>
-						<option value="search_warrant">Search Warrant</option>
-						<option value="arrest_warrant">Arrest Warrant</option>
-						<option value="other">Other</option>
+						<option value="restraining_order">Orden de Restricción</option>
+						<option value="subpoena">Citación</option>
+						<option value="bail_conditions">Condiciones de Fianza</option>
+						<option value="search_warrant">Orden de Búsqueda</option>
+						<option value="arrest_warrant">Orden de Arresto</option>
+						<option value="other">Otro</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<label class="form-label">Title</label>
-					<input type="text" class="form-input" placeholder="Order title..." bind:value={newOrder.title} />
+					<label class="form-label">Título</label>
+					<input type="text" class="form-input" placeholder="Título de la orden..." bind:value={newOrder.title} />
 				</div>
 				<div class="form-group">
-					<label class="form-label">Target Citizen</label>
+					<label class="form-label">Ciudadano Objetivo</label>
 					{#if newOrder.target_citizenid}
 						<div class="selected-citizen">
 							<span class="citizen-name">{newOrder.target_name}</span>
@@ -424,27 +423,27 @@
 							<button type="button" class="remove-citizen-btn" onclick={() => { newOrder.target_citizenid = ""; newOrder.target_name = ""; }}>x</button>
 						</div>
 					{:else}
-						<button type="button" class="form-input search-citizen-btn" onclick={() => (showTargetSearch = true)}>Search citizen...</button>
+						<button type="button" class="form-input search-citizen-btn" onclick={() => (showTargetSearch = true)}>Buscar ciudadano...</button>
 					{/if}
 				</div>
 				<div class="form-group">
-					<label class="form-label">Content</label>
-					<textarea class="form-textarea" style="min-height: 100px;" placeholder="Order content..." bind:value={newOrder.content}></textarea>
+					<label class="form-label">Contenido</label>
+					<textarea class="form-textarea" style="min-height: 100px;" placeholder="Contenido de la orden..." bind:value={newOrder.content}></textarea>
 				</div>
 				<div class="form-row">
 					<div class="form-group" style="flex: 1;">
-						<label class="form-label">Effective Date</label>
+						<label class="form-label">Fecha Efectiva</label>
 						<input type="date" class="form-input" bind:value={newOrder.effective_date} />
 					</div>
 					<div class="form-group" style="flex: 1;">
-						<label class="form-label">Expiry Date (optional)</label>
+						<label class="form-label">Fecha de Vencimiento (opcional)</label>
 						<input type="date" class="form-input" bind:value={newOrder.expiry_date} />
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="back-btn" onclick={() => (showCreateModal = false)}>Cancel</button>
-				<button class="primary-btn" disabled={!newOrder.title.trim()} onclick={handleCreateOrder}>Create Order</button>
+				<button class="back-btn" onclick={() => (showCreateModal = false)}>Cancelar</button>
+				<button class="primary-btn" disabled={!newOrder.title.trim()} onclick={handleCreateOrder}>Crear Orden</button>
 			</div>
 		</div>
 	</div>
@@ -452,7 +451,7 @@
 
 <PersonSearchModal
 	show={showTargetSearch}
-	title="Search Target Citizen"
+	title="Buscar Ciudadano Objetivo"
 	searchResults={targetSearchResults}
 	onClose={() => { showTargetSearch = false; targetSearchResults = []; }}
 	onSearch={handleTargetSearch}

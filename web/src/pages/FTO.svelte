@@ -143,7 +143,7 @@
 			assignments = data.entries || [];
 		} catch (e) {
 			console.error('[FTO] loadAssignments error:', e);
-			globalNotifications.error("Failed to load FTO assignments");
+			globalNotifications.error("Error al cargar asignaciones de FTO");
 		}
 		loading = false;
 	}
@@ -163,7 +163,7 @@
 				dors: raw?.dors || [],
 			};
 		} catch {
-			globalNotifications.error("Failed to load FTO assignment details");
+			globalNotifications.error("Error al cargar detalles de la asignación de FTO");
 		}
 		loading = false;
 	}
@@ -205,16 +205,16 @@
 				{ success: true }
 			);
 			if (!result || result.success === false) {
-				globalNotifications.error(result?.error || "Failed to create FTO assignment");
+				globalNotifications.error(result?.error || "Error al crear asignación de FTO");
 				isSubmitting = false;
 				return;
 			}
-			globalNotifications.success("FTO assignment created");
+			globalNotifications.success("Asignación de FTO creada");
 			resetCreateForm();
 			showCreateForm = false;
 			if (!isEnvBrowser()) loadAssignments();
 		} catch {
-			globalNotifications.error("Failed to create FTO assignment");
+			globalNotifications.error("Error al crear asignación de FTO");
 		}
 		isSubmitting = false;
 	}
@@ -223,10 +223,10 @@
 		if (!selectedDetail || !canManage) return;
 		try {
 			await fetchNui(NUI_EVENTS.FTO.DELETE_FTO_ASSIGNMENT, { id: selectedDetail.assignment.id }, { success: true });
-			globalNotifications.success("FTO assignment deleted");
+			globalNotifications.success("Asignación de FTO eliminada");
 			goBack();
 		} catch {
-			globalNotifications.error("Failed to delete FTO assignment");
+			globalNotifications.error("Error al eliminar asignación de FTO");
 		}
 	}
 
@@ -259,18 +259,18 @@
 				{ success: true }
 			);
 			if (!result || result.success === false) {
-				globalNotifications.error(result?.error || "Failed to create DOR");
+				globalNotifications.error(result?.error || "Error al crear DOR");
 				dorSubmitting = false;
 				return;
 			}
-			globalNotifications.success("Daily Observation Report created");
+			globalNotifications.success("Reporte de Observación Diaria creado");
 			showDorForm = false;
 			dorRatings = [];
 			dorNotes = "";
 			dorShiftDate = "";
 			await selectAssignment(selectedDetail.assignment.id);
 		} catch {
-			globalNotifications.error("Failed to create DOR");
+			globalNotifications.error("Error al crear DOR");
 		}
 		dorSubmitting = false;
 	}
@@ -284,7 +284,7 @@
 			}, { success: true });
 			await selectAssignment(selectedDetail.assignment.id);
 		} catch {
-			globalNotifications.error("Failed to delete DOR");
+			globalNotifications.error("Error al eliminar DOR");
 		}
 	}
 
@@ -401,40 +401,40 @@
 				<div class="detail-main">
 					<div class="section">
 						<div class="section-header">
-							<div class="section-title" style="margin-bottom:0;">Assignment Details</div>
+							<div class="section-title" style="margin-bottom:0;">Detalles de Asignación</div>
 							{#if canManage}
 								<div class="inline-controls">
-									<button class="action-btn danger" onclick={handleDelete}>Delete</button>
+									<button class="action-btn danger" onclick={handleDelete}>Eliminar</button>
 								</div>
 							{/if}
 						</div>
 						<div class="field-row">
 							<div class="field-group">
-								<span class="field-label">Trainee</span>
+								<span class="field-label">Aprendiz</span>
 								<span class="field-value">{selectedDetail.assignment.trainee_name || '-'}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Trainer (FTO)</span>
+								<span class="field-label">Entrenador (FTO)</span>
 								<span class="field-value">{selectedDetail.assignment.trainer_name || '-'}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Status</span>
+								<span class="field-label">Estado</span>
 								<span class="pill {getStatusPillClass(selectedDetail.assignment.status)}">{formatLabel(selectedDetail.assignment.status)}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Start Date</span>
+								<span class="field-label">Fecha de Inicio</span>
 								<span class="field-value">{formatDateValue(selectedDetail.assignment.start_date)}</span>
 							</div>
 							{#if selectedDetail.assignment.end_date}
 								<div class="field-group">
-									<span class="field-label">End Date</span>
+									<span class="field-label">Fecha de Fin</span>
 									<span class="field-value">{formatDateValue(selectedDetail.assignment.end_date)}</span>
 								</div>
 							{/if}
 						</div>
 						{#if selectedDetail.assignment.notes}
 							<div class="field-group" style="margin-top:6px;">
-								<span class="field-label">Notes</span>
+								<span class="field-label">Notas</span>
 								<p class="summary-text">{selectedDetail.assignment.notes}</p>
 							</div>
 						{/if}
@@ -442,7 +442,7 @@
 
 					<!-- Phase Progress -->
 					<div class="section">
-						<div class="section-title">Phase Progress</div>
+						<div class="section-title">Progreso de Fase</div>
 						<div class="phase-info">
 							<span class="phase-label">{selectedDetail.assignment.current_phase}</span>
 							<span class="phase-count">{phaseProgress.current} / {phaseProgress.total}</span>
@@ -455,7 +455,7 @@
 					<!-- DOR History -->
 					<div class="section">
 						<div class="section-header">
-							<div class="section-title" style="margin-bottom:0;">Daily Observation Reports ({selectedDetail.dors.length})</div>
+							<div class="section-title" style="margin-bottom:0;">Reportes de Observación Diaria ({selectedDetail.dors.length})</div>
 							{#if canManage && !showDorForm}
 								<button class="action-btn" onclick={initDorForm}>
 									<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -467,7 +467,7 @@
 						{#if showDorForm}
 							<div class="dor-form">
 								<div class="form-group">
-									<span class="form-label">Shift Date</span>
+									<span class="form-label">Fecha de Turno</span>
 									<input type="date" class="form-input" bind:value={dorShiftDate} />
 								</div>
 
@@ -490,19 +490,19 @@
 								</div>
 
 								<div class="dor-overall">
-									<span class="field-label">Overall Rating (Auto)</span>
+									<span class="field-label">Calificación General (Auto)</span>
 									<span class="dor-overall-value">{dorOverallRating}</span>
 								</div>
 
 								<div class="form-group">
-									<span class="form-label">Notes</span>
-									<textarea class="form-textarea" rows="3" bind:value={dorNotes} placeholder="Observation notes..."></textarea>
+									<span class="form-label">Notas</span>
+									<textarea class="form-textarea" rows="3" bind:value={dorNotes} placeholder="Notas de observación..."></textarea>
 								</div>
 
 								<div class="form-actions">
-									<button class="action-btn" onclick={() => { showDorForm = false; }}>Cancel</button>
+									<button class="action-btn" onclick={() => { showDorForm = false; }}>Cancelar</button>
 									<button class="primary-btn" onclick={handleCreateDor} disabled={dorSubmitting || !dorShiftDate}>
-										{dorSubmitting ? 'Submitting...' : 'Submit DOR'}
+										{dorSubmitting ? 'Enviando...' : 'Enviar DOR'}
 									</button>
 								</div>
 							</div>
@@ -512,7 +512,7 @@
 									<div class="dor-item">
 										<div class="dor-header">
 											<span class="dor-date">{formatDateValue(dor.shift_date)}</span>
-											<span class="dor-overall-badge">Rating: {dor.overall_rating}</span>
+											<span class="dor-overall-badge">Calificación: {dor.overall_rating}</span>
 											{#if dor.author_name}
 												<span class="dor-author">{dor.author_name}</span>
 											{/if}
@@ -536,7 +536,7 @@
 								{/each}
 							</div>
 						{:else}
-							<p class="muted-text">No DORs recorded yet.</p>
+							<p class="muted-text">Sin reportes de observación aún.</p>
 						{/if}
 					</div>
 				</div>
@@ -544,17 +544,17 @@
 				<!-- Right Column: Sidebar -->
 				<div class="detail-side">
 					<div class="section">
-						<div class="section-title">Summary</div>
+						<div class="section-title">Resumen</div>
 						<div class="field-group">
-							<span class="field-label">DOR Count</span>
+							<span class="field-label">Cantidad de DORs</span>
 							<span class="field-value">{selectedDetail.assignment.dor_count}</span>
 						</div>
 						<div class="field-group">
-							<span class="field-label">Latest Rating</span>
+							<span class="field-label">Última Calificación</span>
 							<span class="field-value">{selectedDetail.assignment.latest_rating ?? '-'}</span>
 						</div>
 						<div class="field-group">
-							<span class="field-label">Created</span>
+							<span class="field-label">Creado</span>
 							<span class="field-value">{formatDateTimeValue(selectedDetail.assignment.created_at)}</span>
 						</div>
 					</div>
@@ -566,60 +566,59 @@
 		<div class="topbar">
 			<button class="back-btn" onclick={() => { showCreateForm = false; resetCreateForm(); }}>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-				Back to FTO List
-			</button>
-		</div>
+			Volver a Lista de FTO
+		</button>
+	</div>
 
-		<div class="create-form">
-			<h3>New FTO Assignment</h3>
-
+	<div class="create-form">
+		<h3>Nueva Asignación de FTO</h3>
 			<div class="form-group">
-				<span class="form-label">Trainee</span>
+				<span class="form-label">Aprendiz</span>
 				<button
 					class="officer-search-trigger"
 					class:placeholder={!newTraineeName}
 					onclick={() => (showTraineeSearch = true)}
 				>
-					{newTraineeName || 'Click to search for a trainee...'}
+					{newTraineeName || 'Haz clic para buscar un aprendiz...'}
 				</button>
 			</div>
 
 			<div class="form-group">
-				<span class="form-label">Trainer (FTO)</span>
+				<span class="form-label">Entrenador (FTO)</span>
 				<button
 					class="officer-search-trigger"
 					class:placeholder={!newTrainerName}
 					onclick={() => (showTrainerSearch = true)}
 				>
-					{newTrainerName || 'Click to search for a trainer...'}
+					{newTrainerName || 'Haz clic para buscar un entrenador...'}
 				</button>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group">
-					<span class="form-label">Starting Phase</span>
+					<span class="form-label">Fase Inicial</span>
 					<select class="form-select" bind:value={newPhaseId}>
-						<option value={undefined}>-- Select Phase --</option>
+						<option value={undefined}>-- Selecciona Fase --</option>
 						{#each phases as phase}
 							<option value={phase.id}>{phase.name}</option>
 						{/each}
 					</select>
 				</div>
 				<div class="form-group">
-					<span class="form-label">Start Date</span>
+					<span class="form-label">Fecha de Inicio</span>
 					<input type="date" class="form-input" bind:value={newStartDate} />
 				</div>
 			</div>
 
 			<div class="form-group">
 				<span class="form-label">Notes</span>
-				<textarea class="form-textarea" rows="3" bind:value={newNotes} placeholder="Additional notes..."></textarea>
+				<textarea class="form-textarea" rows="3" bind:value={newNotes} placeholder="Notas adicionales..."></textarea>
 			</div>
 
 			<div class="form-actions">
-				<button class="action-btn" onclick={() => { showCreateForm = false; resetCreateForm(); }}>Cancel</button>
+				<button class="action-btn" onclick={() => { showCreateForm = false; resetCreateForm(); }}>Cancelar</button>
 				<button class="primary-btn" onclick={handleCreate} disabled={isSubmitting || !newTraineeCitizenId || !newTrainerCitizenId}>
-					{isSubmitting ? 'Submitting...' : 'Create Assignment'}
+					{isSubmitting ? 'Enviando...' : 'Crear Asignación'}
 				</button>
 			</div>
 		</div>
@@ -633,7 +632,7 @@
 						class:active={statusFilter === opt}
 						onclick={() => { statusFilter = opt; }}
 					>
-						{opt === 'all' ? 'All' : formatLabel(opt)}
+						{opt === 'all' ? 'Todos' : formatLabel(opt)}
 					</button>
 				{/each}
 			</div>
@@ -642,18 +641,18 @@
 		<div class="topbar">
 			<div class="search-box">
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-				<input type="text" placeholder="Search by trainee or trainer name..." bind:value={searchQuery} />
+				<input type="text" placeholder="Buscar por nombre de aprendiz o entrenador..." bind:value={searchQuery} />
 			</div>
 			<div style="flex:1;"></div>
 			{#if canManage}
 				<button class="primary-btn" onclick={() => { showCreateForm = true; }}>
 					<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-					New Assignment
+					Nueva Asignación
 				</button>
 			{/if}
 			<button class="back-btn" onclick={loadAssignments} disabled={loading}>
 				<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-				Refresh
+				Actualizar
 			</button>
 		</div>
 
@@ -661,7 +660,7 @@
 			{#if loading && assignments.length === 0}
 				<div class="center-state">
 					<div class="loading-spinner"></div>
-					<p>Loading FTO assignments...</p>
+					<p>Cargando asignaciones de FTO...</p>
 				</div>
 			{:else if paginatedAssignments.length === 0}
 				<div class="center-state">
@@ -672,13 +671,13 @@
 			{:else}
 				<div class="table-header">
 					<span>#</span>
-					<span>Trainee</span>
-					<span>Trainer</span>
-					<span>Phase</span>
-					<span>Status</span>
-					<span>Start Date</span>
+					<span>Aprendiz</span>
+					<span>Entrenador</span>
+					<span>Fase</span>
+					<span>Estado</span>
+					<span>Fecha Inicio</span>
 					<span>DORs</span>
-					<span>Rating</span>
+					<span>Calificación</span>
 				</div>
 				<div class="table-body">
 					{#each paginatedAssignments as item}
@@ -710,7 +709,7 @@
 
 <PersonSearchModal
 	show={showTraineeSearch}
-	title="Search Trainee"
+	title="Buscar Aprendiz"
 	searchQuery={personSearchQuery}
 	searchResults={searchService.state.results}
 	onClose={() => {
@@ -723,7 +722,7 @@
 
 <PersonSearchModal
 	show={showTrainerSearch}
-	title="Search Trainer (FTO)"
+	title="Buscar Entrenador (FTO)"
 	searchQuery={personSearchQuery}
 	searchResults={searchService.state.results}
 	onClose={() => {

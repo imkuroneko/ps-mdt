@@ -35,7 +35,7 @@
 	});
 
 	function formatExpiry(value: string): string {
-		if (!value) return "Unknown";
+		if (!value) return "Desconocido";
 		const date = new Date(value);
 		if (Number.isNaN(date.getTime())) return value;
 		return date.toLocaleDateString("en-US", {
@@ -72,7 +72,7 @@
 			);
 			warrants = Array.isArray(response) ? response : [];
 		} catch (error) {
-			globalNotifications.error("Failed to load warrants");
+			globalNotifications.error("Error al cargar las órdenes");
 			warrants = [];
 		} finally {
 			isLoading = false;
@@ -104,37 +104,37 @@
 	<div class="topbar">
 		<input
 			type="text"
-			placeholder="Search by name, ID, or report..."
+			placeholder="Buscar por nombre, ID o reporte..."
 			bind:value={searchQuery}
 			class="search-input"
 		/>
 		<div class="topbar-actions">
-			<span class="result-count">{filteredWarrants.length} warrant{filteredWarrants.length !== 1 ? "s" : ""}</span>
+			<span class="result-count">{filteredWarrants.length} orden{filteredWarrants.length !== 1 ? "es" : ""}</span>
 			<button
 				class="btn-secondary"
 				onclick={loadWarrants}
 				disabled={isLoading}
 			>
-				{isLoading ? "Loading..." : "Refresh"}
+				{isLoading ? "Cargando..." : "Actualizar"}
 			</button>
 			<button
 				class="btn-primary"
 				onclick={createWarrantReport}
 			>
-				New Warrant
+				Nueva orden
 			</button>
 		</div>
 	</div>
 
 	<div class="list-panel">
 		<div class="table-header">
-			<span>Name</span>
-			<span>Citizen ID</span>
-			<span>Report</span>
-			<span>Felonies</span>
-			<span>Misdemeanors</span>
-			<span>Infractions</span>
-			<span>Expires</span>
+			<span>Nombre</span>
+			<span>ID Ciudadano</span>
+			<span>Reporte</span>
+			<span>Delitos graves</span>
+			<span>Delitos menores</span>
+			<span>Infracciones</span>
+			<span>Vence</span>
 			<span></span>
 		</div>
 
@@ -142,15 +142,15 @@
 			{#if isLoading && warrants.length === 0}
 				<div class="empty-state">
 					<div class="loading-spinner"></div>
-					<p>Loading warrants...</p>
+					<p>Cargando órdenes...</p>
 				</div>
 			{:else if filteredWarrants.length === 0}
 				<div class="empty-state">
-					<p class="empty-title">No Warrants Found</p>
+					<p class="empty-title">No se encontraron órdenes</p>
 					<p class="empty-sub">
 						{searchQuery
-							? "No warrants match your search criteria."
-							: "No active warrants available."}
+							? "Ninguna orden coincide con la búsqueda."
+							: "No hay órdenes activas disponibles."}
 					</p>
 				</div>
 			{:else}

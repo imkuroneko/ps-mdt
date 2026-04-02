@@ -3,6 +3,7 @@
 	import { createManagementService } from "@/services/managementService.svelte";
 	import { TAB_VISIBILITY_KEYS } from "@/constants/management";
 	import { NAV_GROUPS, getTabsForJob, MDT_TABS } from "@/constants";
+	import { getTabTranslation, getLabelTranslation } from "@/constants/translations";
 	import type { JobType } from "@/interfaces/IUser";
 
 	let { jobType = 'leo' }: { jobType?: JobType } = $props();
@@ -86,7 +87,7 @@
 	{/if}
 
 	<div class="visibility-header">
-		<span class="header-label">Tab Visibility</span>
+		<span class="header-label">Visibilidad de Pestañas</span>
 		{#if mgmt.jobLabel}
 			<span class="job-tag">{mgmt.jobLabel}</span>
 		{/if}
@@ -95,11 +96,11 @@
 	{#if mgmt.isLoading}
 		<div class="empty-state">
 			<div class="loading-spinner"></div>
-			<p>Loading roles...</p>
+			<p>Cargando roles...</p>
 		</div>
 	{:else if mgmt.roles.length === 0}
 		<div class="empty-state">
-			<p>No roles available</p>
+			<p>Sin roles disponibles</p>
 		</div>
 	{:else}
 		<div class="visibility-body">
@@ -123,7 +124,7 @@
 					<div class="role-title-row">
 						<span class="role-title">{currentRole.label}</span>
 						{#if currentRole.isBoss}
-							<span class="boss-note">Boss roles always see all tabs</span>
+							<span class="boss-note">Los roles de jefe siempre ven todas las pestañas</span>
 						{/if}
 					</div>
 
@@ -133,7 +134,7 @@
 								<div class="group-header">
 									<div class="group-label-row">
 										<span class="material-icons group-icon">{group.icon}</span>
-										<span class="group-label">{group.label}</span>
+										<span class="group-label">{getLabelTranslation(group.label)}</span>
 									</div>
 									{#if !currentRole.isBoss}
 										<button
@@ -141,7 +142,7 @@
 											class:all-hidden={!groupAllVisible(group.id)}
 											onclick={() => toggleGroup(group.id)}
 										>
-											{groupAllVisible(group.id) ? "Hide All" : "Show All"}
+											{groupAllVisible(group.id) ? "Ocultar Todo" : "Mostrar Todo"}
 										</button>
 									{/if}
 								</div>
@@ -150,7 +151,7 @@
 										<div class="tab-row">
 											<div class="tab-info">
 												<span class="material-icons tab-icon">{getTabIcon(tabName)}</span>
-												<span class="tab-label">{getTabLabel(tabName)}</span>
+													<span class="tab-label">{getTabTranslation(tabName)}</span>
 											</div>
 											<label class="toggle">
 												<input
@@ -175,7 +176,7 @@
 								onclick={() => mgmt.saveAllRoles()}
 								disabled={mgmt.isSaving}
 							>
-								{mgmt.isSaving ? "Saving..." : "Save Visibility"}
+								{mgmt.isSaving ? "Guardando..." : "Guardar Visibilidad"}
 							</button>
 						</div>
 					{/if}

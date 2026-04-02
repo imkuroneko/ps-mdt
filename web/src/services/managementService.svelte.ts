@@ -40,11 +40,11 @@ export function createManagementService() {
 			const seniorPerms = [...midPerms, "cases_create", "cases_edit", "evidence_create", "evidence_transfer", "reports_delete", "warrants_issue", "cameras_view", "bodycams_view", "citizens_edit_licenses", "vehicles_edit_dmv"];
 			const commandPerms = [...seniorPerms, "cases_delete", "evidence_upload", "warrants_close", "charges_edit", "management_activity", "management_bulletins", "roster_manage_officers", "roster_manage_certifications"];
 			roles = [
-				{ key: "0", label: "Grade 0", permissions: basicPerms, isBoss: false },
-				{ key: "1", label: "Grade 1", permissions: midPerms, isBoss: false },
-				{ key: "2", label: "Grade 2", permissions: seniorPerms, isBoss: false },
-				{ key: "3", label: "Grade 3", permissions: commandPerms, isBoss: false },
-				{ key: "4", label: "Grade 4", permissions: [...ALL_PERMISSION_KEYS], isBoss: true },
+				{ key: "0", label: "Grado 0", permissions: basicPerms, isBoss: false },
+				{ key: "1", label: "Grado 1", permissions: midPerms, isBoss: false },
+				{ key: "2", label: "Grado 2", permissions: seniorPerms, isBoss: false },
+				{ key: "3", label: "Grado 3", permissions: commandPerms, isBoss: false },
+				{ key: "4", label: "Grado 4", permissions: [...ALL_PERMISSION_KEYS], isBoss: true },
 			];
 			return;
 		}
@@ -122,9 +122,9 @@ export function createManagementService() {
 				grade: roleKey,
 				permissions: role.permissions || [],
 			});
-			showStatus(`Permissions saved for ${role.label}`);
+			showStatus(`Permisos guardados para ${role.label}`);
 		} catch {
-			showStatus("Failed to save permissions", "error");
+			showStatus("Inconvenientes al guardar permisos", "error");
 		} finally {
 			isSaving = false;
 		}
@@ -141,9 +141,9 @@ export function createManagementService() {
 					permissions: role.permissions || [],
 				});
 			}
-			showStatus("All permissions saved");
+			showStatus("Todos los permisos guardados");
 		} catch {
-			showStatus("Failed to save permissions", "error");
+			showStatus("Inconvenientes al guardar permisos", "error");
 		} finally {
 			isSaving = false;
 		}

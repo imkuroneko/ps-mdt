@@ -10,14 +10,7 @@ import type {
 } from "@/schemas/persistenceSchema";
 import type { TabService } from "./tabService.svelte";
 
-type PageType =
-	| "report-page"
-	| "citizens-page"
-	| "charges-page"
-	| "vehicles-page"
-	| "weapons-page"
-	| "roster-page"
-	| "dashboard-page";
+type PageType = "report-page" | "citizens-page" | "charges-page" | "vehicles-page" | "weapons-page" | "roster-page" | "dashboard-page";
 
 type PageDataMap = {
 	"report-page": ReportPageData;
@@ -66,7 +59,7 @@ export function createInstanceStateService(tabService: TabService) {
 				(inst) => inst.id === instanceId,
 			);
 			if (!tabInstance) {
-				console.warn(`Instance ${instanceId} not found in tab service`);
+				console.warn(`Instancia ${instanceId} no encontrada en el servicio de pestañas`);
 				return false;
 			}
 
@@ -84,10 +77,7 @@ export function createInstanceStateService(tabService: TabService) {
 
 			return true;
 		} catch (error) {
-			console.error(
-				`Failed to persist instance data for ${instanceId}:${pageType}:`,
-				error,
-			);
+			console.error(`Inconvenientes al persistir datos de instancia para ${instanceId}:${pageType}:`, error);
 			return false;
 		}
 	}
@@ -105,10 +95,7 @@ export function createInstanceStateService(tabService: TabService) {
 
 			return instanceData[pageType] || null;
 		} catch (error) {
-			console.error(
-				`Failed to load instance data for ${instanceId}:${pageType}:`,
-				error,
-			);
+			console.error(`Inconvenientes al cargar datos de instancia para ${instanceId}:${pageType}:`, error);
 			return null;
 		}
 	}
@@ -177,6 +164,7 @@ export function createInstanceStateService(tabService: TabService) {
 
 			return isRemoved;
 		} catch (error) {
+			console.error(`Inconvenientes al eliminar datos de página para ${instanceId}:${pageType}:`, error);
 			return false;
 		}
 	}

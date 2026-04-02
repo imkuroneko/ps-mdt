@@ -15,15 +15,15 @@
 	}
 
 	const GOAL_TYPES = [
-		{ value: "reports", label: "Reports Filed" },
-		{ value: "arrests", label: "Arrest Reports" },
-		{ value: "cases", label: "Cases Worked" },
-		{ value: "evidence", label: "Evidence Logged" },
-		{ value: "bolos", label: "BOLOs Issued" },
-		{ value: "warrants", label: "Warrants Issued" },
-		{ value: "totalFined", label: "Total Fined ($)" },
-		{ value: "totalMonths", label: "Months Sentenced" },
-		{ value: "citations", label: "Citations Issued" },
+		{ value: "reports", label: "Reportes Presentados" },
+		{ value: "arrests", label: "Reportes de Arresto" },
+		{ value: "cases", label: "Casos Trabajados" },
+		{ value: "evidence", label: "Evidencia Registrada" },
+		{ value: "bolos", label: "BOLOs Emitidos" },
+		{ value: "warrants", label: "Órdenes Emitidas" },
+		{ value: "totalFined", label: "Total Multado ($)" },
+		{ value: "totalMonths", label: "Meses Condenados" },
+		{ value: "citations", label: "Citaciones Emitidas" },
 	];
 
 	const ICONS = [
@@ -76,7 +76,7 @@
 		const desc = formDesc.trim();
 		const category = formCategory.trim();
 		if (!name || !desc || !category || formGoalAmount < 1) {
-			showStatus("Fill in all fields", "error");
+				showStatus("Completa todos los campos", "error");
 			return;
 		}
 
@@ -102,14 +102,14 @@
 				NUI_EVENTS.AWARDS.SAVE_AWARD, payload, { success: false }
 			);
 			if (result?.success) {
-				showStatus(editingId ? "Award updated" : "Award created");
+				showStatus(editingId ? "Premio actualizado" : "Premio creado");
 				resetForm();
 				await loadAwards();
 			} else {
-				showStatus(result?.message || "Failed to save", "error");
+				showStatus(result?.message || "Error al guardar", "error");
 			}
 		} catch {
-			showStatus("Failed to save award", "error");
+			showStatus("Error al guardar premio", "error");
 		} finally {
 			isSubmitting = false;
 		}
@@ -127,14 +127,14 @@
 				NUI_EVENTS.AWARDS.DELETE_AWARD, { id: award.id }, { success: false }
 			);
 			if (result?.success) {
-				showStatus("Award deleted");
+				showStatus("Premio eliminado");
 				if (editingId === award.id) resetForm();
 				await loadAwards();
 			} else {
-				showStatus("Failed to delete", "error");
+				showStatus("Error al eliminar", "error");
 			}
 		} catch {
-			showStatus("Failed to delete award", "error");
+			showStatus("Error al eliminar premio", "error");
 		}
 	}
 
@@ -158,14 +158,14 @@
 	onMount(() => {
 		if (isEnvBrowser()) {
 			awards = [
-				{ id: 1, name: "First Report", description: "File your first incident report", icon: "description", category: "Reports", goalType: "reports", goalAmount: 1 },
-				{ id: 2, name: "50 Reports Filed", description: "File 50 incident reports", icon: "description", category: "Reports", goalType: "reports", goalAmount: 50 },
-				{ id: 3, name: "100 Reports Filed", description: "File 100 incident reports", icon: "description", category: "Reports", goalType: "reports", goalAmount: 100 },
-				{ id: 4, name: "First Arrest", description: "File your first arrest report", icon: "local_police", category: "Arrests", goalType: "arrests", goalAmount: 1 },
-				{ id: 5, name: "50 Arrests", description: "File 50 arrest reports", icon: "local_police", category: "Arrests", goalType: "arrests", goalAmount: 50 },
-				{ id: 6, name: "Case Worker", description: "Work on 25 cases", icon: "folder", category: "Cases", goalType: "cases", goalAmount: 25 },
-				{ id: 7, name: "$100K Fined", description: "Fine citizens a total of $100,000", icon: "payments", category: "Fines", goalType: "totalFined", goalAmount: 100000 },
-				{ id: 8, name: "10 Warrants Issued", description: "Issue 10 warrants", icon: "gavel", category: "Warrants", goalType: "warrants", goalAmount: 10 },
+				{ id: 1, name: "Primer Reporte", description: "Presenta tu primer reporte de incidente", icon: "description", category: "Reportes", goalType: "reports", goalAmount: 1 },
+				{ id: 2, name: "50 Reportes Presentados", description: "Presenta 50 reportes de incidente", icon: "description", category: "Reportes", goalType: "reports", goalAmount: 50 },
+				{ id: 3, name: "100 Reportes Presentados", description: "Presenta 100 reportes de incidente", icon: "description", category: "Reportes", goalType: "reports", goalAmount: 100 },
+				{ id: 4, name: "Primer Arresto", description: "Presenta tu primer reporte de arresto", icon: "local_police", category: "Arrestos", goalType: "arrests", goalAmount: 1 },
+				{ id: 5, name: "50 Arrestos", description: "Presenta 50 reportes de arresto", icon: "local_police", category: "Arrestos", goalType: "arrests", goalAmount: 50 },
+				{ id: 6, name: "Trabajador de Casos", description: "Trabaja en 25 casos", icon: "folder", category: "Casos", goalType: "cases", goalAmount: 25 },
+				{ id: 7, name: "$100K Multado", description: "Multa a ciudadanos por un total de $100,000", icon: "payments", category: "Multas", goalType: "totalFined", goalAmount: 100000 },
+				{ id: 8, name: "10 Órdenes", description: "Emite 10 órdenes judiciales", icon: "gavel", category: "Órdenes", goalType: "warrants", goalAmount: 10 },
 			];
 			return;
 		}
@@ -180,17 +180,17 @@
 
 	<div class="form-section">
 		<div class="form-row">
-			<input class="form-input name-input" type="text" placeholder="Award name..." bind:value={formName} maxlength="50" />
-			<input class="form-input" type="text" placeholder="Category..." bind:value={formCategory} maxlength="25" />
+			<input class="form-input name-input" type="text" placeholder="Nombre del premio..." bind:value={formName} maxlength="50" />
+			<input class="form-input" type="text" placeholder="Categoría..." bind:value={formCategory} maxlength="25" />
 			<select class="form-select" bind:value={formGoalType}>
 				{#each GOAL_TYPES as gt}
 					<option value={gt.value}>{gt.label}</option>
 				{/each}
 			</select>
-			<input class="form-input goal-input" type="number" min="1" bind:value={formGoalAmount} placeholder="Goal" />
+			<input class="form-input goal-input" type="number" min="1" bind:value={formGoalAmount} placeholder="Meta" />
 		</div>
 		<div class="form-row">
-			<input class="form-input desc-input" type="text" placeholder="Description..." bind:value={formDesc} maxlength="100" />
+			<input class="form-input desc-input" type="text" placeholder="Descripción..." bind:value={formDesc} maxlength="100" />
 			<div class="icon-picker">
 				{#each ICONS as icon}
 					<button
@@ -205,11 +205,11 @@
 			</div>
 			<div class="form-actions">
 				{#if editingId}
-					<button class="btn-save" onclick={handleSave} disabled={isSubmitting}>Update</button>
-					<button class="btn-cancel" onclick={resetForm}>Cancel</button>
+				<button class="btn-save" onclick={handleSave} disabled={isSubmitting}>Actualizar</button>
+				<button class="btn-cancel" onclick={resetForm}>Cancelar</button>
 				{:else}
 					<button class="btn-create" onclick={handleSave} disabled={!formName.trim() || !formDesc.trim() || !formCategory.trim() || isSubmitting}>
-						{isSubmitting ? "..." : "+ Add"}
+						{isSubmitting ? "..." : "+ Añadir"}
 					</button>
 				{/if}
 			</div>
@@ -219,7 +219,7 @@
 	{#if isLoading}
 		<div class="empty-state">
 			<div class="loading-spinner"></div>
-			<p>Loading awards...</p>
+			<p>Cargando premios...</p>
 		</div>
 	{:else}
 		<div class="awards-list">
@@ -233,16 +233,16 @@
 					<span class="row-category">{award.category}</span>
 					<span class="row-goal">{getGoalTypeLabel(award.goalType)}: {award.goalAmount.toLocaleString()}</span>
 					<div class="row-actions">
-						<button class="action-btn edit-btn" onclick={() => startEdit(award)} title="Edit">
-							<span class="material-icons">edit</span>
-						</button>
-						<button class="action-btn delete-btn" onclick={() => handleDelete(award)} title="Delete">
+					<button class="action-btn edit-btn" onclick={() => startEdit(award)} title="Editar">
+						<span class="material-icons">edit</span>
+					</button>
+					<button class="action-btn delete-btn" onclick={() => handleDelete(award)} title="Eliminar">
 							<span class="material-icons">delete</span>
 						</button>
 					</div>
 				</div>
 			{:else}
-				<div class="empty-state">No awards configured. Add one above.</div>
+				<div class="empty-state">Sin premios configurados. Añade uno arriba.</div>
 			{/each}
 		</div>
 	{/if}

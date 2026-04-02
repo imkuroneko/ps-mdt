@@ -83,14 +83,14 @@
 	<div class="sop-sidebar">
 		<div class="sidebar-header">
 			<span class="material-icons header-icon">menu_book</span>
-			<h2>Standard Operating Procedures</h2>
+			<h2>Procedimientos Operativos Estándar</h2>
 		</div>
 
 		<div class="search-box">
 			<span class="material-icons search-icon">search</span>
 			<input
 				type="text"
-				placeholder="Search SOPs..."
+				placeholder="Buscar POEs..."
 				bind:value={searchQuery}
 			/>
 		</div>
@@ -99,12 +99,12 @@
 			{#if loading}
 				<div class="loading-state">
 					<div class="spinner"></div>
-					<span>Loading...</span>
+					<span>Cargando...</span>
 				</div>
 			{:else if filteredCategories().length === 0}
 				<div class="empty-state">
 					<span class="material-icons">info</span>
-					<span>No SOPs found</span>
+					<span>No se encontraron POEs</span>
 				</div>
 			{:else}
 				{#each filteredCategories() as category}
@@ -116,7 +116,7 @@
 						<span class="material-icons cat-icon">{category.icon || 'description'}</span>
 						<div class="cat-info">
 							<span class="cat-title">{category.title}</span>
-							<span class="cat-count">{category.sections.length} section{category.sections.length !== 1 ? 's' : ''}</span>
+							<span class="cat-count">{category.sections.length} sección{category.sections.length !== 1 ? 'es' : ''}</span>
 						</div>
 					</button>
 				{/each}
@@ -129,7 +129,7 @@
 			<div class="mission-banner">
 				<div class="mission-header">
 					<span class="material-icons mission-icon">flag</span>
-					<h3>Mission Statement</h3>
+					<h3>Declaración de Misión</h3>
 				</div>
 				<div class="mission-body prose">
 					{@html sopSettings.mission_statement}
@@ -139,19 +139,19 @@
 		{#if loading}
 			<div class="content-empty">
 				<div class="spinner"></div>
-				<span>Loading SOPs...</span>
+				<span>Cargando POEs...</span>
 			</div>
 		{:else if !selectedCategory}
 			<div class="content-empty">
 				<span class="material-icons empty-icon">menu_book</span>
-				<h3>Select a Category</h3>
-				<p>Choose an SOP category from the sidebar to view its contents.</p>
+				<h3>Selecciona una categoría</h3>
+				<p>Elige una categoría de POE en la barra lateral para ver su contenido.</p>
 			</div>
 		{:else if selectedCategory.sections.length === 0}
 			<div class="content-empty">
 				<span class="material-icons empty-icon">article</span>
 				<h3>{selectedCategory.title}</h3>
-				<p>No sections have been added to this category yet.</p>
+				<p>Aún no se han añadido secciones a esta categoría.</p>
 			</div>
 		{:else}
 			<div class="content-header">

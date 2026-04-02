@@ -29,13 +29,13 @@
 	<div class="tag-header">
 		<h3 class="tag-title">Tags</h3>
 		<div class="tag-input-group">
-			<label for="new-tag-input" class="sr-only">Add new tag</label>
+			<label for="new-tag-input" class="sr-only">Agregar nuevo tag</label>
 			<input
 				id="new-tag-input"
 				type="text"
 				bind:value={newTag}
 				on:keydown={handleKeydown}
-				placeholder="Add tag..."
+				placeholder="Agregar tag..."
 				class="tag-input"
 				aria-describedby="tag-instructions"
 			/>
@@ -44,16 +44,15 @@
 				on:click={addTag}
 				disabled={!newTag.trim()}
 				class="add-tag-btn"
-				aria-label="Add tag"
+				aria-label="Agregar tag"
 			>
-				Add
+				Agregar
 			</button>
 		</div>
 	</div>
 
 	<div id="tag-instructions" class="sr-only">
-		Press Enter or click Add button to add a new tag. Click the X button to
-		remove tags.
+		Presiona Enter o haz clic en el botón Agregar para añadir un nuevo tag. Haz clic en el botón X para eliminar tags.
 	</div>
 
 	{#if tags.length > 0}
@@ -65,7 +64,7 @@
 						type="button"
 						on:click={() => removeTag(tag)}
 						class="remove-tag-btn"
-						aria-label="Remove {tag} tag"
+						aria-label="Eliminar tag {tag}"
 					>
 						×
 					</button>
@@ -73,16 +72,16 @@
 			{/each}
 		</div>
 	{:else}
-		<p class="no-tags">No tags added</p>
+		<p class="no-tags">No hay tags agregados</p>
 	{/if}
 
 	{#if availableTags.length > 0}
 		<div class="suggested-tags">
-			<h4 class="suggested-title">Suggested Tags</h4>
+			<h4 class="suggested-title">Tags Sugeridos</h4>
 			<div
 				class="suggested-container"
 				role="list"
-				aria-label="Suggested tags"
+				aria-label="Tags sugeridos"
 			>
 				{#each availableTags as tag}
 					<button
@@ -90,7 +89,7 @@
 						on:click={() => onAddTag(tag)}
 						class="suggested-tag"
 						disabled={tags.includes(tag)}
-						aria-label="Add suggested tag: {tag}"
+						aria-label="Agregar tag sugerido: {tag}"
 					>
 						{tag}
 					</button>

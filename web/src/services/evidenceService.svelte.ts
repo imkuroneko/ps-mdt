@@ -76,8 +76,8 @@ export function createEvidenceService() {
 		}
 		throw new Error("Upload failed");
 		} catch (error) {
-			console.error("Failed to upload image:", error);
-			state.lastError = "Failed to upload image";
+			console.error("Inconvenientes al subir la imagen:", error);
+			state.lastError = "Inconvenientes al subir la imagen";
 			throw error;
 		} finally {
 			state.uploading = false;
@@ -282,14 +282,14 @@ export function createEvidenceService() {
 		if (!allowedTypes.includes(file.type)) {
 			return {
 				valid: false,
-				error: "Invalid file type. Please upload JPEG, PNG, GIF, or WebP images.",
+				error: "Tipo de archivo inválido. Por favor, suba imágenes en formato JPEG, PNG, GIF o WebP.",
 			};
 		}
 
 		if (file.size > maxSize) {
 			return {
 				valid: false,
-				error: "File size too large. Please upload images smaller than 10MB.",
+				error: "Tamaño de archivo demasiado grande. Por favor, suba imágenes menores a 10MB.",
 			};
 		}
 

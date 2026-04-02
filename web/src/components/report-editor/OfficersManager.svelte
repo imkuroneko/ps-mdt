@@ -12,7 +12,7 @@
 		title?: string;
 	}
 
-	let { officers, onAdd, onRemove, onUpdate, title = "Officers" }: Props = $props();
+	let { officers, onAdd, onRemove, onUpdate, title = "Oficiales" }: Props = $props();
 
 	function updateOfficer(id: string, field: string, value: any) {
 		const officer = officers.find((o) => o.id === id);
@@ -28,7 +28,7 @@
 		<PersonnelCard
 			id={officer.id}
 			fullName={officer.fullName}
-			secondaryInfo={`Badge: ${officer.badgeId}`}
+			secondaryInfo={`Placa: ${officer.badgeId}`}
 			notes={officer.notes}
 			type={officer.type}
 			typeOptions={OFFICER_TYPES}

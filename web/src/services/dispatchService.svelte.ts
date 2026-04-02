@@ -58,12 +58,12 @@ export function createDispatchService() {
 			await fetchNui(NUI_EVENTS.DISPATCH.ROUTE_TO_DISPATCH, dispatch);
 			await fetchNui(NUI_EVENTS.NAVIGATION.CLOSE_UI);
 		} catch (error) {
-			debugError("Failed to route to dispatch:", error);
+			debugError("Inconvenientes al enrutar a la notificación:", error);
 		}
 	}
 
 	function getCallSign(callsign?: string): string {
-		return callsign && callsign !== "NO CALLSIGN" ? callsign : "XX";
+		return callsign && callsign !== "SIN CALLSIGN" ? callsign : "XX";
 	}
 
 	return {

@@ -119,7 +119,7 @@
 
 	function formatTime(value: number): string {
 		if (value === 0) return "-";
-		return `${value}mo`;
+		return `${value} mes${value > 1 ? "es" : ""}`;
 	}
 </script>
 
@@ -139,11 +139,11 @@
 			<div class="category-group">
 				<div class="category-label">{category}</div>
 				<div class="table-header">
-					<span class="col-code">Code</span>
-					<span class="col-label">Charge</span>
-					<span class="col-desc">Description</span>
-					<span class="col-fine">Fine</span>
-					<span class="col-time">Time</span>
+					<span class="col-code">Código</span>
+					<span class="col-label">Cargo</span>
+					<span class="col-desc">Descripción</span>
+					<span class="col-fine">Multa</span>
+					<span class="col-time">Tiempo</span>
 					{#if isEditing}
 						<span class="col-actions"></span>
 					{/if}
@@ -160,7 +160,7 @@
 									type="text"
 									class="edit-input"
 									bind:value={editValues.label}
-									placeholder="Charge name"
+									placeholder="Nombre del cargo"
 								/>
 							</span>
 							<span class="col-desc">
@@ -168,7 +168,7 @@
 									type="text"
 									class="edit-input"
 									bind:value={editValues.description}
-									placeholder="Description"
+									placeholder="Descripción"
 								/>
 							</span>
 							<span class="col-fine">
@@ -193,14 +193,14 @@
 									onclick={() => saveEdit(charge)}
 									disabled={isSaving}
 								>
-									{isSaving ? "..." : "Save"}
+									{isSaving ? "..." : "Guardar"}
 								</button>
 								<button
 									class="btn-cancel"
 									onclick={cancelEdit}
 									disabled={isSaving}
 								>
-									Cancel
+									Cancelar
 								</button>
 							</span>
 						</div>

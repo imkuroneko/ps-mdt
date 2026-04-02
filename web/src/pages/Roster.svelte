@@ -17,7 +17,7 @@
 		lastName: string;
 		rank: string;
 		department?: string;
-		status: "On Duty" | "Off Duty";
+		status: "En Servicio" | "Fuera de Servicio";
 		certifications: string[];
 		badgeNumber: string;
 		citizenid?: string;
@@ -132,7 +132,7 @@
 					lastName: "Smith",
 					rank: "Chief of Police",
 					department: "lspd",
-					status: "On Duty",
+					status: "En Servicio",
 					certifications: ["FTO", "SWAT", "Interceptor"],
 					badgeNumber: "1001",
 					citizenid: "ABC12345",
@@ -145,7 +145,7 @@
 					lastName: "Doe",
 					rank: "Lieutenant",
 					department: "lspd",
-					status: "On Duty",
+					status: "En Servicio",
 					certifications: ["Air Certified", "FTO"],
 					badgeNumber: "1002",
 					citizenid: "DEF67890",
@@ -158,7 +158,7 @@
 					lastName: "Johnson",
 					rank: "Sergeant",
 					department: "bcso",
-					status: "Off Duty",
+					status: "Fuera de Servicio",
 					certifications: ["SWAT"],
 					badgeNumber: "1003",
 					citizenid: "GHI11111",
@@ -171,7 +171,7 @@
 					lastName: "Wilson",
 					rank: "Officer",
 					department: "lspd",
-					status: "On Duty",
+					status: "En Servicio",
 					certifications: [],
 					badgeNumber: "1004",
 					citizenid: "JKL22222",
@@ -184,7 +184,7 @@
 					lastName: "Brown",
 					rank: "Detective",
 					department: "sahp",
-					status: "Off Duty",
+					status: "Fuera de Servicio",
 					certifications: ["FTO"],
 					badgeNumber: "1005",
 					citizenid: "MNO33333",
@@ -232,7 +232,7 @@
 				? response.activeUnits
 				: [];
 		} catch (error) {
-			globalNotifications.error("Failed to load roster");
+			globalNotifications.error("Error al cargar la plantilla");
 			officers = [];
 		} finally {
 			isLoading = false;
@@ -352,18 +352,17 @@
 				if (idx !== -1) {
 					officers[idx].certifications = [...selectedCerts];
 				}
-				globalNotifications.success(`Updated certifications for ${selectedOfficer.firstName} ${selectedOfficer.lastName}`);
+				globalNotifications.success(`Certificaciones actualizadas para ${selectedOfficer.firstName} ${selectedOfficer.lastName}`);
 				if (showBossPanel) {
 					// Stay on boss panel, just show success
 				} else {
 					closeCertModal();
 				}
 			} else {
-				globalNotifications.error(response?.message || "Failed to update certifications");
-			}
-		} catch {
-			globalNotifications.error("Failed to update certifications");
-		} finally {
+					globalNotifications.error(response?.message || "Error al actualizar certificaciones");
+				}
+			} catch {
+				globalNotifications.error("Error al actualizar certificaciones");
 			isSavingCerts = false;
 		}
 	}
@@ -386,12 +385,12 @@
 				if (idx !== -1) {
 					officers[idx].rank = gradeName;
 				}
-				globalNotifications.success(response.message || `Rank updated to ${gradeName}`);
+				globalNotifications.success(response.message || `Rango actualizado a ${gradeName}`);
 			} else {
-				globalNotifications.error(response?.message || "Failed to update rank");
+				globalNotifications.error(response?.message || "Error al actualizar el rango");
 			}
 		} catch {
-			globalNotifications.error("Failed to update rank");
+			globalNotifications.error("Error al actualizar el rango");
 		} finally {
 			isSavingBoss = false;
 		}
@@ -407,13 +406,13 @@
 			);
 			if (response?.success) {
 				officers = officers.filter((o) => o.citizenid !== selectedOfficer!.citizenid);
-				globalNotifications.success(response.message || "Officer has been terminated");
+				globalNotifications.success(response.message || "El agente ha sido dado de baja");
 				closeBossPanel();
 			} else {
-				globalNotifications.error(response?.message || "Failed to terminate officer");
+				globalNotifications.error(response?.message || "Error al dar de baja al agente");
 			}
 		} catch {
-			globalNotifications.error("Failed to terminate officer");
+			globalNotifications.error("Error al dar de baja al agente");
 		} finally {
 			isSavingBoss = false;
 			showFireConfirm = false;
@@ -532,12 +531,12 @@
 					officers[idx].callsign = editCallsign.trim();
 					officers[idx].badgeNumber = editCallsign.trim();
 				}
-				globalNotifications.success(response.message || `Callsign updated to ${editCallsign.trim()}`);
+				globalNotifications.success(response.message || `Clave actualizada a ${editCallsign.trim()}`);
 			} else {
-				globalNotifications.error(response?.message || "Failed to update callsign");
+				globalNotifications.error(response?.message || "Error al actualizar la clave");
 			}
 		} catch {
-			globalNotifications.error("Failed to update callsign");
+			globalNotifications.error("Error al actualizar la clave");
 		} finally {
 			isSavingBoss = false;
 		}
@@ -553,14 +552,14 @@
 	<div class="topbar">
 		<input
 			type="text"
-			placeholder="Search by callsign, name or rank..."
+			placeholder="Buscar por clave, nombre o rango..."
 			bind:value={searchQuery}
 			class="search-input"
 		/>
 		<div class="topbar-right">
-			<span class="result-count">{filteredOfficers.length} officer{filteredOfficers.length !== 1 ? "s" : ""}</span>
+			<span class="result-count">{filteredOfficers.length} agente{filteredOfficers.length !== 1 ? "s" : ""}</span>
 			<button class="btn-secondary" onclick={refreshData} disabled={isLoading}>
-				{isLoading ? "Loading..." : "Refresh"}
+				{isLoading ? "Cargando..." : "Actualizar"}
 			</button>
 		</div>
 	</div>
@@ -568,28 +567,28 @@
 	<div class="content-area">
 		<div class="list-panel">
 			<div class="table-header">
-				<button class="col-header sortable" onclick={() => handleSort("status")}>Status{getSortIndicator("status")}</button>
-				<button class="col-header sortable" onclick={() => handleSort("callsign")}>Call Sign{getSortIndicator("callsign")}</button>
-				<button class="col-header sortable" onclick={() => handleSort("name")}>Name{getSortIndicator("name")}</button>
-				<span class="col-header">Radio Ch.</span>
-				<button class="col-header sortable" onclick={() => handleSort("rank")}>Rank{getSortIndicator("rank")}</button>
-				<span class="col-header">Dept</span>
-				<span class="col-header">Certifications</span>
+				<button class="col-header sortable" onclick={() => handleSort("status")}>Estado{getSortIndicator("status")}</button>
+				<button class="col-header sortable" onclick={() => handleSort("callsign")}>Clave{getSortIndicator("callsign")}</button>
+				<button class="col-header sortable" onclick={() => handleSort("name")}>Nombre{getSortIndicator("name")}</button>
+				<span class="col-header">Canal Radio</span>
+				<button class="col-header sortable" onclick={() => handleSort("rank")}>Rango{getSortIndicator("rank")}</button>
+				<span class="col-header">Dept.</span>
+				<span class="col-header">Certificaciones</span>
 			</div>
 
 			<div class="table-body">
 				{#if isLoading}
 					<div class="empty-state">
 						<div class="loading-spinner"></div>
-						<p>Loading roster...</p>
+						<p>Cargando plantilla...</p>
 					</div>
 				{:else if filteredOfficers.length === 0}
 					<div class="empty-state">
-						<p class="empty-title">No Officers Found</p>
+						<p class="empty-title">No se encontraron agentes</p>
 						<p class="empty-sub">
 							{searchQuery
-								? "No officers match your search criteria."
-								: "No officers are currently in the roster."}
+								? "Ningún agente coincide con la búsqueda."
+								: "No hay agentes en la plantilla actualmente."}
 						</p>
 					</div>
 				{:else}
@@ -600,7 +599,7 @@
 							onclick={() => openOfficerPanel(officer)}
 						>
 							<span class="cell-status">
-								<span class="status-pill" class:on-duty={officer.status === "On Duty"} class:off-duty={officer.status === "Off Duty"}>
+								<span class="status-pill" class:on-duty={officer.status === "En Servicio"} class:off-duty={officer.status === "Fuera de Servicio"}>
 									{officer.status}
 								</span>
 							</span>
@@ -632,12 +631,12 @@
 
 		<div class="units-panel">
 			<div class="units-header">
-				<span class="units-label">Active Units</span>
+				<span class="units-label">Unidades Activas</span>
 				<span class="units-count">{activeUnits.length}</span>
 			</div>
 
 			{#if activeUnits.length === 0}
-				<div class="units-empty">No units active</div>
+				<div class="units-empty">No hay unidades activas</div>
 			{:else}
 				<div class="units-list">
 					{#each activeUnits as unit (unit.id)}
@@ -660,7 +659,7 @@
 		<div class="modal-container" onclick={(e) => e.stopPropagation()}>
 			<div class="modal-header">
 				<div class="modal-title-area">
-					<span class="modal-title">Manage Certifications</span>
+					<span class="modal-title">Gestionar Certificaciones</span>
 					<span class="modal-subtitle">{selectedOfficer.firstName} {selectedOfficer.lastName} - {selectedOfficer.callsign}</span>
 				</div>
 				<button class="modal-close" onclick={closeCertModal}>
@@ -672,8 +671,8 @@
 				{#if availableTags.length === 0}
 					<div class="no-tags">
 						<span class="material-icons no-tags-icon">label_off</span>
-						<p>No certifications available.</p>
-						<p class="no-tags-hint">Create officer tags in Management &gt; Tags</p>
+						<p>No hay certificaciones disponibles.</p>
+						<p class="no-tags-hint">Crea etiquetas de agente en Gestión &gt; Etiquetas</p>
 					</div>
 				{:else}
 					<div class="cert-grid">
@@ -700,13 +699,13 @@
 			</div>
 
 			<div class="modal-footer">
-				<button class="btn-cancel" onclick={closeCertModal}>Cancel</button>
+				<button class="btn-cancel" onclick={closeCertModal}>Cancelar</button>
 				<button
 					class="btn-save"
 					onclick={saveCertifications}
 					disabled={isSavingCerts || availableTags.length === 0}
 				>
-					{isSavingCerts ? "Saving..." : "Save"}
+					{isSavingCerts ? "Guardando..." : "Guardar"}
 				</button>
 			</div>
 		</div>
@@ -721,7 +720,7 @@
 		<div class="boss-panel" onclick={(e) => e.stopPropagation()}>
 			<div class="modal-header">
 				<div class="modal-title-area">
-					<span class="modal-title">Officer Management</span>
+					<span class="modal-title">Gestión de Agentes</span>
 					<span class="modal-subtitle">{selectedOfficer.firstName} {selectedOfficer.lastName} &bull; {selectedOfficer.callsign} &bull; {selectedOfficer.rank}</span>
 				</div>
 				<button class="modal-close" onclick={closeBossPanel}>
@@ -766,7 +765,7 @@
 						<div class="grade-grid">
 							{#if jobGrades.length === 0}
 								<div class="no-tags">
-									<p>No grades available for this department.</p>
+									<p>No hay rangos disponibles para este departamento.</p>
 								</div>
 							{:else}
 								{#each jobGrades as grade (grade.grade)}
@@ -969,30 +968,18 @@
 			</div>
 
 			<div class="modal-footer">
-				<button class="btn-cancel" onclick={closeBossPanel}>Close</button>
+				<button class="btn-cancel" onclick={closeBossPanel}>Cerrar</button>
 				{#if bossPanelTab === "rank" && selectedGrade !== null}
-					<button
-						class="btn-save"
-						onclick={promoteOfficer}
-						disabled={isSavingBoss}
-					>
-						{isSavingBoss ? "Saving..." : "Update Rank"}
+					<button class="btn-save" onclick={promoteOfficer} disabled={isSavingBoss}>
+						{isSavingBoss ? "Guardando..." : "Actualizar Rango"}
 					</button>
 				{:else if bossPanelTab === "callsign"}
-					<button
-						class="btn-save"
-						onclick={saveCallsign}
-						disabled={isSavingBoss || !editCallsign.trim()}
-					>
-						{isSavingBoss ? "Saving..." : "Save Callsign"}
+					<button class="btn-save" onclick={saveCallsign} disabled={isSavingBoss || !editCallsign.trim()}>
+						{isSavingBoss ? "Guardando..." : "Guardar Clave"}
 					</button>
 				{:else if bossPanelTab === "certs"}
-					<button
-						class="btn-save"
-						onclick={saveCertifications}
-						disabled={isSavingCerts || availableTags.length === 0}
-					>
-						{isSavingCerts ? "Saving..." : "Save Certifications"}
+					<button class="btn-save" onclick={saveCertifications} disabled={isSavingCerts || availableTags.length === 0}>
+						{isSavingCerts ? "Guardando..." : "Guardar Certificaciones"}
 					</button>
 				{/if}
 			</div>

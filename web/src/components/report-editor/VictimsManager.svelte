@@ -12,7 +12,7 @@
 		title?: string;
 	}
 
-	let { victims, onAdd, onRemove, onUpdate, title = "Victims" }: Props = $props();
+	let { victims, onAdd, onRemove, onUpdate, title = "Víctimas" }: Props = $props();
 
 	function updateVictim(id: string, field: string, value: any) {
 		const victim = victims.find((v) => v.id === id);

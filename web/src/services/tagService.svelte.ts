@@ -52,8 +52,8 @@ export function createTagService() {
 			state.availableTags = tags;
 			return tags;
 		} catch (error) {
-			console.error("Failed to load tags:", error);
-			state.lastError = "Failed to load available tags";
+			console.error("Inconvenientes al cargar las etiquetas:", error);
+			state.lastError = "Inconvenientes al cargar las etiquetas disponibles";
 			state.availableTags = [];
 			return [];
 		} finally {
@@ -115,20 +115,20 @@ export function createTagService() {
 	 */
 	function validateTag(tag: string): { valid: boolean; error?: string } {
 		if (!tag.trim()) {
-			return { valid: false, error: "Tag cannot be empty" };
+			return { valid: false, error: "La etiqueta no puede estar vacía" };
 		}
 
 		if (tag.length > 50) {
 			return {
 				valid: false,
-				error: "Tag cannot be longer than 50 characters",
+				error: "La etiqueta no puede tener más de 50 caracteres",
 			};
 		}
 
 		if (!/^[a-zA-Z0-9\s\-_]+$/.test(tag)) {
 			return {
 				valid: false,
-				error: "Tag can only contain letters, numbers, spaces, hyphens, and underscores",
+				error: "La etiqueta solo puede contener letras, números, espacios, guiones y guiones bajos",
 			};
 		}
 

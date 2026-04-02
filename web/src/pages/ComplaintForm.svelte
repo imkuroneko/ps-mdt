@@ -21,12 +21,12 @@
     let errorMessage = $state("");
 
     const categories = [
-        { value: "misconduct", label: "Misconduct" },
-        { value: "excessive_force", label: "Excessive Force" },
-        { value: "corruption", label: "Corruption" },
-        { value: "negligence", label: "Negligence" },
-        { value: "discrimination", label: "Discrimination" },
-        { value: "other", label: "Other" },
+        { value: "misconduct", label: "Conducta Inapropiada" },
+        { value: "excessive_force", label: "Uso Excesivo de Fuerza" },
+        { value: "corruption", label: "Corrupción" },
+        { value: "negligence", label: "Negligencia" },
+        { value: "discrimination", label: "Discriminación" },
+        { value: "other", label: "Otro" },
     ];
 
     let isFormValid = $derived(
@@ -111,7 +111,7 @@
                 onClose();
             }, 3000);
         } catch (err) {
-            errorMessage = "Failed to submit complaint. Please try again.";
+            errorMessage = "Error al enviar la denuncia. Por favor intenta de nuevo.";
             console.error("[ComplaintForm] Submit error:", err);
         } finally {
             submitting = false;
@@ -129,15 +129,15 @@
             </button>
             <div class="success-container">
                 <div class="success-icon">&#x2714;</div>
-                <h2 class="success-title">Complaint Filed Successfully</h2>
-                <p class="success-number">Your complaint number: <strong>{complaintNumber}</strong></p>
-                <p class="success-note">You will be contacted if further information is needed.</p>
+                <h2 class="success-title">Denuncia Presentada Exitosamente</h2>
+                <p class="success-number">Tu número de denuncia: <strong>{complaintNumber}</strong></p>
+                <p class="success-note">Te contactaremos si se necesita más información.</p>
             </div>
         {:else}
             <!-- Form State -->
             <div class="card-header">
                 <span class="header-icon">&#x1F6E1;</span>
-                <h2 class="header-title">Internal Affairs Complaint</h2>
+                <h2 class="header-title">Denuncia de Asuntos Internos</h2>
             </div>
 
             {#if errorMessage}
@@ -147,12 +147,12 @@
             <form class="complaint-form" onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                 <!-- Officer Name -->
                 <div class="form-group">
-                    <label class="form-label" for="officerName">Officer Name <span class="required">*</span></label>
+                    <label class="form-label" for="officerName">Nombre del Oficial <span class="required">*</span></label>
                     <input
                         id="officerName"
                         type="text"
                         class="form-input"
-                        placeholder="Officer name or badge number"
+                        placeholder="Nombre del oficial o número de placa"
                         bind:value={officerName}
                         required
                     />
@@ -160,19 +160,19 @@
 
                 <!-- Officer Badge -->
                 <div class="form-group">
-                    <label class="form-label" for="officerBadge">Officer Badge</label>
+                    <label class="form-label" for="officerBadge">Placa del Oficial</label>
                     <input
                         id="officerBadge"
                         type="text"
                         class="form-input"
-                        placeholder="Badge #"
+                        placeholder="Placa #"
                         bind:value={officerBadge}
                     />
                 </div>
 
                 <!-- Category -->
                 <div class="form-group">
-                    <label class="form-label" for="category">Category <span class="required">*</span></label>
+                    <label class="form-label" for="category">Categoría <span class="required">*</span></label>
                     <select id="category" class="form-input form-select" bind:value={category} required>
                         {#each categories as cat}
                             <option value={cat.value}>{cat.label}</option>
@@ -182,7 +182,7 @@
 
                 <!-- Incident Date -->
                 <div class="form-group">
-                    <label class="form-label" for="incidentDate">Incident Date</label>
+                    <label class="form-label" for="incidentDate">Fecha del Incidente</label>
                     <input
                         id="incidentDate"
                         type="date"
@@ -193,24 +193,24 @@
 
                 <!-- Location -->
                 <div class="form-group">
-                    <label class="form-label" for="incidentLocation">Location</label>
+                    <label class="form-label" for="incidentLocation">Ubicación</label>
                     <input
                         id="incidentLocation"
                         type="text"
                         class="form-input"
-                        placeholder="Where did this occur?"
+                        placeholder="¿Dónde ocurrió esto?"
                         bind:value={incidentLocation}
                     />
                 </div>
 
                 <!-- Description -->
                 <div class="form-group">
-                    <label class="form-label" for="description">Description <span class="required">*</span></label>
+                    <label class="form-label" for="description">Descripción <span class="required">*</span></label>
                     <textarea
                         id="description"
                         class="form-input form-textarea"
                         rows="5"
-                        placeholder="Describe the incident in detail..."
+                        placeholder="Describe el incidente en detalle..."
                         bind:value={description}
                         required
                     ></textarea>
@@ -218,28 +218,28 @@
 
                 <!-- Witnesses -->
                 <div class="form-group">
-                    <label class="form-label" for="witnesses">Witnesses</label>
+                    <label class="form-label" for="witnesses">Testigos</label>
                     <textarea
                         id="witnesses"
                         class="form-input form-textarea"
                         rows="2"
-                        placeholder="Names/descriptions of witnesses"
+                        placeholder="Nombres/descripciones de testigos"
                         bind:value={witnesses}
                     ></textarea>
                 </div>
 
                 <!-- Evidence -->
                 <div class="form-group">
-                    <label class="form-label">Evidence</label>
+                    <label class="form-label">Evidencia</label>
                     <div class="evidence-input-row">
                         <input
                             type="url"
                             class="form-input evidence-url-input"
-                            placeholder="Paste evidence URL..."
+                            placeholder="Pega la URL de la evidencia..."
                             bind:value={evidenceUrl}
                             onkeydown={(e) => { if (e.key === "Enter") { e.preventDefault(); addEvidence(); } }}
                         />
-                        <button type="button" class="btn-add-evidence" onclick={addEvidence}>Add</button>
+                        <button type="button" class="btn-add-evidence" onclick={addEvidence}>Añadir</button>
                     </div>
                     {#if evidenceList.length > 0}
                         <ul class="evidence-list">
@@ -260,10 +260,10 @@
                         class="btn-submit"
                         disabled={!isFormValid || submitting}
                     >
-                        {submitting ? "Submitting..." : "Submit Complaint"}
+                        {submitting ? "Enviando..." : "Enviar Denuncia"}
                     </button>
                     <button type="button" class="btn-cancel" onclick={handleCancel}>
-                        Cancel
+                        Cancelar
                     </button>
                 </div>
             </form>

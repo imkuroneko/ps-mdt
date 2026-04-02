@@ -97,7 +97,7 @@
 			complaints = data.complaints || [];
 		} catch (e) {
 			console.error('[IA] loadComplaints error:', e);
-			globalNotifications.error("Failed to load complaints");
+			globalNotifications.error("Error al cargar quejas");
 		}
 		loading = false;
 	}
@@ -121,7 +121,7 @@
 				editIncidentLocation = detail.complaint.incident_location || "";
 			}
 		} catch {
-			globalNotifications.error("Failed to load complaint details");
+			globalNotifications.error("Error al cargar detalles de la queja");
 		}
 		loading = false;
 	}
@@ -144,18 +144,18 @@
 				{ success: true }
 			);
 			if (!result || result.success === false) {
-				globalNotifications.error(result?.error || "Failed to update status");
+				globalNotifications.error(result?.error || "Error al actualizar estado");
 				return;
 			}
 			// Update local state immediately
 			selectedComplaint.complaint.status = newStatus;
 			const idx = complaints.findIndex(c => c.id === complaintId);
 			if (idx !== -1) complaints[idx].status = newStatus;
-			globalNotifications.success("Status updated");
+			globalNotifications.success("Estado actualizado");
 			// Refresh list in background
 			loadComplaints();
 		} catch {
-			globalNotifications.error("Failed to update status");
+			globalNotifications.error("Error al actualizar estado");
 		}
 	}
 
@@ -163,7 +163,7 @@
 		if (!selectedComplaint) return;
 		const cid = authService?.playerData?.citizenid;
 		if (!cid) {
-			globalNotifications.error("Could not determine your citizen ID");
+			globalNotifications.error("No se pudo determinar tu ID de ciudadano");
 			return;
 		}
 		try {
@@ -231,7 +231,7 @@
 			noteContent = "";
 			await selectComplaint(selectedComplaint.complaint.id);
 		} catch {
-			globalNotifications.error("Failed to add note");
+			globalNotifications.error("Error al agregar nota");
 		}
 		noteSubmitting = false;
 	}
@@ -245,7 +245,7 @@
 			});
 			await selectComplaint(selectedComplaint.complaint.id);
 		} catch {
-			globalNotifications.error("Failed to delete note");
+			globalNotifications.error("Error al eliminar nota");
 		}
 	}
 
@@ -371,7 +371,7 @@
 		<div class="topbar">
 			<button class="back-btn" onclick={goBack}>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-				Back to Complaints
+				Volver a Quejas
 			</button>
 			<span class="topbar-case-number">{selectedComplaint.complaint.complaint_number}</span>
 			<span class="pill {getStatusPillClass(selectedComplaint.complaint.status)}">{formatLabel(selectedComplaint.complaint.status)}</span>
@@ -383,7 +383,7 @@
 				<div class="detail-main">
 					<div class="section">
 						<div class="section-header">
-							<div class="section-title" style="margin-bottom:0;">Complaint Information</div>
+							<div class="section-title" style="margin-bottom:0;">Información de la Queja</div>
 							{#if canManage}
 								<div class="inline-controls">
 									{#if editMode}
@@ -424,7 +424,7 @@
 									<span class="field-value">{selectedComplaint.complaint.officer_name || '-'}{selectedComplaint.complaint.officer_badge ? ` (#${selectedComplaint.complaint.officer_badge})` : ''}</span>
 								</div>
 								<div class="field-group">
-									<span class="field-label">Category</span>
+									<span class="field-label">Categoría</span>
 									<span class="field-value">{formatLabel(selectedComplaint.complaint.category)}</span>
 								</div>
 								<div class="field-group">
@@ -440,13 +440,13 @@
 					</div>
 
 					<div class="section">
-						<div class="section-title">Description</div>
-						<p class="summary-text">{selectedComplaint.complaint.description || 'No description provided.'}</p>
+						<div class="section-title">Descripción</div>
+						<p class="summary-text">{selectedComplaint.complaint.description || 'Sin descripción.'}</p>
 					</div>
 
 					{#if selectedComplaint.complaint.witnesses}
 						<div class="section">
-							<div class="section-title">Witnesses</div>
+							<div class="section-title">Testigos</div>
 							<p class="summary-text">{selectedComplaint.complaint.witnesses}</p>
 						</div>
 					{/if}
@@ -472,14 +472,14 @@
 				<!-- Right Column: Sidebar -->
 				<div class="detail-side">
 					<div class="section">
-						<div class="section-title">Complainant</div>
+						<div class="section-title">Demandante</div>
 						<div class="field-group">
-							<span class="field-label">Name</span>
+							<span class="field-label">Nombre</span>
 							<span class="field-value">{selectedComplaint.complaint.complainant_name}</span>
 						</div>
 						{#if selectedComplaint.complaint.complainant_phone}
 							<div class="field-group">
-								<span class="field-label">Phone</span>
+								<span class="field-label">Teléfono</span>
 								<span class="field-value">{selectedComplaint.complaint.complainant_phone}</span>
 							</div>
 						{/if}
@@ -487,23 +487,23 @@
 
 					{#if canManage}
 						<div class="section">
-							<div class="section-title">Status Management</div>
+							<div class="section-title">Gestión de Estado</div>
 							<div class="inline-controls">
 								<select class="form-select" bind:value={statusUpdateValue}>
 									{#each statusOptions.filter(s => s !== 'all') as opt}
 										<option value={opt}>{formatLabel(opt)}</option>
 									{/each}
 								</select>
-								<button class="primary-btn" onclick={handleUpdateStatus}>Update</button>
+								<button class="primary-btn" onclick={handleUpdateStatus}>Actualizar</button>
 							</div>
 						</div>
 
 						<div class="section">
-							<div class="section-title">Investigator</div>
+							<div class="section-title">Investigador</div>
 							{#if selectedComplaint.complaint.assigned_to_name}
 								<p class="assigned-name">{selectedComplaint.complaint.assigned_to_name}</p>
 							{:else}
-								<p class="muted-text">No investigator assigned</p>
+								<p class="muted-text">Sin investigador asignado</p>
 							{/if}
 							<div class="inline-controls">
 								<button class="action-btn" onclick={() => (showInvestigatorSearch = true)}>Search</button>
@@ -516,16 +516,16 @@
 					{/if}
 
 					<div class="section">
-						<div class="section-title">Internal Notes</div>
+						<div class="section-title">Notas Internas</div>
 						<div class="note-input-row">
 							<textarea
 								class="form-textarea"
 								rows="2"
-								placeholder="Add a note..."
+								placeholder="Agregar una nota..."
 								bind:value={noteContent}
 							></textarea>
 							<button class="action-btn" onclick={handleAddNote} disabled={noteSubmitting || !noteContent.trim()}>
-								{noteSubmitting ? 'Adding...' : 'Add Note'}
+								{noteSubmitting ? 'Agregando...' : 'Agregar Nota'}
 							</button>
 						</div>
 						{#if selectedComplaint.notes.length > 0}
@@ -533,7 +533,7 @@
 								{#each selectedComplaint.notes as note}
 									<div class="note-item">
 										<div class="note-header">
-											<span class="note-author">{note.author_name || 'Unknown'}</span>
+											<span class="note-author">{note.author_name || 'Desconocido'}</span>
 											<span class="note-date">{formatDateTimeValue(note.created_at)}</span>
 											{#if canManage}
 												<button class="chip-remove" onclick={() => handleDeleteNote(note.id)}>
@@ -546,7 +546,7 @@
 								{/each}
 							</div>
 						{:else}
-							<p class="muted-text">No notes yet.</p>
+							<p class="muted-text">Sin notas aún.</p>
 						{/if}
 					</div>
 				</div>
@@ -562,7 +562,7 @@
 						class:active={statusFilter === opt}
 						onclick={() => { statusFilter = opt; }}
 					>
-						{opt === 'all' ? 'All' : formatLabel(opt)}
+						{opt === 'all' ? 'Todos' : formatLabel(opt)}
 					</button>
 				{/each}
 			</div>
@@ -571,12 +571,12 @@
 		<div class="topbar">
 			<div class="search-box">
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-				<input type="text" placeholder="Search complaints..." bind:value={searchQuery} />
+				<input type="text" placeholder="Buscar quejas..." bind:value={searchQuery} />
 			</div>
 			<div style="flex:1;"></div>
 			<button class="back-btn" onclick={loadComplaints} disabled={loading}>
 				<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-				Refresh
+				Actualizar
 			</button>
 		</div>
 
@@ -584,23 +584,23 @@
 			{#if loading && complaints.length === 0}
 				<div class="center-state">
 					<div class="loading-spinner"></div>
-					<p>Loading complaints...</p>
+					<p>Cargando quejas...</p>
 				</div>
 			{:else if paginatedComplaints.length === 0}
 				<div class="center-state">
 					<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-					<h3>No Complaints Found</h3>
-					<p>{searchQuery ? "No complaints match your search criteria." : "No complaints have been filed yet."}</p>
+					<h3>No se encontraron Quejas</h3>
+					<p>{searchQuery ? "Ninguna queja coincide con tu búsqueda." : "Aún no se han presentado quejas."}</p>
 				</div>
 			{:else}
 				<div class="table-header">
 					<span>#</span>
-					<span>Status</span>
-					<span>Category</span>
-					<span>Officer</span>
-					<span>Complainant</span>
-					<span>Date</span>
-					<span>Assigned To</span>
+					<span>Estado</span>
+					<span>Categoría</span>
+					<span>Agente</span>
+					<span>Demandante</span>
+					<span>Fecha</span>
+					<span>Asignado a</span>
 				</div>
 				<div class="table-body">
 					{#each paginatedComplaints as item}
@@ -631,7 +631,7 @@
 
 <PersonSearchModal
 	show={showInvestigatorSearch}
-	title="Search Officers"
+	title="Buscar Agentes"
 	searchQuery={investigatorSearchQuery}
 	searchResults={searchService.state.results}
 	onClose={() => {
@@ -644,7 +644,7 @@
 
 <PersonSearchModal
 	show={showOfficerSearchForEdit}
-	title="Search Officer"
+	title="Buscar Agente"
 	searchQuery=""
 	searchResults={searchService.state.results}
 	onClose={() => {

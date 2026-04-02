@@ -28,13 +28,13 @@
 	}: Props = $props();
 
 	const evidenceTypes = [
-		"Physical",
+		"Físico",
 		"Digital",
-		"Document",
-		"Weapon",
-		"Drug",
-		"Vehicle",
-		"Other",
+		"Documento",
+		"Arma",
+		"Droga",
+		"Vehículo",
+		"Otro",
 	];
 
 	function updateEvidence(id: string, field: keyof Evidence, value: any) {
@@ -53,13 +53,13 @@
 
 <div class="metadata-section">
 	<div class="section-header">
-		<span class="section-label">EVIDENCE</span>
+		<span class="section-label">EVIDENCIA</span>
 		<button
 			class="add-btn"
 			onclick={onAddEvidence}
-			title="Add Evidence"
-			aria-label="Add Evidence"
-		>+ Add</button>
+			title="Añadir Evidencia"
+			aria-label="Añadir Evidencia"
+		>+ Añadir</button>
 	</div>
 
 	{#if evidence.length > 0}
@@ -69,7 +69,7 @@
 					<div class="card-info">
 						<input
 							type="text"
-							placeholder="Evidence Title"
+							placeholder="Título de Evidencia"
 							value={item.title}
 							oninput={(e) => updateEvidence(item.id, "title", e.currentTarget.value)}
 							class="title-input"
@@ -77,16 +77,16 @@
 						{#if (item as any).caseId}
 							{#if onNavigateToCases}
 								<!-- svelte-ignore a11y_click_events_have_key_events -->
-								<span class="case-badge nav-link" role="button" tabindex="-1" onclick={onNavigateToCases}>Case #{(item as any).caseId}</span>
+								<span class="case-badge nav-link" role="button" tabindex="-1" onclick={onNavigateToCases}>Caso #{(item as any).caseId}</span>
 							{:else}
-								<span class="case-badge">Case #{(item as any).caseId}</span>
+								<span class="case-badge">Caso #{(item as any).caseId}</span>
 							{/if}
 						{/if}
 					</div>
 					<button
 						class="remove-btn"
 						onclick={() => onRemoveEvidence(item.id)}
-						aria-label="Remove evidence"
+						aria-label="Quitar evidencia"
 					>
 						<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
 							<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
@@ -107,14 +107,14 @@
 						</select>
 						<input
 							type="text"
-							placeholder="Serial Number"
+							placeholder="Número de Serie"
 							value={item.serial}
 							oninput={(e) => updateEvidence(item.id, "serial", e.currentTarget.value)}
 							class="field-input"
 						/>
 					</div>
 					<textarea
-						placeholder="Notes"
+						placeholder="Notas"
 						value={item.notes}
 						oninput={(e) => updateEvidence(item.id, "notes", e.currentTarget.value)}
 						class="notes-input"
@@ -126,20 +126,20 @@
 						<input
 							type="text"
 							class="field-input"
-							placeholder="Case ID"
+							placeholder="ID del Caso"
 							value={(item as any).caseId || ""}
 							onchange={(e) => linkEvidenceCase(item.id, e.currentTarget.value)}
 						/>
 						<button class="action-btn" onclick={() => onCreateCaseFromEvidence(item.id)}>
-							Create Case
+							Crear Caso
 						</button>
 					</div>
 					<div class="image-actions">
 						<button class="action-btn" onclick={() => onOpenImageUpload(item.id)}>
-							Add Image
-						</button>
-						{#if item.images.length > 0}
-							<span class="image-count">{item.images.length} image{item.images.length > 1 ? "s" : ""}</span>
+						Añadir Imagen
+					</button>
+					{#if item.images.length > 0}
+						<span class="image-count">{item.images.length} imagen{item.images.length > 1 ? "es" : ""}</span>
 						{/if}
 					</div>
 				</div>
@@ -148,11 +148,11 @@
 					<div class="images-grid">
 						{#each item.images as image, imageIndex}
 							<div class="image-item">
-								<img src={image} alt="Evidence" class="evidence-image" />
+								<img src={image} alt="Evidencia" class="evidence-image" />
 								<button
 									class="image-remove-btn"
 									onclick={() => onRemoveImage(item.id, imageIndex)}
-									aria-label="Remove image"
+									aria-label="Quitar imagen"
 								>
 									<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor">
 										<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />

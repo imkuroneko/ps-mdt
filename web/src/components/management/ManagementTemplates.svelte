@@ -49,7 +49,7 @@
 				templates = response;
 			}
 		} catch (error) {
-			console.error("Failed to load templates:", error);
+				console.error("Error al cargar plantillas:", error);
 		} finally {
 			isLoading = false;
 		}
@@ -57,11 +57,11 @@
 
 	async function saveTemplate() {
 		if (!formName.trim()) {
-			showStatus("Template name is required", "error");
+			showStatus("Se requiere un nombre de plantilla", "error");
 			return;
 		}
 		if (!formContent.trim()) {
-			showStatus("Template content is required", "error");
+			showStatus("Se requiere contenido de plantilla", "error");
 			return;
 		}
 
@@ -76,7 +76,7 @@
 				templates = [...templates, { id: Date.now(), name: formName.trim(), type: formType, content: formContent }];
 			}
 			cancelEdit();
-			showStatus("Template saved");
+				showStatus("Plantilla guardada");
 			return;
 		}
 
@@ -95,15 +95,15 @@
 				{ success: false },
 			);
 			if (result?.success) {
-				showStatus(editingTemplate ? "Template updated" : "Template created");
+				showStatus(editingTemplate ? "Plantilla actualizada" : "Plantilla creada");
 				cancelEdit();
 				await loadTemplates();
 			} else {
-				showStatus(result?.message || "Failed to save template", "error");
+				showStatus(result?.message || "Error al guardar plantilla", "error");
 			}
 		} catch (error) {
-			console.error("Failed to save template:", error);
-			showStatus("Failed to save template", "error");
+			console.error("Error al guardar plantilla:", error);
+			showStatus("Error al guardar plantilla", "error");
 		} finally {
 			isSaving = false;
 		}
@@ -112,7 +112,7 @@
 	async function deleteTemplate(id: number) {
 		if (isEnvBrowser()) {
 			templates = templates.filter((t) => t.id !== id);
-			showStatus("Template deleted");
+			showStatus("Plantilla eliminada");
 			return;
 		}
 
@@ -123,14 +123,14 @@
 				{ success: false },
 			);
 			if (result?.success) {
-				showStatus("Template deleted");
+				showStatus("Plantilla eliminada");
 				await loadTemplates();
 			} else {
-				showStatus(result?.message || "Failed to delete template", "error");
+				showStatus(result?.message || "Error al eliminar plantilla", "error");
 			}
 		} catch (error) {
-			console.error("Failed to delete template:", error);
-			showStatus("Failed to delete template", "error");
+			console.error("Error al eliminar plantilla:", error);
+			showStatus("Error al eliminar plantilla", "error");
 		}
 	}
 
@@ -180,7 +180,7 @@
 <div class="templates-page">
 	<div class="templates-card">
 		<div class="card-title-row">
-			<span class="card-label">Report Templates</span>
+			<span class="card-label">Plantillas de Reportes</span>
 			<div class="template-actions">
 				{#if !isCreating}
 					<button class="action-btn create-btn" onclick={startCreate}>
@@ -190,22 +190,22 @@
 				{/if}
 			</div>
 		</div>
-		<p class="card-subtitle">Configure templates available when creating reports. Each template is linked to a report type.</p>
+		<p class="card-subtitle">Configura las plantillas disponibles al crear reportes. Cada plantilla está vinculada a un tipo de reporte.</p>
 
 		{#if isLoading}
 			<div class="templates-loading">
 				<div class="loading-spinner"></div>
-				<p>Loading templates...</p>
+				<p>Cargando plantillas...</p>
 			</div>
 		{:else if isCreating}
 			<div class="template-form">
 				<div class="form-row">
 					<div class="form-group">
-						<label class="form-label" for="tmpl-name">Template Name</label>
-						<input id="tmpl-name" type="text" class="form-input" placeholder="e.g. Standard Incident" bind:value={formName} />
+					<label class="form-label" for="tmpl-name">Nombre de Plantilla</label>
+					<input id="tmpl-name" type="text" class="form-input" placeholder="ej. Incidente Estándar" bind:value={formName} />
 					</div>
 					<div class="form-group">
-						<label class="form-label" for="tmpl-type">Report Type</label>
+						<label class="form-label" for="tmpl-type">Tipo de Reporte</label>
 						<select id="tmpl-type" class="form-select" bind:value={formType}>
 							{#each REPORT_TYPES as rt}
 								<option value={rt}>{rt}</option>
@@ -215,15 +215,15 @@
 				</div>
 
 				<div class="form-group">
-					<label class="form-label" for="tmpl-content">Template Content <span class="form-hint">(HTML)</span></label>
-					<textarea id="tmpl-content" class="form-textarea" placeholder="Enter HTML template content..." bind:value={formContent} rows={12}></textarea>
+					<label class="form-label" for="tmpl-content">Contenido de Plantilla <span class="form-hint">(HTML)</span></label>
+					<textarea id="tmpl-content" class="form-textarea" placeholder="Ingresa contenido de plantilla HTML..." bind:value={formContent} rows={12}></textarea>
 				</div>
 
 				<div class="form-actions">
-					<button class="btn-cancel" onclick={cancelEdit}>Cancel</button>
+					<button class="btn-cancel" onclick={cancelEdit}>Cancelar</button>
 					<button class="btn-save" onclick={saveTemplate} disabled={isSaving}>
 						<span class="material-icons btn-save-icon">save</span>
-						{isSaving ? "Saving..." : editingTemplate ? "Update Template" : "Create Template"}
+						{isSaving ? "Guardando..." : editingTemplate ? "Actualizar Plantilla" : "Crear Plantilla"}
 					</button>
 				</div>
 			</div>
@@ -232,8 +232,8 @@
 				{#if templates.length === 0}
 					<div class="empty-state">
 						<span class="material-icons" style="font-size: 20px; color: rgba(255,255,255,0.15); margin-bottom: 6px;">description</span>
-						<p>No templates configured</p>
-						<p class="empty-hint">Create a template to get started</p>
+					<p>Sin plantillas configuradas</p>
+					<p class="empty-hint">Crea una plantilla para comenzar</p>
 					</div>
 				{:else}
 					<div class="templates-list">
@@ -244,10 +244,10 @@
 									<span class="template-type">{template.type}</span>
 								</div>
 								<div class="template-row-actions">
-									<button class="row-btn edit-btn" onclick={() => startEdit(template)} aria-label="Edit">
+									<button class="row-btn edit-btn" onclick={() => startEdit(template)} aria-label="Editar">
 										<span class="material-icons">edit</span>
 									</button>
-									<button class="row-btn delete-btn" onclick={() => deleteTemplate(template.id)} aria-label="Delete">
+									<button class="row-btn delete-btn" onclick={() => deleteTemplate(template.id)} aria-label="Eliminar">
 										<span class="material-icons">delete</span>
 									</button>
 								</div>

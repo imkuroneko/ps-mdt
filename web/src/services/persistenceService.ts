@@ -19,10 +19,7 @@ export function createPersistenceService(config: PersistenceConfig = {}) {
 
 			return JSON.parse(stored) as T;
 		} catch (error) {
-			console.warn(
-				`Failed to get persisted data for key "${key}":`,
-				error,
-			);
+			console.warn(`Inconveniente al obtener datos persistentes para la clave "${key}":`, error);
 			return null;
 		}
 	}
@@ -41,10 +38,7 @@ export function createPersistenceService(config: PersistenceConfig = {}) {
 			localStorage.setItem(`${storageKey}:${key}`, serialized);
 			return true;
 		} catch (error) {
-			console.warn(
-				`Failed to set persisted data for key "${key}":`,
-				error,
-			);
+			console.warn(`Inconveniente al guardar datos persistentes para la clave "${key}":`, error);
 			return false;
 		}
 	}
@@ -60,10 +54,7 @@ export function createPersistenceService(config: PersistenceConfig = {}) {
 		try {
 			localStorage.removeItem(`${storageKey}:${key}`);
 		} catch (error) {
-			console.warn(
-				`Failed to remove persisted data for key "${key}":`,
-				error,
-			);
+			console.warn(`Inconveniente al eliminar datos persistentes para la clave "${key}":`, error);
 		}
 	}
 

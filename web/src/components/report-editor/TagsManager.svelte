@@ -50,12 +50,12 @@
 			<button
 				class="add-btn"
 				onclick={openTagDropdown}
-				title="Add Tag"
-				aria-label="Add Tag"
-			>+ Add</button>
+				title="Añadir Tag"
+				aria-label="Añadir Tag"
+			>+ Añadir</button>
 			{#if showTagDropdown}
 				<div class="dropdown">
-					<div class="dropdown-header">Available Tags</div>
+					<div class="dropdown-header">Tags Disponibles</div>
 					{#each filteredTags as tag}
 						<button
 							class="dropdown-item"
@@ -66,7 +66,7 @@
 						</button>
 					{/each}
 					{#if filteredTags.length === 0}
-						<div class="dropdown-empty">No more tags available</div>
+						<div class="dropdown-empty">No hay más tags disponibles</div>
 					{/if}
 				</div>
 			{/if}
@@ -81,7 +81,7 @@
 				<button
 					class="remove-btn"
 					onclick={() => removeTag(index)}
-					aria-label="Remove tag"
+					aria-label="Eliminar tag"
 				>
 					<svg
 						width="8"

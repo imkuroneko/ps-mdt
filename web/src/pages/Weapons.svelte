@@ -99,7 +99,7 @@
 			);
 			weaponHistory = Array.isArray(response) ? response : [];
 		} catch (error) {
-			globalNotifications.error("Failed to load weapon history");
+			globalNotifications.error("Error al cargar el historial del arma");
 			weaponHistory = [];
 		} finally {
 			historyLoading = false;
@@ -127,7 +127,7 @@
 			const response = await fetchNui(NUI_EVENTS.WEAPON.GET_WEAPONS);
 			weapons = Array.isArray(response.weapons) ? response.weapons : [];
 		} catch (error) {
-			globalNotifications.error("Failed to load weapons");
+			globalNotifications.error("Error al cargar las armas");
 			weapons = [];
 		}
 		loading = false;
@@ -140,7 +140,7 @@
 			const response = await fetchNui(NUI_EVENTS.WEAPON.GET_WEAPONS);
 			weapons = Array.isArray(response.weapons) ? response.weapons : [];
 		} catch (error) {
-			globalNotifications.error("Failed to load weapons");
+			globalNotifications.error("Error al cargar las armas");
 			weapons = [];
 		}
 		loading = false;
@@ -161,7 +161,7 @@
 			</div>
 			<div class="topbar-flags">
 				{#if selectedWeapon.scratched}
-					<span class="pill pill-red">Scratched</span>
+				<span class="pill pill-red">Serial rayado</span>
 				{/if}
 				{#each selectedWeapon.flags as flag}
 					<span class={getFlagClass(flag)}>{flag}</span>
@@ -181,7 +181,7 @@
 						{/if}
 					</div>
 					<div class="info-card-body">
-						<span class="info-card-label">Owner</span>
+						<span class="info-card-label">Propietario</span>
 						<span class="info-card-value">{selectedWeapon.owner}</span>
 					</div>
 				</div>
@@ -197,14 +197,14 @@
 
 			{#if selectedWeapon.information}
 				<div class="section">
-					<div class="section-title">Information</div>
+					<div class="section-title">Información</div>
 					<p class="section-text">{selectedWeapon.information}</p>
 				</div>
 			{/if}
 
 			{#if selectedWeapon.flags && selectedWeapon.flags.length}
 				<div class="section">
-					<div class="section-title">Flags</div>
+					<div class="section-title">Marcadores</div>
 					<div class="flags-row">
 						{#each selectedWeapon.flags as flag}
 							<span class={getFlagClass(flag)}>{flag}</span>
@@ -214,11 +214,11 @@
 			{/if}
 
 			<div class="section">
-				<div class="section-title">Ownership History</div>
-				{#if historyLoading}
-					<div class="section-empty">Loading history...</div>
-				{:else if weaponHistory.length === 0}
-					<div class="section-empty">No ownership history found.</div>
+			<div class="section-title">Historial de propietarios</div>
+			{#if historyLoading}
+				<div class="section-empty">Cargando historial...</div>
+			{:else if weaponHistory.length === 0}
+				<div class="section-empty">No se encontró historial de propietarios.</div>
 				{:else}
 					<div class="history-list">
 						{#each weaponHistory as entry}
@@ -249,40 +249,40 @@
 		<div class="topbar">
 			<div class="search-box">
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-				<input type="text" bind:value={searchQuery} placeholder="Search by name, serial, owner, class, tint or type..." />
+				<input type="text" bind:value={searchQuery} placeholder="Buscar por nombre, serial, propietario, clase, tinte o tipo..." />
 			</div>
 			<button class="refresh-btn" onclick={refreshWeapons} disabled={loading}>
-				{loading ? "Loading..." : "Refresh"}
+				{loading ? "Cargando..." : "Actualizar"}
 			</button>
 		</div>
 
 		<div class="list-panel">
 			<div class="list-header">
-				<span class="col-name">Weapon</span>
+				<span class="col-name">Arma</span>
 				<span class="col-serial">Serial</span>
-				<span class="col-owner">Owner</span>
-				<span class="col-class">Class</span>
-				<span class="col-type">Type</span>
-				<span class="col-tint">Tint</span>
-				<span class="col-flags">Flags</span>
+				<span class="col-owner">Propietario</span>
+				<span class="col-class">Clase</span>
+				<span class="col-type">Tipo</span>
+				<span class="col-tint">Tinte</span>
+				<span class="col-flags">Marcadores</span>
 			</div>
 			<div class="list-body">
 				{#if loading}
-					<div class="empty-state">Loading weapons...</div>
+					<div class="empty-state">Cargando armas...</div>
 				{:else if filteredWeapons.length === 0}
-					<div class="empty-state">{searchQuery ? "No weapons match your search." : "No weapons found."}</div>
+					<div class="empty-state">{searchQuery ? "Ninguna arma coincide con la búsqueda." : "No se encontraron armas."}</div>
 				{:else}
 					{#each filteredWeapons as weapon}
 						<button class="weapon-row" onclick={() => viewWeapon(weapon.id)}>
 							<span class="col-name">
 								{weapon.name}
-								{#if weapon.scratched}<span class="scratched-badge">Scratched</span>{/if}
+								{#if weapon.scratched}<span class="scratched-badge">Serial rayado</span>{/if}
 							</span>
 							<span class="col-serial mono">{weapon.serial}</span>
 							<span class="col-owner">{weapon.owner}</span>
 							<span class="col-class">{weapon.weaponClass}</span>
 							<span class="col-type">{weapon.type}</span>
-							<span class="col-tint">{weapon.tint || 'Default'}</span>
+							<span class="col-tint">{weapon.tint || 'Por defecto'}</span>
 							<span class="col-flags">
 								{#each weapon.flags as flag}
 									<span class={getFlagClass(flag)}>{flag}</span>

@@ -40,7 +40,7 @@
 		const name = formName.trim();
 		const desc = formDesc.trim();
 		if (!name) {
-			showStatus("License name is required", "error");
+			showStatus("El nombre de la licencia es requerido", "error");
 			return;
 		}
 
@@ -62,14 +62,14 @@
 				NUI_EVENTS.SETTINGS.SAVE_CUSTOM_LICENSE, payload, { success: false }
 			);
 			if (result?.success) {
-				showStatus(editingId ? "License updated" : "License created");
+				showStatus(editingId ? "Licencia actualizada" : "Licencia creada");
 				resetForm();
 				await loadLicenses();
 			} else {
-				showStatus(result?.message || "Failed to save", "error");
+				showStatus(result?.message || "Error al guardar", "error");
 			}
 		} catch {
-			showStatus("Failed to save license", "error");
+			showStatus("Error al guardar la licencia", "error");
 		} finally {
 			isSubmitting = false;
 		}
@@ -87,14 +87,14 @@
 				NUI_EVENTS.SETTINGS.DELETE_CUSTOM_LICENSE, { id: license.id }, { success: false }
 			);
 			if (result?.success) {
-				showStatus("License deleted");
+				showStatus("Licencia eliminada");
 				if (editingId === license.id) resetForm();
 				await loadLicenses();
 			} else {
-				showStatus("Failed to delete", "error");
+				showStatus("Error al eliminar", "error");
 			}
 		} catch {
-			showStatus("Failed to delete license", "error");
+			showStatus("Error al eliminar la licencia", "error");
 		}
 	}
 
@@ -114,9 +114,9 @@
 	onMount(() => {
 		if (isEnvBrowser()) {
 			licenses = [
-				{ id: 1, name: "Hunting License", description: "Permits hunting of wildlife in designated areas" },
-				{ id: 2, name: "Boating License", description: "Required for operating watercraft" },
-				{ id: 3, name: "Pilot License", description: "Required for operating aircraft" },
+			{ id: 1, name: "Licencia de Caza", description: "Permite la caza de fauna silvestre en áreas designadas" },
+			{ id: 2, name: "Licencia de Navegación", description: "Se requiere para operar embarcaciones" },
+			{ id: 3, name: "Licencia de Piloto", description: "Se requiere para operar aeronaves" },
 			];
 			return;
 		}
@@ -132,21 +132,21 @@
 	<div class="info-section">
 		<div class="info-row">
 			<span class="material-icons info-icon">info</span>
-			<span class="info-text">State licenses (Driver's License, Weapon License) are managed by the core framework. Create custom licenses below that officers can grant or revoke from citizen profiles.</span>
+			<span class="info-text">Las licencias estatales (Licencia de Conducir, Licencia de Armas) se gestionan a través del framework principal. Crea licencias personalizadas debajo que los oficiales puedan otorgar o revocar desde perfiles de ciudadanos.</span>
 		</div>
 	</div>
 
 	<div class="form-section">
 		<div class="form-row">
-			<input class="form-input name-input" type="text" placeholder="License name..." bind:value={formName} maxlength="50" />
-			<input class="form-input desc-input" type="text" placeholder="Description (optional)..." bind:value={formDesc} maxlength="150" />
+			<input class="form-input name-input" type="text" placeholder="Nombre de la licencia..." bind:value={formName} maxlength="50" />
+			<input class="form-input desc-input" type="text" placeholder="Descripción (opcional)..." bind:value={formDesc} maxlength="150" />
 			<div class="form-actions">
 				{#if editingId}
-					<button class="btn-save" onclick={handleSave} disabled={isSubmitting}>Update</button>
-					<button class="btn-cancel" onclick={resetForm}>Cancel</button>
+					<button class="btn-save" onclick={handleSave} disabled={isSubmitting}>Actualizar</button>
+					<button class="btn-cancel" onclick={resetForm}>Cancelar</button>
 				{:else}
 					<button class="btn-create" onclick={handleSave} disabled={!formName.trim() || isSubmitting}>
-						{isSubmitting ? "..." : "+ Add"}
+						{isSubmitting ? "..." : "+ Añadir"}
 					</button>
 				{/if}
 			</div>
@@ -156,7 +156,7 @@
 	{#if isLoading}
 		<div class="empty-state">
 			<div class="loading-spinner"></div>
-			<p>Loading licenses...</p>
+			<p>Cargando licencias...</p>
 		</div>
 	{:else}
 		<div class="licenses-list">
@@ -164,18 +164,18 @@
 			<div class="license-row state">
 				<span class="material-icons row-icon">verified</span>
 				<div class="row-info">
-					<span class="row-name">Driver's License</span>
-					<span class="row-desc">State-issued license for operating motor vehicles</span>
+					<span class="row-name">Licencia de Conducir</span>
+					<span class="row-desc">Licencia emitida por el estado para operar vehículos motorizados</span>
 				</div>
-				<span class="row-badge state-badge">STATE</span>
+				<span class="row-badge state-badge">ESTADO</span>
 			</div>
 			<div class="license-row state">
 				<span class="material-icons row-icon">verified</span>
 				<div class="row-info">
-					<span class="row-name">Weapon License</span>
-					<span class="row-desc">State-issued license for carrying firearms</span>
+					<span class="row-name">Licencia de Armas</span>
+					<span class="row-desc">Licencia emitida por el estado para portar armas de fuego</span>
 				</div>
-				<span class="row-badge state-badge">STATE</span>
+				<span class="row-badge state-badge">ESTADO</span>
 			</div>
 
 			<!-- Custom licenses -->
@@ -188,12 +188,12 @@
 							<span class="row-desc">{license.description}</span>
 						{/if}
 					</div>
-					<span class="row-badge custom-badge">CUSTOM</span>
+					<span class="row-badge custom-badge">PERSONALIZADO</span>
 					<div class="row-actions">
-						<button class="action-btn edit-btn" onclick={() => startEdit(license)} title="Edit">
+						<button class="action-btn edit-btn" onclick={() => startEdit(license)} title="Editar">
 							<span class="material-icons">edit</span>
 						</button>
-						<button class="action-btn delete-btn" onclick={() => handleDelete(license)} title="Delete">
+						<button class="action-btn delete-btn" onclick={() => handleDelete(license)} title="Eliminar">
 							<span class="material-icons">delete</span>
 						</button>
 					</div>
@@ -201,7 +201,7 @@
 			{/each}
 
 			{#if licenses.length === 0}
-				<div class="empty-state">No custom licenses configured. Add one above.</div>
+				<div class="empty-state">Sin licencias personalizadas configuradas. Añade una arriba.</div>
 			{/if}
 		</div>
 	{/if}

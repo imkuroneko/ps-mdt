@@ -32,7 +32,7 @@
 			);
 			bulletins = Array.isArray(response) ? response : [];
 		} catch (error) {
-			console.error("Failed to load bulletins:", error);
+			console.error("Error al cargar boletines:", error);
 			bulletins = [];
 		} finally {
 			isLoading = false;
@@ -76,16 +76,16 @@
 				{ success: false },
 			);
 			if (result && result.success) {
-				showStatus("Bulletin posted");
+				showStatus("Boletín publicado");
 				newTitle = "";
 				newContent = "";
 				await loadBulletins();
 			} else {
-				showStatus(result?.message || "Failed to post bulletin", "error");
+				showStatus(result?.message || "Error al publicar boletín", "error");
 			}
 		} catch (error) {
-			console.error("Failed to create bulletin:", error);
-			showStatus("Failed to post bulletin", "error");
+			console.error("Error al crear boletín:", error);
+			showStatus("Error al publicar boletín", "error");
 		} finally {
 			isSubmitting = false;
 		}
@@ -104,23 +104,23 @@
 				{ success: false },
 			);
 			if (result && result.success) {
-				showStatus("Bulletin deleted");
+				showStatus("Boletín eliminado");
 				await loadBulletins();
 			} else {
-				showStatus(result?.message || "Failed to delete bulletin", "error");
+				showStatus(result?.message || "Error al eliminar boletín", "error");
 			}
 		} catch (error) {
-			console.error("Failed to delete bulletin:", error);
-			showStatus("Failed to delete bulletin", "error");
+			console.error("Error al eliminar boletín:", error);
+			showStatus("Error al eliminar boletín", "error");
 		}
 	}
 
 	onMount(() => {
 		if (isEnvBrowser()) {
 			bulletins = [
-				{ id: 1, content: "TRAINING: FTO certification renewal is due by end of month. Contact Lt. Park to schedule your assessment." },
-				{ id: 2, content: "BOLO REMINDER: Black Kuruma from the Pacific Standard robbery is still outstanding. If spotted, do NOT engage alone." },
-				{ id: 3, content: "Radio channel 3 is now reserved for tactical operations. Please update your radios before next shift." },
+				{ id: 1, content: "CAPACITACIÓN: Renovación de certificación FTO vence a fin de mes. Contacta al Lt. Park para programar tu evaluación." },
+				{ id: 2, content: "RECORDATORIO BOLO: Kuruma negra del robo del Estándar del Pacífico sigue reportado. Si se avista, NO te enfrentes solo." },
+				{ id: 3, content: "Canal 3 ahora reservado para operaciones tácticas. Por favor, actualiza tus radios antes del próximo turno." },
 			];
 			return;
 		}
@@ -140,12 +140,12 @@
 			<input
 				class="bulletin-title-input"
 				type="text"
-				placeholder="Title (e.g. TRAINING, BOLO REMINDER)"
+				placeholder="Título (ej. CAPACITACIÓN, RECORDATORIO BOLO)"
 				bind:value={newTitle}
 			/>
 			<textarea
 				class="bulletin-input"
-				placeholder="Write a bulletin..."
+				placeholder="Escribe un boletín..."
 				rows="2"
 				bind:value={newContent}
 			></textarea>
@@ -155,14 +155,14 @@
 			onclick={handleSubmit}
 			disabled={(!newContent.trim() && !newTitle.trim()) || isSubmitting}
 		>
-			{isSubmitting ? "Posting..." : "Post"}
+			{isSubmitting ? "Publicando..." : "Publicar"}
 		</button>
 	</div>
 
 	{#if isLoading}
 		<div class="empty-state">
 			<div class="loading-spinner"></div>
-			<p>Loading bulletins...</p>
+			<p>Cargando boletines...</p>
 		</div>
 	{:else}
 		<div class="bulletins-list">
@@ -181,14 +181,14 @@
 						<button
 							class="delete-btn"
 							onclick={() => deleteBulletin(bulletin.id)}
-							aria-label="Delete bulletin"
+							aria-label="Eliminar boletín"
 						>
 							<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 						</button>
 					{/if}
 				</div>
 			{:else}
-				<div class="empty-state">No bulletins posted.</div>
+				<div class="empty-state">Sin boletines publicados.</div>
 			{/each}
 		</div>
 	{/if}

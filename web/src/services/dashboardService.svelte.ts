@@ -8,14 +8,14 @@ import type { DashboardData } from "../interfaces/IDashboard";
 export function createDashboardService() {
 	// State initialization with default values
 	const defaultState = {
-		jobInfo: { rank: "Loading...", payRate: "$0/hr" },
+		jobInfo: { rank: "Cargando...", payRate: "$0/hr" },
 		reportsInfo: { totalThisWeek: 0, changeFromLastWeek: 0 },
 		weeklyTimeData: [] as Array<{ day: string; hours: number }>,
 		activeWarrants: [] as DashboardData["activeWarrants"],
 		recentReports: [] as DashboardData["recentReports"],
 		activeBolos: [] as DashboardData["activeBolos"],
 		bulletins: [
-			{ id: 1, content: "Loading..." },
+			{ id: 1, content: "Cargando..." },
 		] as DashboardData["bulletins"],
 		activeUnits: { count: 0 },
 		recentDispatches: [] as DashboardData["recentDispatches"],
@@ -61,8 +61,8 @@ export function createDashboardService() {
 
 	let bulletinContent = $derived(
 		bulletins && bulletins.length > 0
-			? bulletins[currentBulletinIndex]?.content || "Loading bulletins..."
-			: "Loading bulletins...",
+			? bulletins[currentBulletinIndex]?.content || "Cargando boletines..."
+			: "Cargando boletines...",
 	);
 
 	// Carousel functions
@@ -136,7 +136,7 @@ export function createDashboardService() {
 		if (
 			bulletins &&
 			bulletins.length > 1 &&
-			bulletins[0].content !== "Loading..."
+			bulletins[0].content !== "Cargando..."
 		) {
 			startCarouselTimer();
 		}

@@ -40,7 +40,7 @@
 				};
 			}
 		} catch (error) {
-			console.error("Failed to load jail/fines config:", error);
+			console.error("Error al cargar configuración de cárcel/multas:", error);
 		} finally {
 			isLoading = false;
 		}
@@ -48,7 +48,7 @@
 
 	async function saveConfig() {
 		if (isEnvBrowser()) {
-			showStatus("Settings saved");
+			showStatus("Configuración guardada");
 			return;
 		}
 		try {
@@ -59,13 +59,13 @@
 				{ success: false },
 			);
 			if (result?.success) {
-				showStatus("Jail & Fines settings saved");
+				showStatus("Configuración de Cárcel y Multas guardada");
 			} else {
-				showStatus(result?.message || "Failed to save settings", "error");
+				showStatus(result?.message || "Error al guardar la configuración", "error");
 			}
 		} catch (error) {
-			console.error("Failed to save jail/fines config:", error);
-			showStatus("Failed to save settings", "error");
+			console.error("Error al guardar configuración de cárcel/multas:", error);
+			showStatus("Error al guardar la configuración", "error");
 		} finally {
 			isSaving = false;
 		}
@@ -74,11 +74,11 @@
 	function addOffer() {
 		const val = parseInt(newOfferValue, 10);
 		if (!val || val < 1 || val > 100) {
-			showStatus("Enter a value between 1 and 100", "error");
+			showStatus("Ingresa un valor entre 1 y 100", "error");
 			return;
 		}
 		if (config.reductionOffers.includes(val)) {
-			showStatus("That percentage already exists", "error");
+			showStatus("Ese porcentaje ya existe", "error");
 			return;
 		}
 		config.reductionOffers = [...config.reductionOffers, val].sort((a, b) => a - b);
@@ -103,67 +103,67 @@
 
 <div class="jf-page">
 	<div class="jf-card">
-		<span class="card-label">Jail & Fines Configuration</span>
-		<p class="card-subtitle">Configure reduction offers and fine limits. Changes apply department-wide.</p>
+		<span class="card-label">Configuración de Cárcel y Multas</span>
+		<p class="card-subtitle">Configura ofertas de reducción y límites de multas. Los cambios se aplican en todo el departamento.</p>
 
 		{#if isLoading}
 			<div class="jf-loading">
 				<div class="loading-spinner"></div>
-				<p>Loading settings...</p>
+				<p>Cargando configuración...</p>
 			</div>
 		{:else}
 			<div class="jf-scroll">
 				<!-- Reduction Offers -->
 				<div class="setting-group">
 					<div class="setting-group-header">
-						<span class="group-label">Reduction Offers</span>
-						<span class="group-desc">Percentage options shown when offering a reduction on charges</span>
-					</div>
+						<span class="group-label">Ofertas de Reducción</span>
+						<span class="group-desc">Opciones de porcentaje mostradas al ofrecer una reducción en cargos</span>
 
-					<div class="offers-list">
-						{#each config.reductionOffers as offer}
-							<div class="offer-chip">
-								<span class="offer-value">{offer}%</span>
-								<button class="offer-remove" onclick={() => removeOffer(offer)} aria-label="Remove {offer}%">
-									<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-								</button>
-							</div>
-						{/each}
-						{#if config.reductionOffers.length === 0}
-							<span class="no-offers">No reduction offers configured</span>
-						{/if}
-					</div>
+						<div class="offers-list">
+							{#each config.reductionOffers as offer}
+								<div class="offer-chip">
+									<span class="offer-value">{offer}%</span>
+									<button class="offer-remove" onclick={() => removeOffer(offer)} aria-label="Eliminar {offer}%">
+										<svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+									</button>
+								</div>
+							{/each}
+							{#if config.reductionOffers.length === 0}
+								<span class="no-offers">Sin ofertas de reducción configuradas</span>
+							{/if}
+						</div>
 
-					<div class="add-offer-row">
-						<input
-							type="number"
-							class="offer-input"
-							placeholder="e.g. 25"
-							min="1"
-							max="100"
-							bind:value={newOfferValue}
-							onkeydown={handleOfferKeydown}
-						/>
-						<span class="offer-input-suffix">%</span>
-						<button class="add-offer-btn" onclick={addOffer}>Add</button>
+						<div class="add-offer-row">
+							<input
+								type="number"
+								class="offer-input"
+								placeholder="ej. 25"
+								min="1"
+								max="100"
+								bind:value={newOfferValue}
+								onkeydown={handleOfferKeydown}
+							/>
+							<span class="offer-input-suffix">%</span>
+							<button class="add-offer-btn" onclick={addOffer}>Añadir</button>
+						</div>
 					</div>
 				</div>
 
 				<!-- Max Fine Amount -->
 				<div class="setting-group">
 					<div class="setting-group-header">
-						<span class="group-label">Maximum Fine Amount</span>
-						<span class="group-desc">The highest fine amount that can be processed through the MDT</span>
-					</div>
+						<span class="group-label">Cantidad Máxima de Multa</span>
+						<span class="group-desc">La cantidad de multa más alta que se puede procesar a través del MDT</span>
 
-					<div class="fine-input-row">
-						<span class="fine-prefix">$</span>
-						<input
-							type="number"
-							class="fine-input"
-							min="0"
-							bind:value={config.maxFineAmount}
-						/>
+						<div class="fine-input-row">
+							<span class="fine-prefix">$</span>
+							<input
+								type="number"
+								class="fine-input"
+								min="0"
+								bind:value={config.maxFineAmount}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -174,7 +174,7 @@
 		<div class="save-bar">
 			<button class="btn-save" onclick={saveConfig} disabled={isSaving}>
 				<span class="material-icons btn-save-icon">save</span>
-				{isSaving ? "Saving..." : "Save Settings"}
+			{isSaving ? "Guardando..." : "Guardar Configuración"}
 			</button>
 			{#if statusMsg}
 				<span class="save-status {statusMsg.type}">{statusMsg.text}</span>

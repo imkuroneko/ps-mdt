@@ -28,7 +28,7 @@ export function createEditorService() {
 		onUpdate?: (content: string) => void,
 	): Editor | null {
 		if (!element) {
-			console.warn("Editor element not available yet");
+			console.warn("Elemento del editor no disponible aún");
 			return null;
 		}
 

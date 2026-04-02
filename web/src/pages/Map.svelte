@@ -107,7 +107,7 @@
 				for (const vehicle of (data as any).vehicles || []) {
 					const coords = normalizeCoords((vehicle as any).coords);
 					if (!coords) continue;
-					const label = `Vehicle ${(vehicle as any).plate || ""}`.trim();
+					const label = `Vehículo ${(vehicle as any).plate || ""}`.trim();
 					createMarker("vehicle", coords, label).addTo(vehicleLayer);
 				}
 			}
@@ -253,16 +253,16 @@
 <div class="map-page">
 	<div class="map-wrapper">
 		<div class="map-controls">
-			<span class="controls-header">Tracking</span>
+			<span class="controls-header">Rastreo</span>
 
 			<div class="controls-group">
 				<label class="control-toggle">
 					<input type="checkbox" bind:checked={showOfficers} />
-					<span class="toggle-label">Officers</span>
+					<span class="toggle-label">Oficiales</span>
 				</label>
 				<label class="control-toggle">
 					<input type="checkbox" bind:checked={showVehicles} />
-					<span class="toggle-label">Vehicles</span>
+					<span class="toggle-label">Vehículos</span>
 				</label>
 				<label class="control-toggle">
 					<input type="checkbox" bind:checked={showBodycams} />
@@ -280,7 +280,7 @@
 						onclick={() => (iconStyle = "dot")}
 						type="button"
 					>
-						Dots
+						Puntos
 					</button>
 					<button
 						class:active={iconStyle === "badge"}
@@ -295,8 +295,8 @@
 			<div class="controls-divider"></div>
 
 			<div class="legend">
-				<span class="legend-item officer">Officer</span>
-				<span class="legend-item vehicle">Vehicle</span>
+				<span class="legend-item officer">Oficial</span>
+				<span class="legend-item vehicle">Vehículo</span>
 				<span class="legend-item bodycam">Bodycam</span>
 			</div>
 		</div>

@@ -20,7 +20,7 @@ export function validateTagInput(tag: string): {
 		return {
 			isValid: false,
 			sanitized: "",
-			message: "Tag must be a non-empty string",
+			message: "La etiqueta debe ser una cadena no vacía",
 		};
 	}
 
@@ -31,7 +31,7 @@ export function validateTagInput(tag: string): {
 		return {
 			isValid: false,
 			sanitized: "",
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 
@@ -42,7 +42,7 @@ export function validateTagInput(tag: string): {
 				0,
 				SECURITY_CONFIG.MAX_INSTANCE_NAME_LENGTH,
 			),
-			message: "Input too long",
+			message: "Entrada demasiado larga",
 		};
 	}
 
@@ -51,7 +51,7 @@ export function validateTagInput(tag: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed,
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 
@@ -60,7 +60,7 @@ export function validateTagInput(tag: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed,
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 
@@ -79,7 +79,7 @@ export function validateReportTitle(title: string): {
 		return {
 			isValid: false,
 			sanitized: "",
-			message: "Title must be a non-empty string",
+			message: "El título debe ser una cadena no vacía",
 		};
 	}
 
@@ -92,7 +92,7 @@ export function validateReportTitle(title: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed.substring(0, MAX_TITLE_LENGTH),
-			message: `Input too long`,
+			message: `Entrada demasiado larga`,
 		};
 	}
 
@@ -101,7 +101,7 @@ export function validateReportTitle(title: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed,
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 
@@ -129,7 +129,7 @@ export function validateSearchQuery(query: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed.substring(0, MAX_SEARCH_LENGTH),
-			message: `Input too long`,
+			message: `Entrada demasiado larga`,
 		};
 	}
 
@@ -138,7 +138,7 @@ export function validateSearchQuery(query: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed,
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 
@@ -166,7 +166,7 @@ export function validateNotesInput(notes: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed.substring(0, MAX_NOTES_LENGTH),
-			message: `Input too long`,
+			message: `Entrada demasiado larga`,
 		};
 	}
 
@@ -175,7 +175,7 @@ export function validateNotesInput(notes: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed,
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 
@@ -203,7 +203,7 @@ export function validateSerialNumber(serial: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed.substring(0, MAX_SERIAL_LENGTH),
-			message: `Input too long`,
+			message: `Entrada demasiado larga`,
 		};
 	}
 
@@ -212,7 +212,7 @@ export function validateSerialNumber(serial: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed,
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 
@@ -221,7 +221,7 @@ export function validateSerialNumber(serial: string): {
 		return {
 			isValid: false,
 			sanitized: trimmed,
-			message: "Invalid input",
+			message: "Entrada inválida",
 		};
 	}
 

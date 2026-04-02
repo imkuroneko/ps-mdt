@@ -23,46 +23,46 @@
 	}
 
 	const ACTION_LABELS: Record<string, string> = {
-		mdt_login: "Logged into MDT",
-		mdt_logout: "Logged out of MDT",
-		report_created: "Created a report",
-		report_updated: "Updated a report",
-		report_deleted: "Deleted a report",
-		warrant_issued: "Issued a warrant",
-		warrant_closed: "Closed a warrant",
-		case_created: "Created a case",
-		case_updated: "Updated a case",
-		case_deleted: "Deleted a case",
-		case_officer_assigned: "Assigned officer to case",
-		case_officer_removed: "Removed officer from case",
-		case_attachment_added: "Added case attachment",
-		case_attachment_removed: "Removed case attachment",
-		case_attachment_uploaded: "Uploaded case attachment",
-		evidence_added: "Added evidence",
-		evidence_updated: "Updated evidence",
-		evidence_deleted: "Deleted evidence",
-		evidence_transferred: "Transferred evidence custody",
-		evidence_image_added: "Added evidence image",
-		evidence_image_removed: "Removed evidence image",
-		evidence_linked_case: "Linked evidence to case",
-		case_created_from_evidence: "Created case from evidence",
-		weapon_created: "Registered a weapon",
-		weapon_updated: "Updated weapon record",
-		weapon_deleted: "Deleted weapon record",
-		vehicle_updated: "Updated vehicle record",
-		vehicle_impounded: "Impounded a vehicle",
-		vehicle_released: "Released vehicle from impound",
-		search_citizens: "Searched citizens",
-		search_players: "Searched players",
-		search_officers: "Searched officers",
-		fine_processed: "Processed a fine",
-		charge_updated: "Updated a charge",
-		arrest_logged: "Logged an arrest",
-		sent_to_jail: "Sent citizen to jail",
-		callsign_changed: "Changed officer callsign",
-		signal100_activated: "Activated Signal 100",
-		signal100_deactivated: "Deactivated Signal 100",
-		icu_deleted: "Deleted ICU record",
+		mdt_login: "Inició sesión en MDT",
+		mdt_logout: "Cerró sesión en MDT",
+		report_created: "Creó un reporte",
+		report_updated: "Actualizó un reporte",
+		report_deleted: "Eliminó un reporte",
+		warrant_issued: "Emitió una orden judicial",
+		warrant_closed: "Cerró una orden judicial",
+		case_created: "Creó un caso",
+		case_updated: "Actualizó un caso",
+		case_deleted: "Eliminó un caso",
+		case_officer_assigned: "Asignó oficial al caso",
+		case_officer_removed: "Removió oficial del caso",
+		case_attachment_added: "Añadió archivo al caso",
+		case_attachment_removed: "Removió archivo del caso",
+		case_attachment_uploaded: "Subió archivo del caso",
+		evidence_added: "Añadió evidencia",
+		evidence_updated: "Actualizó evidencia",
+		evidence_deleted: "Eliminó evidencia",
+		evidence_transferred: "Transfirió custodia de evidencia",
+		evidence_image_added: "Añadió imagen de evidencia",
+		evidence_image_removed: "Removió imagen de evidencia",
+		evidence_linked_case: "Vinculó evidencia a caso",
+		case_created_from_evidence: "Creó caso desde evidencia",
+		weapon_created: "Registró un arma",
+		weapon_updated: "Actualizó registro de arma",
+		weapon_deleted: "Eliminó registro de arma",
+		vehicle_updated: "Actualizó registro de vehículo",
+		vehicle_impounded: "Confiscó un vehículo",
+		vehicle_released: "Liberó vehículo del depósito",
+		search_citizens: "Buscó ciudadanos",
+		search_players: "Buscó jugadores",
+		search_officers: "Buscó oficiales",
+		fine_processed: "Procesó una multa",
+		charge_updated: "Actualizó un cargo",
+		arrest_logged: "Registró un arresto",
+		sent_to_jail: "Envió ciudadano a cárcel",
+		callsign_changed: "Cambió indicativo del oficial",
+		signal100_activated: "Activó Señal 100",
+		signal100_deactivated: "Desactivó Señal 100",
+		icu_deleted: "Eliminó registro de UCI",
 	};
 
 	const ACTION_ICONS: Record<string, { icon: string; color: string }> = {
@@ -106,41 +106,41 @@
 	function getEntityLabel(log: AuditLog): string {
 		if (!log.entity_id) return "";
 		const typeLabels: Record<string, string> = {
-			profile: "Profile",
-			report: "Report",
-			warrant: "Warrant",
-			case: "Case",
-			evidence: "Evidence",
-			vehicle: "Vehicle",
-			weapon: "Weapon",
-			citizen: "Citizen",
+			profile: "Perfil",
+			report: "Reporte",
+			warrant: "Orden Judicial",
+			case: "Caso",
+			evidence: "Evidencia",
+			vehicle: "Vehículo",
+			weapon: "Arma",
+			citizen: "Ciudadano",
 			search: "",
-			dispatch: "Channel",
-			fine: "Fine",
-			charge: "Charge",
-			arrest: "Arrest",
-			icu: "ICU",
-			case_attachment: "Attachment",
-			evidence_image: "Image",
-			officer: "Officer",
+			dispatch: "Canal",
+			fine: "Multa",
+			charge: "Cargo",
+			arrest: "Arresto",
+			icu: "UCI",
+			case_attachment: "Archivo",
+			evidence_image: "Imagen",
+			officer: "Oficial",
 		};
 		const label = typeLabels[log.entity_type] || log.entity_type;
 		return label ? `${label} #${log.entity_id}` : `#${log.entity_id}`;
 	}
 
 	function formatTimestamp(value: string): string {
-		if (!value) return "Unknown";
+		if (!value) return "Desconocido";
 		const date = new Date(value);
 		if (Number.isNaN(date.getTime())) return value;
 		const now = new Date();
 		const diff = now.getTime() - date.getTime();
 		const mins = Math.floor(diff / 60000);
-		if (mins < 1) return "Just now";
-		if (mins < 60) return `${mins}m ago`;
+		if (mins < 1) return "Justo ahora";
+		if (mins < 60) return `hace ${mins}m`;
 		const hours = Math.floor(mins / 60);
-		if (hours < 24) return `${hours}h ago`;
+		if (hours < 24) return `hace ${hours}h`;
 		const days = Math.floor(hours / 24);
-		if (days < 7) return `${days}d ago`;
+		if (days < 7) return `hace ${days}d`;
 		return date.toLocaleDateString() + " " + date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 	}
 
@@ -173,7 +173,7 @@
 				totalItems = 0;
 			}
 		} catch (error) {
-			console.error("Failed to load activity:", error);
+			console.error("Error al cargar actividad:", error);
 			activities = [];
 			totalItems = 0;
 		} finally {
@@ -200,11 +200,11 @@
 	onMount(() => {
 		if (isEnvBrowser()) {
 			activities = [
-				{ id: 1, actor_name: "D2020 Sgt. J. Miller", action: "report_created", entity_type: "report", entity_id: "RPT-001", details: null, created_at: new Date(Date.now() - 300000).toISOString() },
-				{ id: 2, actor_name: "D2020 Det. R. Santos", action: "warrant_issued", entity_type: "warrant", entity_id: "5", details: null, created_at: new Date(Date.now() - 3600000).toISOString() },
-				{ id: 3, actor_name: "D2020 Ofc. K. Chen", action: "case_created", entity_type: "case", entity_id: "42", details: null, created_at: new Date(Date.now() - 7200000).toISOString() },
-				{ id: 4, actor_name: "D2020 Lt. A. Brooks", action: "mdt_login", entity_type: "profile", entity_id: "BVX67053", details: null, created_at: new Date(Date.now() - 86400000).toISOString() },
-				{ id: 5, actor_name: "D2020 Ofc. M. Torres", action: "evidence_added", entity_type: "evidence", entity_id: "12", details: null, created_at: new Date(Date.now() - 172800000).toISOString() },
+				{ id: 1, actor_name: "D2020 Sgt. J. Miller", action: "report_created", entity_type: "report", entity_id: "RPT-001", details: null, created_at: new Date(Date.now() - 300000).toISOString(), },
+				{ id: 2, actor_name: "D2020 Det. R. Santos", action: "warrant_issued", entity_type: "warrant", entity_id: "5", details: null, created_at: new Date(Date.now() - 3600000).toISOString(), },
+				{ id: 3, actor_name: "D2020 Ofc. K. Chen", action: "case_created", entity_type: "case", entity_id: "42", details: null, created_at: new Date(Date.now() - 7200000).toISOString(), },
+				{ id: 4, actor_name: "D2020 Lt. A. Brooks", action: "mdt_login", entity_type: "profile", entity_id: "BVX67053", details: null, created_at: new Date(Date.now() - 86400000).toISOString(), },
+				{ id: 5, actor_name: "D2020 Ofc. M. Torres", action: "evidence_added", entity_type: "evidence", entity_id: "12", details: null, created_at: new Date(Date.now() - 172800000).toISOString(), },
 			];
 			totalItems = 5;
 			return;
@@ -217,18 +217,18 @@
 	<div class="activity-topbar">
 		<input
 			type="text"
-			placeholder="Search activity..."
+			placeholder="Buscar actividad..."
 			value={searchQuery}
 			oninput={handleSearch}
 			class="search-input"
 		/>
-		<span class="result-count">{totalItems} entries</span>
+			<span class="result-count">{totalItems} registros</span>
 	</div>
 
 	{#if isLoading}
 		<div class="empty-state">
 			<div class="loading-spinner"></div>
-			<p>Loading activity...</p>
+				<p>Cargando...</p>
 		</div>
 	{:else}
 		<div class="activity-list">
@@ -245,13 +245,13 @@
 						{/if}
 					</div>
 					<div class="activity-meta">
-						<span class="activity-officer">{log.actor_name || "Unknown"}</span>
+						<span class="activity-officer">{log.actor_name || "Desconocido"}</span>
 						<span class="activity-time" title={formatFullTimestamp(log.created_at)}>{formatTimestamp(log.created_at)}</span>
 					</div>
 				</div>
 			{:else}
 				<div class="empty-state">
-					{searchQuery ? "No results matching your search." : "No recent activity."}
+					{searchQuery ? "Sin resultados." : "Sin actividad."}
 				</div>
 			{/each}
 		</div>

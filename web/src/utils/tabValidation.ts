@@ -121,7 +121,7 @@ export function validateInstanceArray(instances: any[]): TabInstance[] {
 
 	const validInstances = instances.filter((instance: any) => {
 		if (!isValidInstance(instance)) {
-			console.warn("MDT: Found invalid instance data in localStorage");
+			console.warn("MDT: Se encontraron datos de instancia inválidos en localStorage");
 			return false;
 		}
 		return true;
@@ -129,7 +129,7 @@ export function validateInstanceArray(instances: any[]): TabInstance[] {
 
 	if (validInstances.length !== instances.length) {
 		console.warn(
-			"MDT: Some saved instances were corrupted and have been removed",
+			"MDT: Algunas instancias guardadas estaban corruptas y han sido eliminadas",
 		);
 	}
 
@@ -138,7 +138,7 @@ export function validateInstanceArray(instances: any[]): TabInstance[] {
 		(instance) => instance.isActive,
 	);
 	if (activeInstances.length !== 1) {
-		console.warn("MDT: Fixed invalid active instance state");
+		console.warn("MDT: Se corrigió el estado de instancia activa inválido");
 		validInstances.forEach((instance, index) => {
 			instance.isActive = index === 0; // Make first instance active
 		});
@@ -165,7 +165,7 @@ export function loadInstancesFromStorage(): TabInstance[] {
 		const parsed = JSON.parse(savedTabs);
 		if (!Array.isArray(parsed)) {
 			console.warn(
-				"MDT: Invalid localStorage data format, resetting instances",
+				"MDT: Formato de datos en localStorage inválido, reiniciando instancias",
 			);
 			localStorage.removeItem("mdt-tab-instances"); // Clean up
 			return [];
@@ -173,7 +173,7 @@ export function loadInstancesFromStorage(): TabInstance[] {
 
 		return validateInstanceArray(parsed);
 	} catch (error) {
-		console.error("MDT: Failed to load saved instances:", error);
+		console.error("MDT: Error al cargar instancias guardadas:", error);
 		// Clean up potentially corrupted data
 		try {
 			localStorage.removeItem("mdt-tab-instances");
@@ -196,7 +196,7 @@ export function saveInstancesToStorage(instances: TabInstance[]): void {
 		// Filter out any invalid instances before saving
 		const validInstances = instances.filter((instance) => {
 			if (!isValidInstance(instance)) {
-				console.warn("MDT: Skipping invalid instance during save");
+				console.warn("MDT: Omitiendo instancia inválida al guardar");
 				return false;
 			}
 			return true;
@@ -211,7 +211,7 @@ export function saveInstancesToStorage(instances: TabInstance[]): void {
 
 		localStorage.setItem("mdt-tab-instances", serialized);
 	} catch (error) {
-		console.error("MDT: Failed to save instances:", error);
+		console.error("MDT: Error al guardar instancias:", error);
 
 		// Check if it's a quota exceeded error
 		if (
@@ -219,7 +219,7 @@ export function saveInstancesToStorage(instances: TabInstance[]): void {
 			error.name === "QuotaExceededError"
 		) {
 			console.error(
-				"MDT: localStorage quota exceeded - try clearing browser data",
+				"MDT: Cuota de localStorage superada - intenta limpiar los datos del navegador",
 			);
 		}
 	}

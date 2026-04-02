@@ -83,10 +83,10 @@ export function createAuthService() {
 
 	function getAuthErrorMessage(authorized: boolean, isLEO: boolean): string {
 		if (!authorized && isLEO) {
-			return "You must be on duty to access the MDT system.";
+			return "Debes estar de servicio para acceder al sistema MDT";
 		}
 		if (!isLEO) {
-			return "Access Denied: Authorized Personnel Only";
+			return "Acceso Denegado: Solo Personal Autorizado";
 		}
 		return "";
 	}
@@ -94,7 +94,7 @@ export function createAuthService() {
 	function processAuthData(data: AuthUpdateData): void {
 		if (!data.playerData) {
 			isAuthorized = false;
-			authError = "Failed to load player data.";
+			authError = "Inconveniente al cargar los datos del jugador";
 			return;
 		}
 
@@ -143,8 +143,8 @@ export function createAuthService() {
 			);
 			processAuthData(response);
 		} catch (error) {
-			debugError("Auth check failed:", error);
-			authError = "Failed to verify authorization.";
+			debugError("Inconveniente al verificar la autorización:", error);
+			authError = "No se pudo verificar la autorización";
 			isAuthorized = false;
 		} finally {
 			isCheckingAuth = false;
@@ -219,7 +219,7 @@ export function createAuthService() {
 			permissions = response?.permissions || [];
 			isBoss = response?.isBoss || false;
 		} catch (error) {
-			debugError("Failed to load permissions:", error);
+			debugError("Inconveniente al cargar los permisos:", error);
 			// On failure, default to no permissions (safe)
 			permissions = [];
 			isBoss = false;
@@ -256,7 +256,7 @@ export function createAuthService() {
 
 			await fetchNui(NUI_EVENTS.AUTH.GO_ON_DUTY);
 		} catch (error) {
-			debugError("Failed to go on duty:", error);
+			debugError("Inconveniente al ponerse de servicio:", error);
 			// Don't manipulate loading screen here - let auth updates handle UI state
 		}
 	}
@@ -267,7 +267,7 @@ export function createAuthService() {
 			clearLoadingTimeout();
 			fetchNui(NUI_EVENTS.AUTH.SIGN_OUT);
 		} catch (error) {
-			debugError("Failed to sign out:", error);
+			debugError("Inconveniente al cerrar sesión:", error);
 		}
 	}
 

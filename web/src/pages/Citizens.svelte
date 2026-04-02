@@ -624,7 +624,7 @@
 			<div class="profile-topbar">
 				<button class="back-btn" onclick={closeProfile}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-					Back
+					Atrás
 				</button>
 				<div class="profile-identity">
 					<span class="profile-name">{selectedProfile.firstName} {selectedProfile.lastName}</span>
@@ -641,16 +641,16 @@
 					</div>
 				{/if}
 				{#if copyNotice}
-					<div class="copy-toast">{copyNotice} copied</div>
+					<div class="copy-toast">{copyNotice} copiado</div>
 				{/if}
 			</div>
 
 			<!-- Stats row -->
 			<div class="pstats-row">
-				<div class="pstat"><span class="pstat-val">{selectedProfile.properties}</span><span class="pstat-lbl">Properties</span></div>
-				<div class="pstat"><span class="pstat-val">{selectedProfile.vehicles}</span><span class="pstat-lbl">Vehicles</span></div>
-				<div class="pstat"><span class="pstat-val accent-red">{selectedProfile.arrests}</span><span class="pstat-lbl">Arrests</span></div>
-				<div class="pstat"><span class="pstat-val">{selectedProfile.occupations.length}</span><span class="pstat-lbl">Jobs</span></div>
+				<div class="pstat"><span class="pstat-val">{selectedProfile.properties}</span><span class="pstat-lbl">Propiedades</span></div>
+				<div class="pstat"><span class="pstat-val">{selectedProfile.vehicles}</span><span class="pstat-lbl">Vehículos</span></div>
+				<div class="pstat"><span class="pstat-val accent-red">{selectedProfile.arrests}</span><span class="pstat-lbl">Arrestos</span></div>
+				<div class="pstat"><span class="pstat-val">{selectedProfile.occupations.length}</span><span class="pstat-lbl">Trabajos</span></div>
 			</div>
 
 			<!-- Body -->
@@ -665,24 +665,24 @@
 							{:else}
 								<div class="no-photo-placeholder">
 									<svg width="40" height="40" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-									<span>No Photo</span>
+									<span>Sin Foto</span>
 								</div>
 							{/if}
 						</div>
 						{#if !isEMS}
 						<div class="profile-photo-actions">
-							<button class="photo-action-btn" onclick={openCitizenPhotoUpload} title="Upload photo" disabled={uploading}>
+							<button class="photo-action-btn" onclick={openCitizenPhotoUpload} title="Subir foto" disabled={uploading}>
 								{#if uploading}
 									<div class="upload-spinner"></div>
-									Uploading...
+									Subiendo...
 								{:else}
 									<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-									Upload
+									Subir
 								{/if}
 							</button>
 							<button class="photo-action-btn" onclick={triggerCitizenMugshot} title="Take mugshot">
 								<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-								Take Mugshot
+								Tomar Foto
 							</button>
 						</div>
 						{/if}
@@ -690,14 +690,14 @@
 
 					<!-- Personal Details -->
 					<div class="panel detail-panel">
-						<div class="detail-row"><span class="dlabel">Gender</span><span class="dvalue">{selectedProfile.gender}</span></div>
-						<div class="detail-row"><span class="dlabel">DOB</span><span class="dvalue">{selectedProfile.dob}</span></div>
+						<div class="detail-row"><span class="dlabel">Género</span><span class="dvalue">{selectedProfile.gender}</span></div>
+						<div class="detail-row"><span class="dlabel">Fecha de Nacimiento</span><span class="dvalue">{selectedProfile.dob}</span></div>
 						<div class="detail-row">
-							<span class="dlabel">Phone</span>
-							<span class="dvalue clickable" onclick={() => copyToClipboard(selectedProfile?.phone || '', 'Phone')}>{selectedProfile.phone}</span>
+							<span class="dlabel">Teléfono</span>
+							<span class="dvalue clickable" onclick={() => copyToClipboard(selectedProfile?.phone || '', 'Teléfono')}>{selectedProfile.phone}</span>
 						</div>
 						<div class="detail-row">
-							<span class="dlabel">Fingerprint</span>
+							<span class="dlabel">Huella Dactilar</span>
 							{#if editingFingerprint}
 								<input
 									class="dna-input"
@@ -714,7 +714,7 @@
 							{/if}
 						</div>
 						<div class="detail-row">
-							<span class="dlabel">DNA</span>
+							<span class="dlabel">ADN</span>
 							{#if editingDNA}
 								<input
 									class="dna-input"
@@ -730,7 +730,7 @@
 								</span>
 							{/if}
 						</div>
-						<div class="detail-row"><span class="dlabel">Occupations</span><span class="dvalue">{formatOccupations(selectedProfile.occupations)}</span></div>
+						<div class="detail-row"><span class="dlabel">Ocupaciones</span><span class="dvalue">{formatOccupations(selectedProfile.occupations)}</span></div>
 					</div>
 
 				</div>
@@ -739,7 +739,7 @@
 				<div class="profile-main">
 					{#if selectedProfile.notes}
 						<div class="panel">
-							<div class="panel-title">Notes</div>
+							<div class="panel-title">Notas</div>
 							<div class="notes-text">{selectedProfile.notes}</div>
 						</div>
 					{/if}
@@ -754,24 +754,24 @@
 									{#each selectedProfile.activeWarrants.slice(0, 3) as w}
 										<div class="sitem sitem-danger">
 											<div class="sitem-info">
-												<span class="sitem-primary">Report #{w.reportid}</span>
-												<span class="sitem-secondary">Expires: {formatExpiryDate(w.expirydate)}</span>
+												<span class="sitem-primary">Reporte #{w.reportid}</span>
+												<span class="sitem-secondary">Expira: {formatExpiryDate(w.expirydate)}</span>
 											</div>
-											<button class="sitem-arrow" title="View Report" onclick={() => goToWarrantReport(w.reportid)}>
+											<button class="sitem-arrow" title="Ver Reporte" onclick={() => goToWarrantReport(w.reportid)}>
 												<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
 											</button>
 										</div>
 									{/each}
 									{#if selectedProfile.activeWarrants.length > 3}
-										<div class="sitem-overflow">+{selectedProfile.activeWarrants.length - 3} more warrants</div>
+										<div class="sitem-overflow">+{selectedProfile.activeWarrants.length - 3} más reportes</div>
 									{/if}
-								{:else}<div class="empty-msg">No active warrants</div>{/if}
+								{:else}<div class="empty-msg">No hay órdenes activas</div>{/if}
 							</div>
 						</div>
 
 						<!-- Active BOLOs -->
 						<div class="panel" class:panel-warning={hasActiveBolos}>
-							<div class="panel-title">Active BOLOs <span class="cnt" class:cnt-warning={hasActiveBolos}>{selectedProfile.activeBolos?.length || 0}</span></div>
+							<div class="panel-title">BOLOs Activos <span class="cnt" class:cnt-warning={hasActiveBolos}>{selectedProfile.activeBolos?.length || 0}</span></div>
 							{#if hasActiveBolos}<div class="panel-caution caution-warning">PROCEED WITH CAUTION</div>{/if}
 							<div class="section-list">
 								{#if selectedProfile.activeBolos && selectedProfile.activeBolos.length > 0}
@@ -781,20 +781,20 @@
 												<span class="sitem-primary">{b.type} BOLO</span>
 												{#if b.notes}<span class="sitem-secondary">{b.notes}</span>{/if}
 											</div>
-											<button class="sitem-arrow" title="View BOLO" onclick={() => goToBolo(b.id)}>
+											<button class="sitem-arrow" title="Ver BOLO" onclick={() => goToBolo(b.id)}>
 												<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
 											</button>
 										</div>
 									{/each}
 									{#if selectedProfile.activeBolos.length > 3}
-										<div class="sitem-overflow">+{selectedProfile.activeBolos.length - 3} more BOLOs</div>
+										<div class="sitem-overflow">+{selectedProfile.activeBolos.length - 3} BOLOs más</div>
 									{/if}
-								{:else}<div class="empty-msg">No active BOLOs</div>{/if}
+								{:else}<div class="empty-msg">No hay BOLOs activos</div>{/if}
 							</div>
 						</div>
 
 						<div class="panel">
-							<div class="panel-title">Vehicles <span class="cnt">{selectedProfile.ownedVehicles?.length || 0}</span></div>
+							<div class="panel-title">Vehículos <span class="cnt">{selectedProfile.ownedVehicles?.length || 0}</span></div>
 							<div class="section-list">
 								{#if selectedProfile.ownedVehicles && selectedProfile.ownedVehicles.length > 0}
 									{#each sectionSlice(selectedProfile.ownedVehicles, vehiclesPage) as v}
@@ -815,7 +815,7 @@
 									<button class="spager-btn" disabled={vehiclesPage <= 1} onclick={() => vehiclesPage--}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
 									</button>
-									<span class="spager-info">{vehiclesPage} / {sectionTotalPages(selectedProfile.ownedVehicles)}</span>
+									<span class="spager-info">{vehiclesPage} de {sectionTotalPages(selectedProfile.ownedVehicles)}</span>
 									<button class="spager-btn" disabled={vehiclesPage >= sectionTotalPages(selectedProfile.ownedVehicles)} onclick={() => vehiclesPage++}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
 									</button>
@@ -851,7 +851,7 @@
 									<button class="spager-btn" disabled={licensesPage <= 1} onclick={() => licensesPage--}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
 									</button>
-									<span class="spager-info">{licensesPage} / {sectionTotalPages(activeLicenses)}</span>
+									<span class="spager-info">{licensesPage} de {sectionTotalPages(activeLicenses)}</span>
 									<button class="spager-btn" disabled={licensesPage >= sectionTotalPages(activeLicenses)} onclick={() => licensesPage++}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
 									</button>
@@ -873,7 +873,7 @@
 									<button class="spager-btn" disabled={propertiesPage <= 1} onclick={() => propertiesPage--}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
 									</button>
-									<span class="spager-info">{propertiesPage} / {sectionTotalPages(selectedProfile.propertiesList)}</span>
+									<span class="spager-info">{propertiesPage} de {sectionTotalPages(selectedProfile.propertiesList)}</span>
 									<button class="spager-btn" disabled={propertiesPage >= sectionTotalPages(selectedProfile.propertiesList)} onclick={() => propertiesPage++}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
 									</button>
@@ -900,7 +900,7 @@
 									<button class="spager-btn" disabled={weaponsPage <= 1} onclick={() => weaponsPage--}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
 									</button>
-									<span class="spager-info">{weaponsPage} / {sectionTotalPages(selectedProfile.weapons)}</span>
+									<span class="spager-info">{weaponsPage} de {sectionTotalPages(selectedProfile.weapons)}</span>
 									<button class="spager-btn" disabled={weaponsPage >= sectionTotalPages(selectedProfile.weapons)} onclick={() => weaponsPage++}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
 									</button>
@@ -926,7 +926,7 @@
 									<button class="spager-btn" disabled={evidencePage <= 1} onclick={() => evidencePage--}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
 									</button>
-									<span class="spager-info">{evidencePage} / {sectionTotalPages(selectedProfile.evidence)}</span>
+									<span class="spager-info">{evidencePage} de {sectionTotalPages(selectedProfile.evidence)}</span>
 									<button class="spager-btn" disabled={evidencePage >= sectionTotalPages(selectedProfile.evidence)} onclick={() => evidencePage++}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
 									</button>
@@ -953,7 +953,7 @@
 									<button class="spager-btn" disabled={reportsPage <= 1} onclick={() => reportsPage--}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
 									</button>
-									<span class="spager-info">{reportsPage} / {sectionTotalPages(selectedProfile.linkedReports)}</span>
+									<span class="spager-info">{reportsPage} de {sectionTotalPages(selectedProfile.linkedReports)}</span>
 									<button class="spager-btn" disabled={reportsPage >= sectionTotalPages(selectedProfile.linkedReports)} onclick={() => reportsPage++}>
 										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
 									</button>
@@ -969,24 +969,24 @@
 			<div class="modal-overlay" onclick={closeVehicleDetail}>
 				<div class="modal-card" onclick={(e) => e.stopPropagation()}>
 					{#if vehicleDetailLoading}
-						<div class="center-msg"><div class="spinner"></div><span>Loading vehicle...</span></div>
+						<div class="center-msg"><div class="spinner"></div><span>Cargando vehículo...</span></div>
 					{:else if vehicleDetail}
 						<div class="modal-header">
-							<h3>Vehicle Details</h3>
+							<h3>Detalles del Vehículo</h3>
 							<button class="modal-close" onclick={closeVehicleDetail}>
 								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 							</button>
 						</div>
 						<div class="modal-body">
-							<div class="vd-row"><span class="vd-label">Plate</span><span class="vd-value mono">{vehicleDetail.plate}</span></div>
-							<div class="vd-row"><span class="vd-label">Vehicle</span><span class="vd-value">{vehicleDetail.label || vehicleDetail.vehicle || vehicleDetail.model || 'Unknown'}</span></div>
-							{#if vehicleDetail.owner}<div class="vd-row"><span class="vd-label">Owner</span><span class="vd-value">{vehicleDetail.owner}</span></div>{/if}
-							{#if vehicleDetail.class}<div class="vd-row"><span class="vd-label">Class</span><span class="vd-value">{vehicleDetail.class}</span></div>{/if}
-							{#if vehicleDetail.status}<div class="vd-row"><span class="vd-label">Status</span><span class="vd-value vd-status-{vehicleDetail.status}">{vehicleDetail.status}</span></div>{/if}
-							{#if vehicleDetail.points !== undefined}<div class="vd-row"><span class="vd-label">Points</span><span class="vd-value" class:accent-red={vehicleDetail.points > 0}>{vehicleDetail.points}</span></div>{/if}
-							{#if vehicleDetail.stolen}<div class="vd-row"><span class="vd-label">Stolen</span><span class="vd-value accent-red">Yes</span></div>{/if}
-							{#if vehicleDetail.boloactive}<div class="vd-row"><span class="vd-label">BOLO</span><span class="vd-value" style="color: #fbbf24;">Active</span></div>{/if}
-							{#if vehicleDetail.information}<div class="vd-row vd-notes"><span class="vd-label">Notes</span><span class="vd-value">{vehicleDetail.information}</span></div>{/if}
+							<div class="vd-row"><span class="vd-label">Placa</span><span class="vd-value mono">{vehicleDetail.plate}</span></div>
+							<div class="vd-row"><span class="vd-label">Vehículo</span><span class="vd-value">{vehicleDetail.label || vehicleDetail.vehicle || vehicleDetail.model || 'Desconocido'}</span></div>
+							{#if vehicleDetail.owner}<div class="vd-row"><span class="vd-label">Propietario</span><span class="vd-value">{vehicleDetail.owner}</span></div>{/if}
+							{#if vehicleDetail.class}<div class="vd-row"><span class="vd-label">Clase</span><span class="vd-value">{vehicleDetail.class}</span></div>{/if}
+							{#if vehicleDetail.status}<div class="vd-row"><span class="vd-label">Estado</span><span class="vd-value vd-status-{vehicleDetail.status}">{vehicleDetail.status}</span></div>{/if}
+							{#if vehicleDetail.points !== undefined}<div class="vd-row"><span class="vd-label">Puntos</span><span class="vd-value" class:accent-red={vehicleDetail.points > 0}>{vehicleDetail.points}</span></div>{/if}
+							{#if vehicleDetail.stolen}<div class="vd-row"><span class="vd-label">Robado</span><span class="vd-value accent-red">Sí</span></div>{/if}
+							{#if vehicleDetail.boloactive}<div class="vd-row"><span class="vd-label">BOLO</span><span class="vd-value" style="color: #fbbf24;">Activo</span></div>{/if}
+							{#if vehicleDetail.information}<div class="vd-row vd-notes"><span class="vd-label">Notas</span><span class="vd-value">{vehicleDetail.information}</span></div>{/if}
 						</div>
 					{/if}
 				</div>
@@ -997,7 +997,7 @@
 			<div class="modal-overlay" onclick={() => (showIssueLicenseModal = false)}>
 				<div class="modal-card" onclick={(e) => e.stopPropagation()}>
 					<div class="modal-header">
-						<h3>Manage Licenses</h3>
+						<h3>Administrar Licencias</h3>
 						<button class="modal-close" onclick={() => (showIssueLicenseModal = false)}>
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 						</button>
@@ -1007,7 +1007,7 @@
 							<div class="license-modal-row">
 								<div class="license-modal-info">
 									<span class="license-modal-name">{license.name}</span>
-									<span class="license-modal-type">{license.type === 'state' ? 'State' : 'Custom'}</span>
+									<span class="license-modal-type">{license.type === 'state' ? 'Estatal' : 'Personalizada'}</span>
 								</div>
 								<label class="toggle"><input type="checkbox" checked={license.active} onchange={() => toggleIssuableLicense(license)} /><span class="toggle-track"></span></label>
 							</div>
@@ -1017,28 +1017,29 @@
 			</div>
 		{/if}
 	{:else}
+
 		<!-- ===== LIST VIEW ===== -->
 		<div class="list-view">
 			<div class="list-topbar">
 		<div class="search-box">
 					<svg width="14" height="14" fill="rgba(255,255,255,0.35)" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-					<input bind:value={searchQuery} type="text" placeholder="Search by name, ID, or phone..." />
+					<input bind:value={searchQuery} type="text" placeholder="Buscar por nombre, ID o teléfono..." />
 				</div>
 			</div>
 
 			{#if loading}
-				<div class="center-msg"><div class="spinner"></div><span>Loading citizens...</span></div>
+				<div class="center-msg"><div class="spinner"></div><span>Cargando ciudadanos...</span></div>
 			{:else if citizens.length === 0}
-				<div class="center-msg"><span>No citizen records available.</span></div>
+				<div class="center-msg"><span>No hay registros de ciudadanos disponibles.</span></div>
 			{:else}
 				<div class="citizens-header">
 					<span></span>
-					<span>Name</span>
-					<span>Citizen ID</span>
-					<span>Phone</span>
-					<span>Gender</span>
-					<span>DOB</span>
-					<span>Stats</span>
+					<span>Nombre</span>
+					<span>ID del Ciudadano</span>
+					<span>Teléfono</span>
+					<span>Género</span>
+					<span>Fecha de Nacimiento</span>
+					<span>Estadísticas</span>
 					<span>Flags</span>
 				</div>
 				<div class="citizens-table">
@@ -1073,7 +1074,7 @@
 					{/each}
 				</div>
 				{#if filteredCitizens.length === 0 && searchQuery}
-					<div class="center-msg"><span>No citizens match your search.</span></div>
+					<div class="center-msg"><span>Ningún ciudadano coincide con tu búsqueda.</span></div>
 				{/if}
 				<Pagination
 					currentPage={citizenPage}

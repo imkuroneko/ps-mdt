@@ -73,9 +73,9 @@
 
 <div class="metadata-section">
 	<div class="section-header">
-		<span class="section-label">VEHICLES INVOLVED</span>
+		<span class="section-label">Vehículos Involucrados</span>
 		<button class="add-btn" onclick={toggleSearch} type="button">
-			{showSearch ? "× Close" : "+ Add"}
+			{showSearch ? "× Cerrar" : "+ Añadir"}
 		</button>
 	</div>
 
@@ -83,13 +83,13 @@
 		<div class="search-area">
 			<input
 				type="text"
-				placeholder="Search by plate, owner name..."
+				placeholder="Buscar por matrícula o nombre del propietario..."
 				value={searchQuery}
 				oninput={handleSearchInput}
 				class="search-input"
 			/>
 			{#if isSearching}
-				<div class="search-status">Searching...</div>
+				<div class="search-status">Buscando...</div>
 			{:else if searchResults.length > 0}
 				<div class="search-results">
 					{#each searchResults as result}
@@ -103,13 +103,13 @@
 							<span class="result-label">{result.vehicle_label}</span>
 							<span class="result-owner">{result.owner_name}</span>
 							{#if isAlreadyAdded(result.plate)}
-								<span class="result-added">Added</span>
+								<span class="result-added">Añadido</span>
 							{/if}
 						</button>
 					{/each}
 				</div>
 			{:else if searchQuery.trim().length > 0}
-				<div class="search-status">No vehicles found</div>
+				<div class="search-status">No se encontraron vehículos</div>
 			{/if}
 		</div>
 	{/if}
@@ -127,7 +127,7 @@
 					</svg>
 				</button>
 			</div>
-			<span class="vehicle-owner">Owner: {vehicle.owner_name}</span>
+			<span class="vehicle-owner">Propietario: {vehicle.owner_name}</span>
 			{#if onIssueBolo}
 				<div class="vehicle-actions">
 					<button
@@ -135,9 +135,9 @@
 						onclick={() => onIssueBolo(vehicle)}
 						disabled={!vehicle.plate}
 						type="button"
-						aria-label="Issue BOLO for vehicle {vehicle.plate}"
+						aria-label="Emitir BOLO para el vehículo {vehicle.plate}"
 					>
-						Issue BOLO
+						Emitir BOLO
 					</button>
 				</div>
 			{/if}

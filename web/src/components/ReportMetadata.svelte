@@ -7,25 +7,25 @@
 	export let formatTime: (timestamp: number) => string;
 </script>
 
-<section class="report-metadata" aria-label="Report information">
+<section class="report-metadata" aria-label="Información del reporte">
 	<div class="metadata-row">
 		<div class="metadata-item">
-			<label for="report-id" class="metadata-label">Report ID</label>
+			<label for="report-id" class="metadata-label">ID del reporte</label>
 			<span id="report-id" class="metadata-value">{report.reportId}</span>
 		</div>
 		<div class="metadata-item">
-			<label for="report-officer" class="metadata-label">Officer</label>
+			<label for="report-officer" class="metadata-label">Oficial</label>
 			<span id="report-officer" class="metadata-value"
 				>{report.officer}</span
 			>
 		</div>
 		<div class="metadata-item">
-			<label for="report-type" class="metadata-label">Type</label>
+			<label for="report-type" class="metadata-label">Tipo</label>
 			<select
 				id="report-type"
 				bind:value={report.type}
 				class="type-select"
-				aria-label="Report type"
+				aria-label="Tipo de reporte"
 			>
 				{#each REPORT_TYPES as type}
 					<option value={type}>{type}</option>
@@ -33,16 +33,14 @@
 			</select>
 		</div>
 		<div class="metadata-item">
-			<label for="report-created" class="metadata-label">Created</label>
+			<label for="report-created" class="metadata-label">Creado</label>
 			<span id="report-created" class="metadata-value">
 				{formatDate(report.created)}
 				{formatTime(report.created)}
 			</span>
 		</div>
 		<div class="metadata-item">
-			<label for="report-updated" class="metadata-label"
-				>Last Updated</label
-			>
+			<label for="report-updated" class="metadata-label">Última actualización</label>
 			<span id="report-updated" class="metadata-value">
 				{formatDate(report.lastUpdated)}
 				{formatTime(report.lastUpdated)}

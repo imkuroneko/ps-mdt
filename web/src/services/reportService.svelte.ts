@@ -40,7 +40,7 @@ export function createReportService() {
 			}
 			return "";
 		} catch (error) {
-			console.error("Failed to generate report ID:", error);
+			console.error("Inconvenientes al generar ID de informe:", error);
 			return "";
 		}
 	}
@@ -62,8 +62,8 @@ export function createReportService() {
 			state.reports.set(id, report);
 			return report;
 		} catch (error) {
-			console.error("Failed to load report:", error);
-			state.lastError = "Failed to load report";
+			console.error("Inconvenientes al cargar el informe:", error);
+			state.lastError = "Inconvenientes al cargar el informe";
 			return {
 				...createEmptyReport(),
 				reportId: id,
@@ -100,7 +100,7 @@ export function createReportService() {
 				throw new Error(msg);
 			}
 		} catch (error) {
-			state.lastError = error instanceof Error ? error.message : "Failed to save report";
+			state.lastError = error instanceof Error ? error.message : "Inconvenientes al guardar el informe";
 			throw error;
 		} finally {
 			state.isSaving = false;
@@ -120,7 +120,7 @@ export function createReportService() {
 			}
 			return false;
 		} catch (error) {
-			console.error("Failed to delete report:", error);
+			console.error("Inconvenientes al eliminar el informe:", error);
 			return false;
 		}
 	}
@@ -147,10 +147,10 @@ export function createReportService() {
 				{ reportId, citizenid },
 			);
 			if (!result?.success) {
-				throw new Error(result?.error || "Failed to issue warrant");
+				throw new Error(result?.error || "Inconvenientes al emitir la orden de arresto");
 			}
 		} catch (error) {
-			console.error("Failed to issue warrant:", error);
+			console.error("Inconvenientes al emitir la orden de arresto:", error);
 			throw error;
 		}
 	}
@@ -162,10 +162,10 @@ export function createReportService() {
 				{ reportId, citizenid },
 			);
 			if (!result?.success) {
-				throw new Error(result?.error || "Failed to close warrant");
+				throw new Error(result?.error || "Inconvenientes al cerrar la orden de arresto");
 			}
 		} catch (error) {
-			console.error("Failed to close warrant:", error);
+			console.error("Inconvenientes al cerrar la orden de arresto:", error);
 			throw error;
 		}
 	}
@@ -174,7 +174,7 @@ export function createReportService() {
 		return fetchNui<{ success: boolean; message?: string }>(
 			NUI_EVENTS.SENTENCING.SEND_TO_JAIL,
 			{ citizenId, sentence },
-			{ success: true, message: `Sent to jail for ${sentence} months` },
+			{ success: true, message: `Enviado a la cárcel por ${sentence} meses` },
 		);
 	}
 
@@ -182,7 +182,7 @@ export function createReportService() {
 		return fetchNui<{ success: boolean; message?: string }>(
 			NUI_EVENTS.SENTENCING.GIVE_CITATION,
 			{ citizenId, fine, reportId },
-			{ success: true, message: "Citation given" },
+			{ success: true, message: "Multa emitida" },
 		);
 	}
 
@@ -223,7 +223,7 @@ export function createReportService() {
 			reportId,
 			title: raw?.title ?? "",
 			officer: raw?.authorplaintext ?? raw?.author ?? "",
-			type: raw?.type ?? "Incident Report",
+			type: raw?.type ?? "Reporte de Incidente",
 			created: Number(raw?.datecreated ?? raw?.created ?? Date.now()),
 			lastUpdated: Number(
 				raw?.dateupdated ?? raw?.lastUpdated ?? Date.now(),
@@ -278,23 +278,23 @@ export function createReportService() {
 				normalized.officers.push({
 					id: crypto.randomUUID(),
 					citizenid: entry?.citizenid || "",
-					fullName: entry?.name || entry?.fullname || "Unknown",
+					fullName: entry?.name || entry?.fullname || "Desconocido",
 					badgeId: entry?.badgeId || "",
-					type: entry?.type || "Officer",
+					type: entry?.type || "Oficial",
 					notes: entry?.notes || "",
 				});
 			} else if (type === "victim") {
 				normalized.victims.push({
 					id: entry?.citizenid || crypto.randomUUID(),
 					citizenid: entry?.citizenid || "",
-					fullName: entry?.name || entry?.fullname || "Unknown",
-					type: entry?.type || "Victim",
+					fullName: entry?.name || entry?.fullname || "Desconocido",
+					type: entry?.type || "Víctima",
 				});
 			} else {
 				normalized.suspects.push({
 					id: entry?.citizenid || crypto.randomUUID(),
 					citizenid: entry?.citizenid || "",
-					fullName: entry?.name || entry?.fullname || "Unknown",
+					fullName: entry?.name || entry?.fullname || "Desconocido",
 					notes: entry?.notes || "",
 					warrantActive: entry?.warrantActive || false,
 					profileImage: entry?.image || undefined,
@@ -314,7 +314,7 @@ export function createReportService() {
 				: [];
 		return list.map((entry, index) => ({
 			id: entry?.id || `${index}`,
-			title: entry?.title || entry?.type || "Evidence",
+			title: entry?.title || entry?.type || "Evidencia",
 			type: entry?.type || "",
 			serial: entry?.serial || entry?.content || "",
 			notes: entry?.note || entry?.notes || "",
@@ -368,7 +368,7 @@ export function createReportService() {
 			title: "",
 			reportId: "",
 			officer: "",
-			type: "Incident Report",
+			type: "Reporte de Incidente",
 			created: Date.now(),
 			lastUpdated: Date.now(),
 			content: "",
@@ -412,7 +412,7 @@ export function createReportService() {
 			try {
 				return await loadReport(reportId);
 			} catch (error) {
-				console.error("Failed to load report:", error);
+				console.error("Inconveniente al cargar el reporte:", error);
 				throw error;
 			}
 		} else {
@@ -444,7 +444,7 @@ export function createReportService() {
 			citizenid: officer.citizenid || officer.id || "",
 			fullName: officer.fullName,
 			badgeId: officer.badgeId || "",
-			type: "Assisting",
+			type: "Asistente",
 			notes: "",
 		};
 
@@ -552,7 +552,7 @@ export function createReportService() {
 		const newEvidence: Evidence = {
 			id: crypto.randomUUID(),
 			title: "",
-			type: "Physical",
+			type: "Física",
 			serial: "",
 			notes: "",
 			images: [],

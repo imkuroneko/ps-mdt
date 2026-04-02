@@ -153,12 +153,12 @@
 	function insertTemplate() {
 		const matching = getTemplatesForType(report.type);
 		if (matching.length === 0) {
-			showStatus("No templates configured for this report type", "error");
+			showStatus("No hay plantillas configuradas para este tipo de reporte", "error");
 			return;
 		}
 		if (matching.length === 1) {
 			handlers.handleContentUpdate(matching[0].content);
-			showStatus(`Template "${matching[0].name}" inserted`);
+			showStatus(`Plantilla "${matching[0].name}" insertada`);
 			return;
 		}
 		// Multiple templates - show picker
@@ -167,7 +167,7 @@
 
 	function selectTemplate(template: ServerTemplate) {
 		handlers.handleContentUpdate(template.content);
-		showStatus(`Template "${template.name}" inserted`);
+		showStatus(`Plantilla "${template.name}" insertada`);
 		showTemplateMenu = false;
 	}
 
@@ -189,12 +189,12 @@
 			const newNames = new Set(editors.map(e => e.name));
 			for (const editor of editors) {
 				if (!oldNames.has(editor.name)) {
-					showStatus(`${editor.name} joined the report`, "info");
+					showStatus(`${editor.name} se unió al reporte`, "info");
 				}
 			}
 			for (const old of collabEditors) {
 				if (!newNames.has(old.name)) {
-					showStatus(`${old.name} left the report`, "info");
+					showStatus(`${old.name} salió del reporte`, "info");
 				}
 			}
 			collabEditors = editors;
@@ -434,7 +434,7 @@
 	async function issueWarrant(suspect: Report["involved"]["suspects"][number]) {
 		if (!suspect.citizenid) return;
 		if (!report.reportId) {
-			showStatus("Save the report before issuing warrants", "error");
+			showStatus("Guarda el reporte antes de emitir órdenes", "error");
 			return;
 		}
 		try {
@@ -444,16 +444,16 @@
 				warrantActive: true,
 			});
 			await fetchNui(NUI_EVENTS.DASHBOARD.GET_ACTIVE_WARRANTS);
-			showStatus(`Warrant issued for ${suspect.fullName}`);
+			showStatus(`Orden emitida para ${suspect.fullName}`);
 		} catch (error: any) {
-			showStatus(error?.message || `Failed to issue warrant for ${suspect.fullName}`, "error");
+			showStatus(error?.message || `Error al emitir orden para ${suspect.fullName}`, "error");
 		}
 	}
 
 	async function closeWarrant(suspect: Report["involved"]["suspects"][number]) {
 		if (!suspect.citizenid) return;
 		if (!report.reportId) {
-			showStatus("Save the report before closing warrants", "error");
+			showStatus("Guarda el reporte antes de cerrar órdenes", "error");
 			return;
 		}
 		try {
@@ -463,9 +463,9 @@
 				warrantActive: false,
 			});
 			await fetchNui(NUI_EVENTS.DASHBOARD.GET_ACTIVE_WARRANTS);
-			showStatus(`Warrant closed for ${suspect.fullName}`);
+			showStatus(`Orden cerrada para ${suspect.fullName}`);
 		} catch (error: any) {
-			showStatus(error?.message || `Failed to close warrant for ${suspect.fullName}`, "error");
+			showStatus(error?.message || `Error al cerrar orden para ${suspect.fullName}`, "error");
 		}
 	}
 
@@ -490,25 +490,25 @@
 				);
 			}
 		} catch {
-			showStatus("Search failed", "error");
+			showStatus("Error en la búsqueda", "error");
 		}
 	}
 
 	async function handleSendToJail(citizenid: string, months: number) {
 		try {
 			const result = await reportService.sendToJail(citizenid, months);
-			showStatus(result.message || `Sent to jail for ${months} months`);
+			showStatus(result.message || `Enviado a prisión por ${months} meses`);
 		} catch {
-			showStatus("Failed to send to jail", "error");
+			showStatus("Error al enviar a prisión", "error");
 		}
 	}
 
 	async function handleGiveCitation(citizenid: string, fine: number) {
 		try {
 			const result = await reportService.giveCitation(citizenid, fine, report.reportId);
-			showStatus(result.message || `Citation issued: $${fine.toLocaleString()}`);
+			showStatus(result.message || `Multa emitida: $${fine.toLocaleString()}`);
 		} catch {
-			showStatus("Failed to issue citation", "error");
+			showStatus("Error al emitir multa", "error");
 		}
 	}
 
@@ -516,7 +516,7 @@
 		try {
 			penalCodes = await reportService.getCharges();
 		} catch {
-			showStatus("Failed to load penal codes", "error");
+			showStatus("Error al cargar los códigos penales", "error");
 		}
 	}
 
@@ -538,7 +538,7 @@
 	async function issueBolo(suspect: Report["involved"]["suspects"][number]) {
 		if (!suspect.citizenid) return;
 		if (!report.reportId) {
-			showStatus("Save the report before issuing a BOLO", "error");
+			showStatus("Guarda el reporte antes de emitir un BOLO", "error");
 			return;
 		}
 		try {
@@ -551,19 +551,19 @@
 			};
 			const response = await fetchNui(NUI_EVENTS.CITIZEN.CREATE_BOLO, payload);
 			if (response?.success) {
-				showStatus(`BOLO issued for ${suspect.fullName}`);
+				showStatus(`BOLO emitido para ${suspect.fullName}`);
 			} else {
-				showStatus(response?.message || "Failed to issue BOLO", "error");
+				showStatus(response?.message || "Error al emitir BOLO", "error");
 			}
 		} catch {
-			showStatus("Failed to issue BOLO", "error");
+			showStatus("Error al emitir BOLO", "error");
 		}
 	}
 
 	function openBenchWarrantModal(suspect: Report["involved"]["suspects"][number]) {
 		if (!suspect.citizenid) return;
 		if (!report.reportId) {
-			showStatus("Save the report before requesting a bench warrant", "error");
+			showStatus("Guarda el reporte antes de solicitar una orden judicial", "error");
 			return;
 		}
 		benchWarrantModal = { open: true, suspect, reason: '', submitting: false };
@@ -575,7 +575,7 @@
 
 		const reason = benchWarrantModal.reason.trim();
 		if (!reason) {
-			showStatus("A reason is required for bench warrant requests", "error");
+			showStatus("Se requiere un motivo para solicitar una orden judicial", "error");
 			return;
 		}
 
@@ -595,13 +595,13 @@
 
 			const response = await fetchNui(NUI_EVENTS.DOJ.CREATE_WARRANT_REQUEST, payload);
 			if (response?.success) {
-				showStatus(`Bench warrant request submitted for ${suspect.fullName}`);
+				showStatus(`Solicitud de orden judicial enviada para ${suspect.fullName}`);
 				benchWarrantModal = { open: false, suspect: null, reason: '', submitting: false };
 			} else {
-				showStatus(response?.error || "Failed to submit bench warrant request", "error");
+				showStatus(response?.error || "Error al enviar la solicitud de orden judicial", "error");
 			}
 		} catch {
-			showStatus("Failed to submit bench warrant request", "error");
+			showStatus("Error al enviar la solicitud de orden judicial", "error");
 		} finally {
 			benchWarrantModal.submitting = false;
 		}
@@ -614,7 +614,7 @@
 	async function issueVehicleBolo(vehicle: ReportVehicle) {
 		if (!vehicle.plate) return;
 		if (!report.reportId) {
-			showStatus("Save the report before issuing a BOLO", "error");
+			showStatus("Guarda el reporte antes de emitir un BOLO", "error");
 			return;
 		}
 		try {
@@ -627,12 +627,12 @@
 			};
 			const response = await fetchNui(NUI_EVENTS.CITIZEN.CREATE_BOLO, payload);
 			if (response?.success) {
-				showStatus(`Vehicle BOLO issued for ${vehicle.plate}`);
+				showStatus(`BOLO vehicular emitido para ${vehicle.plate}`);
 			} else {
-				showStatus(response?.message || "Failed to issue vehicle BOLO", "error");
+				showStatus(response?.message || "Error al emitir BOLO vehicular", "error");
 			}
 		} catch {
-			showStatus("Failed to issue vehicle BOLO", "error");
+			showStatus("Error al emitir BOLO vehicular", "error");
 		}
 	}
 
@@ -657,12 +657,12 @@
 						report = { ...report };
 					}
 				}
-				showStatus(result.message || `Mugshot captured for ${suspect.fullName}`);
+				showStatus(result.message || `Foto de arresto capturada para ${suspect.fullName}`);
 			} else {
-				showStatus(result.message || "Failed to capture mugshot", "error");
+				showStatus(result.message || "Error al capturar foto de arresto", "error");
 			}
 		} catch {
-			showStatus("Failed to capture mugshot", "error");
+			showStatus("Error al capturar foto de arresto", "error");
 		}
 	}
 
@@ -686,15 +686,15 @@
 					};
 					report = { ...report };
 				}
-				showStatus(`Fingerprint on file for ${suspect.fullName}: ${result.fingerprint}`);
+				showStatus(`Huella registrada para ${suspect.fullName}: ${result.fingerprint}`);
 			} else if (result.success) {
 				// Scan was triggered on the suspect
-				showStatus(`Fingerprint scan initiated on ${suspect.fullName}`, "info");
+				showStatus(`Escaneo de huella iniciado en ${suspect.fullName}`, "info");
 			} else {
-				showStatus(result.message || "Failed to get fingerprint", "error");
+				showStatus(result.message || "Error al obtener huella", "error");
 			}
 		} catch {
-			showStatus("Failed to get fingerprint", "error");
+			showStatus("Error al obtener huella", "error");
 		}
 	}
 
@@ -716,7 +716,7 @@
 		if (!file || !photoUploadCitizenId || isUploadingPhoto) return;
 
 		isUploadingPhoto = true;
-		showStatus("Uploading photo...");
+		showStatus("Subiendo foto...");
 
 		try {
 			const base64 = await compressImage(file);
@@ -739,7 +739,7 @@
 					};
 					report = { ...report };
 				}
-				showStatus(result.message || "Photo uploaded successfully");
+				showStatus(result.message || "Foto subida correctamente");
 			} else {
 				showStatus(result.message || "Failed to upload photo", "error");
 			}
@@ -782,7 +782,7 @@
 			}
 			reportEditorUI.closeImageUpload();
 		} catch (error: any) {
-			showStatus(error?.message || "Failed to upload image", "error");
+			showStatus(error?.message || "Error al subir imagen", "error");
 		} finally {
 			isUploadingEvidence = false;
 		}
@@ -834,7 +834,7 @@
 	async function saveReportHandler() {
 		// Validate tags before saving
 		if (!report.tags || report.tags.length === 0) {
-			showStatus("At least one tag is required before saving", "error");
+			showStatus("Se requiere al menos una etiqueta antes de guardar", "error");
 			return;
 		}
 
@@ -866,7 +866,7 @@
 			// Close the editor (this will destroy the component)
 			onClose();
 		} catch (error: any) {
-			const msg = error?.message || "Failed to save report";
+			const msg = error?.message || "Error al guardar el reporte";
 			showStatus(msg, "error");
 			// Reset flags if save failed
 			isSaving = false;
@@ -888,12 +888,12 @@
 				report = reportService.createEmptyReport();
 				onClose();
 			} else {
-				showStatus("Failed to delete report", "error");
+				showStatus("Error al eliminar el reporte", "error");
 				isSaving = false;
 				isPersistenceEnabled = true;
 			}
 		} catch (error: any) {
-			showStatus(error?.message || "Failed to delete report", "error");
+			showStatus(error?.message || "Error al eliminar el reporte", "error");
 			isSaving = false;
 			isPersistenceEnabled = true;
 		}
@@ -920,7 +920,7 @@
 	{#await reportPromise}
 		<div class="loading-state">
 			<div class="loading-spinner"></div>
-			<p>Loading report...</p>
+			<p>Cargando reporte...</p>
 		</div>
 	{:then}
 		<div class="editor-content">
@@ -951,7 +951,7 @@
 					/>
 				{:else}
 					<div style="padding: 16px; color: rgba(255,255,255,0.4); font-size: 13px;">
-						Connecting to collaborative session...
+						Conectando a la sesión colaborativa...
 					</div>
 				{/if}
 				</div>
@@ -971,7 +971,7 @@
 					onAdd={handlers.handleAddOfficer}
 					onRemove={handlers.handleRemoveOfficer}
 					onUpdate={handlers.handleUpdateOfficer}
-					title={isEMS ? "EMS" : "Officers"}
+					title={isEMS ? "EMS" : "Agentes"}
 				/>
 
 			{#if !isEMS}
@@ -994,7 +994,7 @@
 					onAdd={handlers.handleAddVictim}
 					onRemove={handlers.handleRemoveVictim}
 					onUpdate={handlers.handleUpdateVictim}
-					title={isEMS ? "Patients" : "Victims"}
+					title={isEMS ? "Pacientes" : "Víctimas"}
 				/>
 
 			{#if !isEMS}
@@ -1052,7 +1052,7 @@
 <!-- Officer/EMS Search Modal -->
 <PersonSearchModal
 	show={reportEditorUI.state.showOfficerSearch}
-	title={isEMS ? "Search EMS" : "Search Officers"}
+	title={isEMS ? "Buscar EMS" : "Buscar Agentes"}
 	searchResults={searchService.state.results}
 	onSearch={(query: string) => {
 		reportEditorUI.state.searchQuery = query;
@@ -1066,7 +1066,7 @@
 <!-- Suspect Search Modal -->
 <PersonSearchModal
 	show={reportEditorUI.state.showSuspectSearch}
-	title="Search Suspects"
+	title="Buscar Sospechosos"
 	searchResults={searchService.state.results}
 	onSearch={(query: string) => {
 		reportEditorUI.state.searchQuery = query;
@@ -1080,7 +1080,7 @@
 <!-- Victim/Patient Search Modal -->
 <PersonSearchModal
 	show={reportEditorUI.state.showVictimSearch}
-	title={isEMS ? "Search Patients" : "Search Victims"}
+	title={isEMS ? "Buscar Pacientes" : "Buscar Víctimas"}
 	searchResults={searchService.state.results}
 	onSearch={(query: string) => {
 		reportEditorUI.state.searchQuery = query;
@@ -1117,43 +1117,43 @@
 <div class="bw-modal-overlay" use:teleport onclick={closeBenchWarrantModal}>
 	<div class="bw-modal" onclick={(e) => e.stopPropagation()} role="dialog" aria-label="Issue Bench Warrant">
 		<div class="bw-modal-header">
-			<span class="bw-modal-title">Issue Bench Warrant</span>
+			<span class="bw-modal-title">Emitir Orden Judicial</span>
 			<button class="bw-modal-close" onclick={closeBenchWarrantModal} type="button">&times;</button>
 		</div>
 		<div class="bw-modal-body">
 			<div class="bw-field">
-				<label class="bw-label">Suspect</label>
+				<label class="bw-label">Sospechoso</label>
 				<div class="bw-value">{benchWarrantModal.suspect?.fullName} ({benchWarrantModal.suspect?.citizenid})</div>
 			</div>
 			<div class="bw-field">
-				<label class="bw-label">Linked Report</label>
+				<label class="bw-label">Reporte Vinculado</label>
 				<div class="bw-value">#{report.reportId}</div>
 			</div>
 			<div class="bw-field">
-				<label class="bw-label">Charges</label>
+				<label class="bw-label">Cargos</label>
 				<div class="bw-charges">
 					{#each report.charges.filter(c => c.citizenid === benchWarrantModal.suspect?.citizenid) as charge}
 						<span class="bw-charge-chip">{charge.charge || charge.title || 'Unknown'} {charge.count > 1 ? `x${charge.count}` : ''}</span>
 					{:else}
-						<span class="bw-no-charges">No charges for this suspect</span>
+						<span class="bw-no-charges">Sin cargos para este sospechoso</span>
 					{/each}
 				</div>
 			</div>
 			<div class="bw-field">
-				<label class="bw-label" for="bw-reason">Reason / Justification <span class="bw-required">*</span></label>
+				<label class="bw-label" for="bw-reason">Motivo / Justificación <span class="bw-required">*</span></label>
 				<textarea
 					id="bw-reason"
 					class="bw-textarea"
 					bind:value={benchWarrantModal.reason}
-					placeholder="Provide justification for this bench warrant request..."
+					placeholder="Proporciona la justificación para esta solicitud de orden judicial..."
 					rows="4"
 				></textarea>
 			</div>
 		</div>
 		<div class="bw-modal-footer">
-			<button class="bw-btn bw-btn-cancel" onclick={closeBenchWarrantModal} type="button" disabled={benchWarrantModal.submitting}>Cancel</button>
+			<button class="bw-btn bw-btn-cancel" onclick={closeBenchWarrantModal} type="button" disabled={benchWarrantModal.submitting}>Cancelar</button>
 			<button class="bw-btn bw-btn-submit" onclick={submitBenchWarrant} type="button" disabled={benchWarrantModal.submitting || !benchWarrantModal.reason.trim()}>
-				{benchWarrantModal.submitting ? 'Submitting...' : 'Submit Request'}
+				{benchWarrantModal.submitting ? 'Enviando...' : 'Enviar Solicitud'}
 			</button>
 		</div>
 	</div>

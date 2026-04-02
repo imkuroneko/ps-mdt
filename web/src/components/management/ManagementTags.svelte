@@ -26,29 +26,29 @@
 	}
 
 	const TAG_COLORS = [
-		{ value: "#3b82f6", label: "Blue" },
-		{ value: "#10b981", label: "Green" },
-		{ value: "#f59e0b", label: "Amber" },
-		{ value: "#ef4444", label: "Red" },
-		{ value: "#8b5cf6", label: "Purple" },
-		{ value: "#ec4899", label: "Pink" },
+		{ value: "#3b82f6", label: "Azul" },
+		{ value: "#10b981", label: "Verde" },
+		{ value: "#f59e0b", label: "Ámbar" },
+		{ value: "#ef4444", label: "Rojo" },
+		{ value: "#8b5cf6", label: "Púrpura" },
+		{ value: "#ec4899", label: "Rosa" },
 		{ value: "#06b6d4", label: "Cyan" },
-		{ value: "#f97316", label: "Orange" },
-		{ value: "#6b7280", label: "Gray" },
+		{ value: "#f97316", label: "Naranja" },
+		{ value: "#6b7280", label: "Gris" },
 	];
 
 	let TAG_TYPES = $derived(isEMS ? [
-		{ value: "officer", label: "Personnel" },
-		{ value: "report", label: "Report" },
-		{ value: "both", label: "Both" },
+		{ value: "officer", label: "Personal" },
+		{ value: "report", label: "Reporte" },
+		{ value: "both", label: "Ambos" },
 	] : [
-		{ value: "officer", label: "Officer" },
-		{ value: "report", label: "Report" },
-		{ value: "both", label: "Both" },
+		{ value: "officer", label: "Oficial" },
+		{ value: "report", label: "Reporte" },
+		{ value: "both", label: "Ambos" },
 	]);
 
 	const JOB_TYPES = [
-		{ value: "all", label: "All" },
+		{ value: "all", label: "Todos" },
 		{ value: "leo", label: "LEO" },
 		{ value: "ems", label: "EMS" },
 	];
@@ -91,7 +91,7 @@
 			const response = await fetchNui<Tag[]>(NUI_EVENTS.MANAGEMENT.GET_TAGS, { jobType }, []);
 			tags = Array.isArray(response) ? response : [];
 		} catch (error) {
-			console.error("Failed to load tags:", error);
+			console.error("Error al cargar etiquetas:", error);
 			tags = [];
 		} finally {
 			isLoading = false;
@@ -102,7 +102,7 @@
 		const name = newTagName.trim();
 		if (!name) return;
 		if (name.length > 25) {
-			showStatus("Tag name must be 25 characters or less", "error");
+			showStatus("El nombre de la etiqueta debe tener 25 caracteres o menos", "error");
 			return;
 		}
 
@@ -120,15 +120,15 @@
 				{ success: false },
 			);
 			if (result?.success) {
-				showStatus("Tag created");
+				showStatus("Etiqueta creada");
 				newTagName = "";
 				await loadTags();
 			} else {
-				showStatus(result?.message || "Failed to create tag", "error");
+				showStatus(result?.message || "Error al crear la etiqueta", "error");
 			}
 		} catch (error) {
-			console.error("Failed to create tag:", error);
-			showStatus("Failed to create tag", "error");
+			console.error("Error al crear la etiqueta:", error);
+			showStatus("Error al crear la etiqueta", "error");
 		} finally {
 			isSubmitting = false;
 		}
@@ -139,7 +139,7 @@
 		const name = editName.trim();
 		if (!name) return;
 		if (name.length > 25) {
-			showStatus("Tag name must be 25 characters or less", "error");
+			showStatus("El nombre de la etiqueta debe tener 25 caracteres o menos", "error");
 			return;
 		}
 
@@ -157,15 +157,15 @@
 				{ success: false },
 			);
 			if (result?.success) {
-				showStatus("Tag updated");
+				showStatus("Etiqueta actualizada");
 				editingTag = null;
 				await loadTags();
 			} else {
-				showStatus(result?.message || "Failed to update tag", "error");
+				showStatus(result?.message || "Error al actualizar la etiqueta", "error");
 			}
 		} catch (error) {
-			console.error("Failed to update tag:", error);
-			showStatus("Failed to update tag", "error");
+			console.error("Error al actualizar la etiqueta:", error);
+			showStatus("Error al actualizar la etiqueta", "error");
 		} finally {
 			isSubmitting = false;
 		}
@@ -184,15 +184,15 @@
 				{ success: false },
 			);
 			if (result?.success) {
-				showStatus("Tag deleted");
+				showStatus("Etiqueta eliminada");
 				if (editingTag?.id === tag.id) editingTag = null;
 				await loadTags();
 			} else {
-				showStatus(result?.message || "Failed to delete tag", "error");
+				showStatus(result?.message || "Error al eliminar la etiqueta", "error");
 			}
 		} catch (error) {
-			console.error("Failed to delete tag:", error);
-			showStatus("Failed to delete tag", "error");
+			console.error("Error al eliminar la etiqueta:", error);
+			showStatus("Error al eliminar la etiqueta", "error");
 		}
 	}
 
@@ -222,10 +222,10 @@
 				{ id: 1, name: "SWAT", type: "officer", color: "#3b82f6", job_type: "leo", usage_count: 3 },
 				{ id: 2, name: "FTO", type: "officer", color: "#10b981", job_type: "leo", usage_count: 5 },
 				{ id: 3, name: "Detective", type: "officer", color: "#8b5cf6", job_type: "leo", usage_count: 2 },
-				{ id: 4, name: "Paramedic", type: "officer", color: "#ef4444", job_type: "ems", usage_count: 1 },
-				{ id: 5, name: "Cardiac", type: "report", color: "#ef4444", job_type: "ems", usage_count: 4 },
-				{ id: 6, name: "Gang Related", type: "report", color: "#ef4444", job_type: "leo", usage_count: 8 },
-				{ id: 7, name: "High Priority", type: "both", color: "#f59e0b", job_type: "all", usage_count: 12 },
+				{ id: 4, name: "Paramédico", type: "officer", color: "#ef4444", job_type: "ems", usage_count: 1 },
+				{ id: 5, name: "Cardíaco", type: "report", color: "#ef4444", job_type: "ems", usage_count: 4 },
+				{ id: 6, name: "Relacionado con pandillas", type: "report", color: "#ef4444", job_type: "leo", usage_count: 8 },
+				{ id: 7, name: "Alta prioridad", type: "both", color: "#f59e0b", job_type: "all", usage_count: 12 },
 			];
 			return;
 		}
@@ -246,7 +246,7 @@
 			<input
 				class="tag-name-input"
 				type="text"
-				placeholder="New tag name..."
+				placeholder="Nombre de la nueva etiqueta..."
 				bind:value={newTagName}
 				maxlength="25"
 				onkeydown={(e) => e.key === "Enter" && handleCreate()}
@@ -289,30 +289,30 @@
 		<input
 			class="search-input"
 			type="text"
-			placeholder="Search tags..."
+			placeholder="Buscar etiquetas..."
 			bind:value={searchQuery}
 		/>
 		<div class="filter-pills">
-			<button class="filter-pill" class:active={filterType === "all"} onclick={() => (filterType = "all")}>All</button>
-			<button class="filter-pill" class:active={filterType === "officer"} onclick={() => (filterType = "officer")}>{isEMS ? 'Personnel' : 'Officer'}</button>
-			<button class="filter-pill" class:active={filterType === "report"} onclick={() => (filterType = "report")}>Report</button>
-			<button class="filter-pill" class:active={filterType === "both"} onclick={() => (filterType = "both")}>Both</button>
+			<button class="filter-pill" class:active={filterType === "all"} onclick={() => (filterType = "all")}>Todas</button>
+			<button class="filter-pill" class:active={filterType === "officer"} onclick={() => (filterType = "officer")}>{isEMS ? 'Personal' : 'Oficial'}</button>
+			<button class="filter-pill" class:active={filterType === "report"} onclick={() => (filterType = "report")}>Informe</button>
+			<button class="filter-pill" class:active={filterType === "both"} onclick={() => (filterType = "both")}>Ambos</button>
 		</div>
 		{#if !isEMS}
 			<div class="filter-pills">
-				<button class="filter-pill" class:active={filterJobType === "all"} onclick={() => (filterJobType = "all")}>All</button>
+				<button class="filter-pill" class:active={filterJobType === "all"} onclick={() => (filterJobType = "all")}>Todos</button>
 				<button class="filter-pill" class:active={filterJobType === "leo"} onclick={() => (filterJobType = "leo")}>LEO</button>
 				<button class="filter-pill" class:active={filterJobType === "ems"} onclick={() => (filterJobType = "ems")}>EMS</button>
 			</div>
 		{/if}
-		<span class="tag-count">{filteredTags.length} tag{filteredTags.length !== 1 ? "s" : ""}</span>
+		<span class="tag-count">{filteredTags.length} etiqueta{filteredTags.length !== 1 ? "s" : ""}</span>
 	</div>
 
 	<!-- Tags list -->
 	{#if isLoading}
 		<div class="empty-state">
 			<div class="loading-spinner"></div>
-			<p>Loading tags...</p>
+			<p>Cargando etiquetas...</p>
 		</div>
 	{:else}
 		<div class="tags-list">
@@ -356,8 +356,8 @@
 									{/each}
 								</div>
 								<div class="edit-actions">
-									<button class="btn-save" onclick={handleUpdate} disabled={!editName.trim() || isSubmitting}>Save</button>
-									<button class="btn-cancel" onclick={cancelEdit}>Cancel</button>
+									<button class="btn-save" onclick={handleUpdate} disabled={!editName.trim() || isSubmitting}>Guardar</button>
+									<button class="btn-cancel" onclick={cancelEdit}>Cancelar</button>
 								</div>
 							</div>
 						</div>
@@ -370,13 +370,13 @@
 							<span class="tag-type-badge job-{tag.job_type || 'all'}">{getJobTypeLabel(tag.job_type || 'all')}</span>
 						</div>
 						{#if tag.usage_count !== undefined}
-							<span class="tag-usage" title="Times used">{tag.usage_count} uses</span>
+							<span class="tag-usage" title="Veces usado">{tag.usage_count} veces</span>
 						{/if}
 						<div class="tag-actions">
-							<button class="action-btn edit-btn" onclick={() => startEdit(tag)} title="Edit">
+							<button class="action-btn edit-btn" onclick={() => startEdit(tag)} title="Editar">
 								<span class="material-icons">edit</span>
 							</button>
-							<button class="action-btn delete-btn" onclick={() => handleDelete(tag)} title="Delete">
+							<button class="action-btn delete-btn" onclick={() => handleDelete(tag)} title="Eliminar">
 								<span class="material-icons">delete</span>
 							</button>
 						</div>
@@ -385,9 +385,9 @@
 			{:else}
 				<div class="empty-state">
 					{#if searchQuery || filterType !== "all"}
-						No tags match your filter.
+						No hay etiquetas que coincidan con tu filtro.
 					{:else}
-						No tags created yet. Add one above.
+						No se han creado etiquetas aún. Agrega una arriba.
 					{/if}
 				</div>
 			{/each}

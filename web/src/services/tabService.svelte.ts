@@ -38,7 +38,7 @@ export function createTabService() {
 		if (instances.length === 0) {
 			instances.push({
 				id: "instance-1" as ComponentId,
-				instanceName: "Instance 1",
+				instanceName: "Instancia 1",
 				currentTab: "Dashboard",
 				isActive: true,
 				data: undefined,
@@ -74,7 +74,7 @@ export function createTabService() {
 					] as ComponentId;
 					if (!componentId) {
 						console.warn(
-							`MDT: Unknown tab '${activeInstance.currentTab}', using Dashboard`,
+							`MDT: Pestaña desconocida '${activeInstance.currentTab}', usando Dashboard`,
 						);
 						return TAB_TO_COMPONENT_MAP["Dashboard"];
 					}
@@ -84,13 +84,13 @@ export function createTabService() {
 				const fallbackComponent = TAB_TO_COMPONENT_MAP[activeTab];
 				if (!fallbackComponent) {
 					console.warn(
-						`MDT: Unknown tab '${activeTab}', using Dashboard`,
+						`MDT: Pestaña desconocida '${activeTab}', usando Dashboard`,
 					);
 					return TAB_TO_COMPONENT_MAP["Dashboard"];
 				}
 				return fallbackComponent;
 			} catch (error) {
-				console.error("MDT: Error getting component:", error);
+				console.error("MDT: Error al obtener el componente:", error);
 				return TAB_TO_COMPONENT_MAP["Dashboard"];
 			}
 		},
@@ -107,7 +107,7 @@ export function createTabService() {
 			if (instance) {
 				instance.currentTab = tab;
 			} else {
-				console.warn(`MDT: Instance '${instanceId}' not found`);
+				console.warn(`MDT: Instancia '${instanceId}' no encontrada`);
 			}
 		},
 
@@ -164,7 +164,7 @@ export function createTabService() {
 				(instance) => instance.id === id,
 			);
 			if (instanceIndex === -1) {
-				console.warn(`MDT: Instance '${id}' not found`);
+				console.warn(`MDT: Instancia '${id}' no encontrada`);
 				return;
 			}
 
@@ -184,7 +184,7 @@ export function createTabService() {
 				(instance) => instance.id === id,
 			);
 			if (!targetInstance) {
-				console.warn(`MDT: Instance '${id}' not found`);
+				console.warn(`MDT: Instancia '${id}' no encontrada`);
 				return;
 			}
 
@@ -206,7 +206,7 @@ export function createTabService() {
 			if (instance) {
 				instance.instanceName = instanceName;
 			} else {
-				console.warn(`MDT: Instance '${id}' not found`);
+				console.warn(`MDT: Instancia '${id}' no encontrada`);
 			}
 		},
 
@@ -218,7 +218,7 @@ export function createTabService() {
 			if (instance) {
 				instance.data = validatedData;
 			} else {
-				console.warn(`MDT: Instance '${id}' not found`);
+				console.warn(`MDT: Instancia '${id}' no encontrada`);
 			}
 		},
 

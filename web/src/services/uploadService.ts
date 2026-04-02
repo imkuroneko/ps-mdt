@@ -30,7 +30,7 @@ export async function compressImage(file: File): Promise<string> {
 
 			const ctx = canvas.getContext("2d");
 			if (!ctx) {
-				reject(new Error("Failed to get canvas context"));
+				reject(new Error("Inconvenientes al crear el contexto del canvas"));
 				return;
 			}
 
@@ -46,7 +46,7 @@ export async function compressImage(file: File): Promise<string> {
 
 		img.onerror = () => {
 			URL.revokeObjectURL(url);
-			reject(new Error("Failed to load image for compression"));
+			reject(new Error("Inconvenientes al cargar la imagen para la compresión"));
 		};
 
 		img.src = url;

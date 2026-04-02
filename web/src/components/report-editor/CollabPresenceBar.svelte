@@ -21,17 +21,17 @@
 	<div class="collab-bar">
 		<div class="collab-indicator">
 			<div class="pulse-dot" style="background: {myColor};"></div>
-			<span class="collab-label">Live Editing</span>
+			<span class="collab-label">Edición en vivo</span>
 		</div>
 		<div class="collab-editors">
 			{#each editors as editor}
-				<div class="editor-avatar" style="background: {editor.color}; border-color: {editor.color};" title="{editor.name} is editing">
+				<div class="editor-avatar" style="background: {editor.color}; border-color: {editor.color};" title="{editor.name} está editando">
 					<span class="editor-initials">{getInitials(editor.name)}</span>
 					<div class="editor-active-dot"></div>
 				</div>
 			{/each}
 		</div>
-		<span class="collab-count">{editors.length} other{editors.length !== 1 ? 's' : ''} editing</span>
+		<span class="collab-count">{editors.length} está{editors.length !== 1 ? 'n' : ''} editando</span>
 	</div>
 {/if}
 

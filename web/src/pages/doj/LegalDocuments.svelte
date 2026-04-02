@@ -48,14 +48,14 @@
 	});
 
 	const typeOptions: { value: string; label: string }[] = [
-		{ value: "all", label: "All Types" },
-		{ value: "brief", label: "Brief" },
-		{ value: "motion", label: "Motion" },
-		{ value: "ruling", label: "Ruling" },
-		{ value: "opinion", label: "Opinion" },
-		{ value: "plea_deal", label: "Plea Deal" },
-		{ value: "sentencing", label: "Sentencing" },
-		{ value: "other", label: "Other" },
+		{ value: "all", label: "Todos los Tipos" },
+		{ value: "brief", label: "Resumen" },
+		{ value: "motion", label: "Moción" },
+		{ value: "ruling", label: "Fallo" },
+		{ value: "opinion", label: "Opinión" },
+		{ value: "plea_deal", label: "Acuerdo de Culpabilidad" },
+		{ value: "sentencing", label: "Sentencia" },
+		{ value: "other", label: "Otro" },
 	];
 
 	const statusOptions = ["all", "draft", "filed", "approved", "rejected"];
@@ -152,7 +152,7 @@
 			);
 			documents = data.documents || [];
 		} catch {
-			globalNotifications.error("Failed to load legal documents");
+			globalNotifications.error("No se pudieron cargar los documentos legales");
 		}
 		isLoading = false;
 	}
@@ -168,7 +168,7 @@
 			selectedDocument = response?.data || documents.find((d) => d.id === id) || null;
 			editContent = selectedDocument?.content || "";
 		} catch {
-			globalNotifications.error("Failed to load document");
+			globalNotifications.error("No se pudo cargar el documento");
 		}
 		isLoading = false;
 	}
@@ -196,13 +196,13 @@
 			if (result.success) {
 				showCreateModal = false;
 				newDoc = { type: "brief", title: "", linked_court_case_id: "", content: "" };
-				globalNotifications.success("Legal document created");
+				globalNotifications.success("Documento legal creado");
 				await loadDocuments();
 			} else {
-				globalNotifications.error(result.error || "Failed to create document");
+				globalNotifications.error(result.error || "No se pudo crear el documento");
 			}
 		} catch {
-			globalNotifications.error("Failed to create document");
+			globalNotifications.error("No se pudo crear el documento");
 		}
 		isLoading = false;
 	}
@@ -216,9 +216,9 @@
 				{ success: true },
 			);
 			selectedDocument.content = editContent;
-			globalNotifications.success("Document saved");
+			globalNotifications.success("Documento guardado");
 		} catch {
-			globalNotifications.error("Failed to save document");
+			globalNotifications.error("No se pudo guardar el documento");
 		}
 	}
 
@@ -231,9 +231,9 @@
 				{ success: true },
 			);
 			selectedDocument.status = newStatus;
-			globalNotifications.success("Status updated");
+			globalNotifications.success("Estado actualizado");
 		} catch {
-			globalNotifications.error("Failed to update status");
+			globalNotifications.error("No se pudo actualizar el estado");
 		}
 	}
 
@@ -246,14 +246,14 @@
 				{ success: true },
 			);
 			if (result.success) {
-				globalNotifications.success("Document deleted");
+				globalNotifications.success("Documento eliminado");
 				goBack();
 				await loadDocuments();
 			} else {
-				globalNotifications.error(result.error || "Failed to delete document");
+				globalNotifications.error(result.error || "No se pudo eliminar el documento");
 			}
 		} catch {
-			globalNotifications.error("Failed to delete document");
+			globalNotifications.error("No se pudo eliminar el documento");
 		}
 	}
 </script>
@@ -264,12 +264,12 @@
 		<div class="topbar">
 			<button class="back-btn" onclick={goBack}>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-				Back to Documents
+				Volver a Documentos
 			</button>
 			<span class="pill {getTypePillClass(selectedDocument.type)}">{formatLabel(selectedDocument.type)}</span>
 			<span class="pill {getStatusPillClass(selectedDocument.status)}">{formatLabel(selectedDocument.status)}</span>
 			<div class="topbar-actions">
-				<button class="action-btn" onclick={handleSaveContent} disabled={isLoading}>Save</button>
+				<button class="action-btn" onclick={handleSaveContent} disabled={isLoading}>Guardar</button>
 			</div>
 		</div>
 
@@ -277,47 +277,46 @@
 			<div class="detail-layout">
 				<div class="detail-main">
 					<div class="section">
-						<div class="section-title">Document Information</div>
-						<h3 class="doc-title">{selectedDocument.title}</h3>
-						<div class="field-row">
+					<div class="section-title">Información del Documento</div>
+					<h3 class="doc-title">{selectedDocument.title}</h3>
+					<div class="field-row">
+						<div class="field-group">
+							<span class="field-label">Autor</span>
+							<span class="field-value">{selectedDocument.author_name}</span>
+						</div>
+						<div class="field-group">
+							<span class="field-label">Creado</span>
+							<span class="field-value">{formatDateValue(selectedDocument.created_at)}</span>
+						</div>
+						{#if selectedDocument.linked_court_case_number}
 							<div class="field-group">
-								<span class="field-label">Author</span>
-								<span class="field-value">{selectedDocument.author_name}</span>
-							</div>
-							<div class="field-group">
-								<span class="field-label">Created</span>
-								<span class="field-value">{formatDateValue(selectedDocument.created_at)}</span>
-							</div>
-							{#if selectedDocument.linked_court_case_number}
-								<div class="field-group">
-									<span class="field-label">Court Case</span>
-									<span class="field-value link">{selectedDocument.linked_court_case_number}</span>
+								<span class="field-label">Caso Judicial</span>
 								</div>
 							{/if}
 						</div>
 					</div>
 
 					<div class="section editor-section">
-						<div class="section-title">Content</div>
-						<textarea class="editor-textarea" bind:value={editContent} placeholder="Document content..."></textarea>
+						<div class="section-title">Contenido</div>
+						<textarea class="editor-textarea" bind:value={editContent} placeholder="Contenido del documento..."></textarea>
 					</div>
 				</div>
 
 				<div class="detail-side">
 					<div class="section">
-						<div class="section-title">Status</div>
+						<div class="section-title">Estado</div>
 						<select class="form-select" value={selectedDocument.status} onchange={(e) => handleUpdateStatus((e.target as HTMLSelectElement).value as DocStatus)}>
-							<option value="draft">Draft</option>
-							<option value="filed">Filed</option>
-							<option value="approved">Approved</option>
-							<option value="rejected">Rejected</option>
+							<option value="draft">Borrador</option>
+							<option value="filed">Presentado</option>
+							<option value="approved">Aprobado</option>
+							<option value="rejected">Rechazado</option>
 						</select>
 					</div>
 
 					<div class="section">
-						<div class="section-title">Actions</div>
+						<div class="section-title">Acciones</div>
 						<button class="danger-btn" onclick={handleDeleteDocument} disabled={isLoading}>
-							Delete Document
+							Eliminar Documento
 						</button>
 					</div>
 				</div>
@@ -327,7 +326,7 @@
 		<!-- LIST VIEW -->
 		<div class="topbar">
 			<div class="search-box">
-				<input type="text" placeholder="Search documents..." bind:value={searchQuery} />
+				<input type="text" placeholder="Buscar documentos..." bind:value={searchQuery} />
 			</div>
 			<div class="filter-pills">
 				{#each statusOptions as opt}
@@ -342,9 +341,9 @@
 				{/each}
 			</select>
 			<div class="topbar-actions">
-				<span class="result-count">{allFilteredDocs.length} document{allFilteredDocs.length !== 1 ? "s" : ""}</span>
-				<button class="action-btn" onclick={loadDocuments} disabled={isLoading}>{isLoading ? "Loading..." : "Refresh"}</button>
-				<button class="primary-btn" onclick={() => (showCreateModal = true)}>New Document</button>
+				<span class="result-count">{allFilteredDocs.length} documento{allFilteredDocs.length !== 1 ? "s" : ""}</span>
+				<button class="action-btn" onclick={loadDocuments} disabled={isLoading}>{isLoading ? "Cargando..." : "Actualizar"}</button>
+				<button class="primary-btn" onclick={() => (showCreateModal = true)}>Nuevo Documento</button>
 			</div>
 		</div>
 
@@ -352,21 +351,21 @@
 			{#if isLoading && documents.length === 0}
 				<div class="center-state">
 					<div class="loading-spinner"></div>
-					<p>Loading legal documents...</p>
+					<p>Cargando documentos legales...</p>
 				</div>
 			{:else if allFilteredDocs.length === 0}
 				<div class="center-state">
-					<h3>No Legal Documents Found</h3>
-					<p>{searchQuery ? "No documents match your search criteria." : "No legal documents available."}</p>
+					<h3>No se encontraron documentos legales</h3>
+					<p>{searchQuery ? "Ningún documento coincide con tus criterios de búsqueda." : "No hay documentos legales disponibles."}</p>
 				</div>
 			{:else}
 				<div class="table-header">
-					<span>Title</span>
-					<span>Type</span>
-					<span>Status</span>
-					<span>Author</span>
-					<span>Court Case</span>
-					<span>Date</span>
+					<span>Título</span>
+					<span>Tipo</span>
+					<span>Estado</span>
+					<span>Autor</span>
+					<span>Caso Judicial</span>
+					<span>Fecha</span>
 				</div>
 				<div class="table-body">
 					{#each allFilteredDocs as item}
@@ -390,40 +389,40 @@
 	<div class="modal-backdrop" onclick={() => (showCreateModal = false)} role="presentation">
 		<div class="modal" onclick={(e) => e.stopPropagation()} role="dialog">
 			<div class="modal-header">
-				<span class="modal-title">New Legal Document</span>
+				<span class="modal-title">Nuevo Documento Legal</span>
 				<button class="modal-close" onclick={() => (showCreateModal = false)}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label class="form-label">Type</label>
+					<label class="form-label">Tipo</label>
 					<select class="form-select" bind:value={newDoc.type}>
-						<option value="brief">Brief</option>
-						<option value="motion">Motion</option>
-						<option value="ruling">Ruling</option>
-						<option value="opinion">Opinion</option>
-						<option value="plea_deal">Plea Deal</option>
-						<option value="sentencing">Sentencing</option>
-						<option value="other">Other</option>
+						<option value="brief">Resumen</option>
+						<option value="motion">Moción</option>
+						<option value="ruling">Fallo</option>
+						<option value="opinion">Opinión</option>
+						<option value="plea_deal">Acuerdo de Culpabilidad</option>
+						<option value="sentencing">Sentencia</option>
+						<option value="other">Otro</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<label class="form-label">Title</label>
-					<input type="text" class="form-input" placeholder="Document title..." bind:value={newDoc.title} />
+					<label class="form-label">Título</label>
+					<input type="text" class="form-input" placeholder="Título del documento..." bind:value={newDoc.title} />
 				</div>
 				<div class="form-group">
-					<label class="form-label">Link to Court Case (optional, ID)</label>
-					<input type="text" class="form-input" placeholder="Court case ID" bind:value={newDoc.linked_court_case_id} />
+					<label class="form-label">Vincular a Caso Judicial (opcional, ID)</label>
+					<input type="text" class="form-input" placeholder="ID del caso judicial" bind:value={newDoc.linked_court_case_id} />
 				</div>
 				<div class="form-group">
-					<label class="form-label">Content</label>
-					<textarea class="form-textarea" style="min-height: 120px;" placeholder="Document content..." bind:value={newDoc.content}></textarea>
+					<label class="form-label">Contenido</label>
+					<textarea class="form-textarea" style="min-height: 120px;" placeholder="Contenido del documento..." bind:value={newDoc.content}></textarea>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="back-btn" onclick={() => (showCreateModal = false)}>Cancel</button>
-				<button class="primary-btn" disabled={!newDoc.title.trim()} onclick={handleCreateDocument}>Create Document</button>
+				<button class="back-btn" onclick={() => (showCreateModal = false)}>Cancelar</button>
+				<button class="primary-btn" disabled={!newDoc.title.trim()} onclick={handleCreateDocument}>Crear Documento</button>
 			</div>
 		</div>
 	</div>

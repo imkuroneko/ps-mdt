@@ -9,22 +9,22 @@
 	}
 
 	const TRACKING_CATEGORIES: { key: string; label: string; description: string }[] = [
-		{ key: "authentication", label: "Authentication", description: "Login and logout events" },
-		{ key: "reports", label: "Reports", description: "Report create, update, and delete" },
-		{ key: "cases", label: "Cases", description: "Case CRUD, officer assignments, attachments" },
-		{ key: "evidence", label: "Evidence", description: "Evidence CRUD, transfers, and images" },
-		{ key: "warrants", label: "Warrants", description: "Warrant issued and closed" },
-		{ key: "vehicles", label: "Vehicles", description: "Vehicle updates, impound, and release" },
-		{ key: "weapons", label: "Weapons", description: "Weapon create, update, and delete" },
-		{ key: "charges", label: "Charges & Fines", description: "Fines processed and charges updated" },
-		{ key: "searches", label: "Searches", description: "Citizen, player, and officer searches" },
-		{ key: "dispatch", label: "Dispatch", description: "Signal 100 activate and deactivate" },
-		{ key: "officers", label: "Officers", description: "Callsign changes" },
-		{ key: "sentencing", label: "Sentencing", description: "Jail sentencing" },
-		{ key: "arrests", label: "Arrests", description: "Arrest logging" },
-		{ key: "icu", label: "ICU", description: "ICU record deletion" },
-		{ key: "cameras", label: "Cameras", description: "Security camera access" },
-		{ key: "bodycams", label: "Bodycams", description: "Officer bodycam access" },
+		{ key: "authentication", label: "Autenticación", description: "Eventos de inicio y cierre de sesión" },
+		{ key: "reports", label: "Reportes", description: "Crear, actualizar y eliminar reportes" },
+		{ key: "cases", label: "Casos", description: "CRUD de casos, asignaciones de oficiales, adjuntos" },
+		{ key: "evidence", label: "Evidencia", description: "CRUD de evidencia, transferencias e imágenes" },
+		{ key: "warrants", label: "Órdenes", description: "Órdenes emitidas y cerradas" },
+		{ key: "vehicles", label: "Vehículos", description: "Actualizaciones de vehículos, decomiso y liberación" },
+		{ key: "weapons", label: "Armas", description: "Crear, actualizar y eliminar armas" },
+		{ key: "charges", label: "Cargos y Multas", description: "Multas procesadas y cargos actualizados" },
+		{ key: "searches", label: "Búsquedas", description: "Búsquedas de ciudadanos, jugadores y oficiales" },
+		{ key: "dispatch", label: "Despacho", description: "Activar y desactivar Signal 100" },
+		{ key: "officers", label: "Oficiales", description: "Cambios de indicativo" },
+		{ key: "sentencing", label: "Sentencias", description: "Sentencias de cárcel" },
+		{ key: "arrests", label: "Arrestos", description: "Registro de arrestos" },
+		{ key: "icu", label: "UCI", description: "Eliminación de registros UCI" },
+		{ key: "cameras", label: "Cámaras", description: "Acceso a cámaras de seguridad" },
+		{ key: "bodycams", label: "Bodycams", description: "Acceso a bodycam de oficiales" },
 	];
 
 	let trackingConfig: TrackingConfig = $state({});
@@ -50,7 +50,7 @@
 				trackingConfig = { ...response };
 			}
 		} catch (error) {
-			console.error("Failed to load tracking config:", error);
+			console.error("Error al cargar la configuración de seguimiento:", error);
 		} finally {
 			isLoadingTracking = false;
 		}
@@ -58,7 +58,7 @@
 
 	async function saveTrackingConfig() {
 		if (isEnvBrowser()) {
-			showTrackingStatus("Settings saved");
+			showTrackingStatus("Configuración guardada");
 			return;
 		}
 		try {
@@ -69,13 +69,13 @@
 				{ success: false },
 			);
 			if (result?.success) {
-				showTrackingStatus("Activity tracking settings saved");
+				showTrackingStatus("Configuración de seguimiento de actividad guardada");
 			} else {
-				showTrackingStatus(result?.message || "Failed to save settings", "error");
+				showTrackingStatus(result?.message || "Error al guardar la configuración", "error");
 			}
 		} catch (error) {
-			console.error("Failed to save tracking config:", error);
-			showTrackingStatus("Failed to save settings", "error");
+			console.error("Error al guardar la configuración de seguimiento:", error);
+			showTrackingStatus("Error al guardar la configuración", "error");
 		} finally {
 			isSavingTracking = false;
 		}
@@ -115,18 +115,18 @@
 <div class="tracking-page">
 	<div class="tracking-card">
 		<div class="card-title-row">
-			<span class="card-label">Activity Tracking</span>
+			<span class="card-label">Seguimiento de Actividad</span>
 			<div class="tracking-actions">
-				<button class="action-btn" onclick={enableAll}>Enable All</button>
-				<button class="action-btn" onclick={disableAll}>Disable All</button>
+				<button class="action-btn" onclick={enableAll}>Habilitar Todo</button>
+				<button class="action-btn" onclick={disableAll}>Deshabilitar Todo</button>
 			</div>
 		</div>
-		<p class="card-subtitle">Configure which actions are logged in the activity feed. Changes apply department-wide.</p>
+		<p class="card-subtitle">Configura qué acciones se registran en el registro de actividad. Los cambios se aplican en todo el departamento.</p>
 
 		{#if isLoadingTracking}
 			<div class="tracking-loading">
 				<div class="loading-spinner"></div>
-				<p>Loading tracking settings...</p>
+				<p>Cargando configuración de seguimiento...</p>
 			</div>
 		{:else}
 			<div class="tracking-scroll">
@@ -156,7 +156,7 @@
 		<div class="save-bar">
 			<button class="btn-save" onclick={saveTrackingConfig} disabled={isSavingTracking}>
 				<span class="material-icons btn-save-icon">save</span>
-				{isSavingTracking ? "Saving..." : "Save Settings"}
+				{isSavingTracking ? "Guardando..." : "Guardar Configuración"}
 			</button>
 			{#if trackingStatus}
 				<span class="save-status {trackingStatus.type}">{trackingStatus.text}</span>

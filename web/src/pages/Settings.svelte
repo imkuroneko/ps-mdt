@@ -50,9 +50,9 @@
 				showBodycams,
 			};
 			localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-			showSaveStatus("Preferences saved");
+			showSaveStatus("Preferencias guardadas");
 		} catch {
-			showSaveStatus("Failed to save");
+			showSaveStatus("Error al guardar");
 		}
 	}
 
@@ -80,21 +80,21 @@
 <div class="settings-page">
 	<div class="settings-grid">
 		<div class="settings-card">
-			<span class="card-label">Appearance</span>
+			<span class="card-label">Apariencia</span>
 			<div class="setting-row">
 				<div class="setting-info">
-					<span class="setting-label">Theme</span>
-					<span class="setting-desc">Select the MDT color theme</span>
+					<span class="setting-label">Tema</span>
+					<span class="setting-desc">Selecciona el tema de color del MDT</span>
 				</div>
 				<select class="setting-select" bind:value={theme}>
-					<option value="dark">Dark</option>
-					<option value="light">Light</option>
+				<option value="dark">Oscuro</option>
+				<option value="light">Claro</option>
 				</select>
 			</div>
 			<div class="setting-row">
 				<div class="setting-info">
-					<span class="setting-label">Notification Sounds</span>
-					<span class="setting-desc">Play sounds for dispatch alerts and messages</span>
+					<span class="setting-label">Sonidos de Notificación</span>
+					<span class="setting-desc">Reproducir sonidos para alertas de despacho y mensajes</span>
 				</div>
 				<label class="toggle">
 					<input type="checkbox" bind:checked={notificationSounds} />
@@ -103,8 +103,8 @@
 			</div>
 			<div class="setting-row">
 				<div class="setting-info">
-					<span class="setting-label">UI Zoom</span>
-					<span class="setting-desc">Adjust the overall MDT interface size</span>
+					<span class="setting-label">Zoom de Interfaz</span>
+					<span class="setting-desc">Ajusta el tamaño general de la interfaz del MDT</span>
 				</div>
 				<div class="zoom-control">
 					<input
@@ -118,18 +118,18 @@
 					/>
 					<span class="zoom-value">{uiZoom}%</span>
 					{#if uiZoom !== 130}
-						<button class="zoom-reset" onclick={resetZoom} type="button">Reset</button>
+						<button class="zoom-reset" onclick={resetZoom} type="button">Restablecer</button>
 					{/if}
 				</div>
 			</div>
 		</div>
 
 		<div class="settings-card">
-			<span class="card-label">Map</span>
+			<span class="card-label">Mapa</span>
 			<div class="setting-row">
 				<div class="setting-info">
-					<span class="setting-label">Default Zoom Level</span>
-					<span class="setting-desc">Zoom level when opening the map (3-10)</span>
+					<span class="setting-label">Nivel de Zoom Predeterminado</span>
+					<span class="setting-desc">Nivel de zoom al abrir el mapa (3-10)</span>
 				</div>
 				<input
 					type="number"
@@ -141,8 +141,8 @@
 			</div>
 			<div class="setting-row">
 				<div class="setting-info">
-					<span class="setting-label">Show Officers</span>
-					<span class="setting-desc">Display officer positions on the map</span>
+					<span class="setting-label">Mostrar Oficiales</span>
+					<span class="setting-desc">Mostrar posiciones de oficiales en el mapa</span>
 				</div>
 				<label class="toggle">
 					<input type="checkbox" bind:checked={showOfficers} />
@@ -151,8 +151,8 @@
 			</div>
 			<div class="setting-row">
 				<div class="setting-info">
-					<span class="setting-label">Show Vehicles</span>
-					<span class="setting-desc">Display tracked vehicles on the map</span>
+					<span class="setting-label">Mostrar Vehículos</span>
+					<span class="setting-desc">Mostrar vehículos rastreados en el mapa</span>
 				</div>
 				<label class="toggle">
 					<input type="checkbox" bind:checked={showVehicles} />
@@ -161,8 +161,8 @@
 			</div>
 			<div class="setting-row">
 				<div class="setting-info">
-					<span class="setting-label">Show Bodycams</span>
-					<span class="setting-desc">Display bodycam feeds on the map</span>
+					<span class="setting-label">Mostrar Bodycams</span>
+					<span class="setting-desc">Mostrar feeds de bodycam en el mapa</span>
 				</div>
 				<label class="toggle">
 					<input type="checkbox" bind:checked={showBodycams} />
@@ -176,7 +176,7 @@
 	<div class="save-bar">
 		<button class="btn-save" onclick={savePreferences}>
 			<span class="material-icons btn-save-icon">save</span>
-			Save Preferences
+			Guardar Preferencias
 		</button>
 		{#if saveStatus}
 			<span class="save-status">{saveStatus}</span>

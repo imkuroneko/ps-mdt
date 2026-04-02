@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { MDT_TABS, NAV_GROUPS, DOJ_NAV_GROUPS, getTabsForJob, type MDTTab, type ComponentId } from "../constants";
+	import { getTabTranslation, getLabelTranslation } from "../constants/translations";
 	import type { createTabService } from "../services/tabService.svelte";
 	import type { JobType } from "../interfaces/IUser";
 	import type { AuthService } from "../services/authService.svelte";
@@ -87,7 +88,7 @@
 			<div class="nav-group">
 				<button class="nav-group-header" onclick={() => toggleGroup(group.id)}>
 					<span class="material-icons nav-group-icon">{group.icon}</span>
-					<span class="nav-group-label">{group.label}</span>
+					<span class="nav-group-label">{getLabelTranslation(group.label)}</span>
 					<span class="material-icons nav-group-chevron" class:rotated={!isGroupCollapsed(group.id)}>expand_more</span>
 				</button>
 				{#if !isGroupCollapsed(group.id)}
@@ -101,7 +102,7 @@
 									onclick={() => handleTabClick(tab)}
 								>
 									<span class="material-icons nav-icon">{tab.icon}</span>
-									<span>{tab.name}</span>
+								<span>{getTabTranslation(tab.name)}</span>
 								</button>
 							{/if}
 						{/each}
@@ -119,7 +120,7 @@
 						onclick={() => handleTabClick(tab)}
 					>
 						<span class="material-icons nav-icon">{tab.icon}</span>
-						<span class:hide={collapsed}>{tab.name}</span>
+						<span class:hide={collapsed}>{getTabTranslation(tab.name)}</span>
 					</button>
 				{/if}
 			{/each}

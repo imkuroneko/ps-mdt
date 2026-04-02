@@ -60,18 +60,15 @@ export const SECURITY_CONFIG = {
  * Security error messages for consistent logging
  */
 export const SECURITY_MESSAGES = {
-	INVALID_ID_FORMAT:
-		"MDT: Invalid ID format - must be alphanumeric with dashes/underscores only",
-	INVALID_NAME_FORMAT:
-		"MDT: Invalid name - contains forbidden characters or too long",
-	INVALID_TAB: "MDT: Invalid tab name - not in allowed list",
-	DATA_TOO_LARGE: "MDT: Data too large - exceeds size limit",
-	SUSPICIOUS_CONTENT:
-		"MDT: Suspicious content detected - potential code injection",
-	TOO_MANY_INSTANCES: "MDT: Too many instances - limiting to maximum allowed",
-	STORAGE_TOO_LARGE: "MDT: Storage data too large - potential attack",
-	INVALID_BOOLEAN: "MDT: Invalid boolean value",
-	NOT_SERIALIZABLE: "MDT: Data not serializable",
+	INVALID_ID_FORMAT: "MDT: Formato de ID inválido - solo alfanumérico con guiones y guiones bajos",
+	INVALID_NAME_FORMAT: "MDT: Nombre inválido - contiene caracteres no permitidos o es demasiado largo",
+	INVALID_TAB: "MDT: Nombre de pestaña inválido - no está en la lista permitida",
+	DATA_TOO_LARGE: "MDT: Datos demasiado grandes - supera el límite de tamaño",
+	SUSPICIOUS_CONTENT: "MDT: Contenido sospechoso detectado - posible inyección de código",
+	TOO_MANY_INSTANCES: "MDT: Demasiadas instancias - limitando al máximo permitido",
+	STORAGE_TOO_LARGE: "MDT: Datos de almacenamiento demasiado grandes - posible ataque",
+	INVALID_BOOLEAN: "MDT: Valor booleano inválido",
+	NOT_SERIALIZABLE: "MDT: Los datos no son serializables",
 } as const;
 
 /**

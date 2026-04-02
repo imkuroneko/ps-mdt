@@ -65,9 +65,9 @@
 	$: formValid = newEvidence.title && newEvidence.type;
 </script>
 
-<section class="evidence-manager" aria-label="Evidence management">
+<section class="evidence-manager" aria-label="Gestión de evidencia">
 	<div class="evidence-header">
-		<h3 class="section-title">Evidence ({report.evidence.length})</h3>
+		<h3 class="section-title">Evidencia ({report.evidence.length})</h3>
 		<button
 			type="button"
 			on:click={toggleEvidenceForm}
@@ -75,7 +75,7 @@
 			aria-expanded={showEvidenceForm}
 			aria-controls="evidence-form"
 		>
-			{showEvidenceForm ? "Cancel" : "Add Evidence"}
+			{showEvidenceForm ? "Cancelar" : "Agregar Evidencia"}
 		</button>
 	</div>
 
@@ -85,13 +85,11 @@
 			class="evidence-form"
 			on:submit|preventDefault={saveEvidence}
 			role="region"
-			aria-label={editingEvidence ? "Edit evidence" : "Add new evidence"}
+			aria-label={editingEvidence ? "Editar evidencia" : "Agregar nueva evidencia"}
 		>
 			<div class="form-row">
 				<div class="form-field">
-					<label for="evidence-title" class="form-label"
-						>Title *</label
-					>
+					<label for="evidence-title" class="form-label">Título *</label>
 					<input
 						id="evidence-title"
 						type="text"
@@ -101,12 +99,12 @@
 						aria-describedby="evidence-title-help"
 					/>
 					<div id="evidence-title-help" class="sr-only">
-						Enter a descriptive title for the evidence
+						Ingresa un título descriptivo para la evidencia
 					</div>
 				</div>
 
 				<div class="form-field">
-					<label for="evidence-type" class="form-label">Type *</label>
+					<label for="evidence-type" class="form-label">Tipo *</label>
 					<select
 						id="evidence-type"
 						bind:value={newEvidence.type}
@@ -114,13 +112,13 @@
 						required
 						aria-describedby="evidence-type-help"
 					>
-						<option value="">Select type...</option>
+						<option value="">Seleccionar tipo...</option>
 						{#each EVIDENCE_TYPES as type}
 							<option value={type}>{type}</option>
 						{/each}
 					</select>
 					<div id="evidence-type-help" class="sr-only">
-						Select the type of evidence
+						Selecciona el tipo de evidencia
 					</div>
 				</div>
 			</div>
@@ -128,7 +126,7 @@
 			<div class="form-row">
 				<div class="form-field">
 					<label for="evidence-serial" class="form-label"
-						>Serial Number</label
+						>Número de Serie</label
 					>
 					<input
 						id="evidence-serial"
@@ -138,13 +136,13 @@
 						aria-describedby="evidence-serial-help"
 					/>
 					<div id="evidence-serial-help" class="sr-only">
-						Enter serial number if applicable
+						Ingresa número de serie si es aplicable
 					</div>
 				</div>
 			</div>
 
 			<div class="form-field">
-				<label for="evidence-notes" class="form-label">Notes</label>
+				<label for="evidence-notes" class="form-label">Notas</label>
 				<textarea
 					id="evidence-notes"
 					bind:value={newEvidence.notes}
@@ -153,7 +151,7 @@
 					aria-describedby="evidence-notes-help"
 				></textarea>
 				<div id="evidence-notes-help" class="sr-only">
-					Additional notes about the evidence
+						Notas adicionales sobre la evidencia
 				</div>
 			</div>
 
@@ -164,26 +162,26 @@
 					class="save-btn"
 					aria-describedby="save-btn-help"
 				>
-					{editingEvidence ? "Update Evidence" : "Add Evidence"}
+					{editingEvidence ? "Actualizar Evidencia" : "Agregar Evidencia"}
 				</button>
 				<button
 					type="button"
 					on:click={toggleEvidenceForm}
 					class="cancel-btn"
 				>
-					Cancel
+					Cancelar
 				</button>
 			</div>
 			<div id="save-btn-help" class="sr-only">
 				{formValid
-					? "Form is valid and ready to submit"
-					: "Please fill in required fields"}
+					? "El formulario es válido y listo para enviar"
+					: "Por favor completa los campos requeridos"}
 			</div>
 		</form>
 	{/if}
 
 	{#if report.evidence.length > 0}
-		<div class="evidence-list" role="list" aria-label="Evidence items">
+		<div class="evidence-list" role="list" aria-label="Elementos de evidencia">
 			{#each report.evidence as evidence}
 				<article class="evidence-item" role="listitem">
 					<div class="evidence-content">
@@ -196,7 +194,7 @@
 
 						{#if evidence.serial}
 							<div class="evidence-detail">
-								<span class="detail-label">Serial:</span>
+								<span class="detail-label">Número de Serie:</span>
 								<span class="detail-value"
 									>{evidence.serial}</span
 								>
@@ -205,7 +203,7 @@
 
 						{#if evidence.notes}
 							<div class="evidence-detail">
-								<span class="detail-label">Notes:</span>
+								<span class="detail-label">Notas:</span>
 								<span class="detail-value"
 									>{evidence.notes}</span
 								>
@@ -216,18 +214,17 @@
 							<div
 								class="evidence-images"
 								role="group"
-								aria-label="Evidence images"
+								aria-label="Imágenes de evidencia"
 							>
 								<h5 class="images-title">
-									Images ({evidence.images.length})
+									Imágenes ({evidence.images.length})
 								</h5>
 								<div class="images-grid">
 									{#each evidence.images as image, imageIndex}
 										<div class="image-item">
 											<img
 												src={image}
-												alt="Evidence image {imageIndex +
-													1}"
+												alt="Imagen de evidencia {imageIndex + 1}"
 												class="evidence-image"
 											/>
 											<button
@@ -238,8 +235,7 @@
 														imageIndex,
 													)}
 												class="remove-image-btn"
-												aria-label="Remove image {imageIndex +
-													1}"
+											aria-label="Eliminar imagen {imageIndex + 1}"
 											>
 												×
 											</button>
@@ -255,24 +251,24 @@
 							type="button"
 							on:click={() => editEvidence(evidence)}
 							class="edit-btn"
-							aria-label="Edit evidence: {evidence.title}"
+								aria-label="Editar evidencia: {evidence.title}"
 						>
-							Edit
+							Editar
 						</button>
 						<button
 							type="button"
 							on:click={() => removeEvidence(evidence.id)}
 							class="remove-btn"
-							aria-label="Remove evidence: {evidence.title}"
+							aria-label="Eliminar evidencia: {evidence.title}"
 						>
-							Remove
+							Eliminar
 						</button>
 					</div>
 				</article>
 			{/each}
 		</div>
 	{:else}
-		<p class="no-evidence">No evidence added</p>
+		<p class="no-evidence">Sin evidencia agregada</p>
 	{/if}
 </section>
 

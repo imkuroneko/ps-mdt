@@ -109,7 +109,7 @@
 			entries = data.entries || [];
 		} catch (e) {
 			console.error('[PPR] loadEntries error:', e);
-			globalNotifications.error("Failed to load PPR entries");
+			globalNotifications.error("Error al cargar las entradas PPR");
 		}
 		loading = false;
 	}
@@ -132,7 +132,7 @@
 				editIncidentLocation = detail.entry.incident_location || "";
 			}
 		} catch {
-			globalNotifications.error("Failed to load PPR details");
+			globalNotifications.error("Error al cargar los detalles del PPR");
 		}
 		loading = false;
 	}
@@ -185,7 +185,7 @@
 			showCreateForm = false;
 			if (!isEnvBrowser()) loadEntries();
 		} catch {
-			globalNotifications.error("Failed to create PPR entry");
+			globalNotifications.error("Error al crear la entrada PPR");
 		}
 		isSubmitting = false;
 	}
@@ -217,7 +217,7 @@
 			editMode = false;
 			globalNotifications.success("PPR entry updated");
 		} catch {
-			globalNotifications.error("Failed to update PPR entry");
+			globalNotifications.error("Error al actualizar la entrada PPR");
 		}
 	}
 
@@ -225,10 +225,10 @@
 		if (!selectedEntry || !canManage) return;
 		try {
 			await fetchNui(NUI_EVENTS.PPR.DELETE_PPR, { id: selectedEntry.entry.id }, { success: true });
-			globalNotifications.success("PPR entry deleted");
+			globalNotifications.success("Entrada PPR eliminada");
 			goBack();
 		} catch {
-			globalNotifications.error("Failed to delete PPR entry");
+			globalNotifications.error("Error al eliminar la entrada PPR");
 		}
 	}
 
@@ -243,7 +243,7 @@
 			noteContent = "";
 			await selectEntry(selectedEntry.entry.id);
 		} catch {
-			globalNotifications.error("Failed to add note");
+			globalNotifications.error("Error al agregar la nota");
 		}
 		noteSubmitting = false;
 	}
@@ -257,7 +257,7 @@
 			});
 			await selectEntry(selectedEntry.entry.id);
 		} catch {
-			globalNotifications.error("Failed to delete note");
+			globalNotifications.error("Error al eliminar la nota");
 		}
 	}
 
@@ -364,14 +364,14 @@
 				<div class="detail-main">
 					<div class="section">
 						<div class="section-header">
-							<div class="section-title" style="margin-bottom:0;">Incident Details</div>
+							<div class="section-title" style="margin-bottom:0;">Detalles del Incidente</div>
 							{#if canManage}
 								<div class="inline-controls">
 									{#if editMode}
-										<button class="action-btn" onclick={handleUpdateEntry}>Save</button>
-										<button class="action-btn" onclick={() => { editMode = false; }}>Cancel</button>
+										<button class="action-btn" onclick={handleUpdateEntry}>Guardar</button>
+										<button class="action-btn" onclick={() => { editMode = false; }}>Cancelar</button>
 									{:else}
-										<button class="action-btn" onclick={() => { editMode = true; }}>Edit</button>
+										<button class="action-btn" onclick={() => { editMode = true; }}>Editar</button>
 									{/if}
 								</div>
 							{/if}
@@ -379,50 +379,50 @@
 						{#if editMode && canManage}
 							<div class="field-row">
 								<div class="field-group">
-									<span class="field-label">Title</span>
-									<input type="text" class="form-input" bind:value={editTitle} placeholder="Title" />
+									<span class="field-label">Título</span>
+									<input type="text" class="form-input" bind:value={editTitle} placeholder="Título" />
 								</div>
 								<div class="field-group">
-									<span class="field-label">Category</span>
+									<span class="field-label">Categoría</span>
 									<select class="form-select" bind:value={editCategory}>
-										<option value="positive">Positive</option>
-										<option value="coaching">Coaching</option>
-										<option value="disciplinary">Disciplinary</option>
+										<option value="positive">Positivo</option>
+										<option value="coaching">Orientación</option>
+										<option value="disciplinary">Disciplinario</option>
 									</select>
 								</div>
 								<div class="field-group">
-									<span class="field-label">Incident Date</span>
+									<span class="field-label">Fecha del Incidente</span>
 									<input type="date" class="form-input" bind:value={editIncidentDate} />
 								</div>
 								<div class="field-group">
-									<span class="field-label">Location</span>
-									<input type="text" class="form-input" bind:value={editIncidentLocation} placeholder="Location" />
+									<span class="field-label">Ubicación</span>
+									<input type="text" class="form-input" bind:value={editIncidentLocation} placeholder="Ubicación" />
 								</div>
 							</div>
 							<div class="field-group" style="margin-top:8px;">
-								<span class="field-label">Description</span>
-								<textarea class="form-textarea" rows="4" bind:value={editDescription} placeholder="Description"></textarea>
+								<span class="field-label">Descripción</span>
+								<textarea class="form-textarea" rows="4" bind:value={editDescription} placeholder="Descripción"></textarea>
 							</div>
 						{:else}
 							<div class="field-row">
 								<div class="field-group">
-									<span class="field-label">Officer</span>
+									<span class="field-label">Agente</span>
 									<span class="field-value">{selectedEntry.entry.officer_name || '-'}</span>
 								</div>
 								<div class="field-group">
-									<span class="field-label">Author</span>
+									<span class="field-label">Autor</span>
 									<span class="field-value">{selectedEntry.entry.author_name || '-'}</span>
 								</div>
 								<div class="field-group">
-									<span class="field-label">Category</span>
+									<span class="field-label">Categoría</span>
 									<span class="pill {getCategoryPillClass(selectedEntry.entry.category)}">{formatLabel(selectedEntry.entry.category)}</span>
 								</div>
 								<div class="field-group">
-									<span class="field-label">Incident Date</span>
+									<span class="field-label">Fecha del Incidente</span>
 									<span class="field-value">{selectedEntry.entry.incident_date || '-'}</span>
 								</div>
 								<div class="field-group">
-									<span class="field-label">Location</span>
+									<span class="field-label">Ubicación</span>
 									<span class="field-value">{selectedEntry.entry.incident_location || '-'}</span>
 								</div>
 							</div>
@@ -431,26 +431,26 @@
 
 					{#if !editMode}
 						<div class="section">
-							<div class="section-title">Title & Description</div>
+							<div class="section-title">Título y Descripción</div>
 							<p class="summary-text" style="font-weight:600;color:rgba(255,255,255,0.75);margin-bottom:4px;">{selectedEntry.entry.title}</p>
-							<p class="summary-text">{selectedEntry.entry.description || 'No description provided.'}</p>
+							<p class="summary-text">{selectedEntry.entry.description || 'Sin descripción.'}</p>
 						</div>
 					{/if}
 
 					{#if selectedEntry.entry.linked_report_id || selectedEntry.entry.linked_case_id}
 						<div class="section">
-							<div class="section-title">Linked Records</div>
+							<div class="section-title">Registros Vinculados</div>
 							<div class="field-row">
 								{#if selectedEntry.entry.linked_report_id}
 									<div class="field-group">
-										<span class="field-label">Linked Report</span>
-										<span class="field-value">Report #{selectedEntry.entry.linked_report_id}</span>
+										<span class="field-label">Reporte Vinculado</span>
+										<span class="field-value">Reporte #{selectedEntry.entry.linked_report_id}</span>
 									</div>
 								{/if}
 								{#if selectedEntry.entry.linked_case_id}
 									<div class="field-group">
-										<span class="field-label">Linked Case</span>
-										<span class="field-value">Case #{selectedEntry.entry.linked_case_id}</span>
+										<span class="field-label">Caso Vinculado</span>
+										<span class="field-value">Caso #{selectedEntry.entry.linked_case_id}</span>
 									</div>
 								{/if}
 							</div>
@@ -462,28 +462,28 @@
 				<div class="detail-side">
 					{#if canManage}
 						<div class="section">
-							<div class="section-title">Actions</div>
+							<div class="section-title">Acciones</div>
 							<div class="inline-controls">
 								{#if !editMode}
-									<button class="action-btn" onclick={() => { editMode = true; }}>Edit</button>
+									<button class="action-btn" onclick={() => { editMode = true; }}>Editar</button>
 								{/if}
-								<button class="action-btn danger" onclick={handleDeleteEntry}>Delete</button>
+								<button class="action-btn danger" onclick={handleDeleteEntry}>Eliminar</button>
 							</div>
 						</div>
 					{/if}
 
 					<div class="section">
-						<div class="section-title">Notes</div>
+						<div class="section-title">Notas</div>
 						{#if canManage}
 							<div class="note-input-row">
 								<textarea
 									class="form-textarea"
 									rows="2"
-									placeholder="Add a note..."
+									placeholder="Agregar una nota..."
 									bind:value={noteContent}
 								></textarea>
 								<button class="action-btn" onclick={handleAddNote} disabled={noteSubmitting || !noteContent.trim()}>
-									{noteSubmitting ? 'Adding...' : 'Add Note'}
+									{noteSubmitting ? 'Agregando...' : 'Agregar Nota'}
 								</button>
 							</div>
 						{/if}
@@ -492,10 +492,10 @@
 								{#each selectedEntry.notes as note}
 									<div class="note-item">
 										<div class="note-header">
-											<span class="note-author">{note.author_name || 'Unknown'}</span>
+											<span class="note-author">{note.author_name || 'Desconocido'}</span>
 											<span class="note-date">{formatDateTimeValue(note.created_at)}</span>
 											{#if canManage}
-												<button class="chip-remove" onclick={() => handleDeleteNote(note.id)}>
+												<button class="chip-remove" onclick={() => handleDeleteNote(note.id)} aria-label="Eliminar nota">
 													<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 												</button>
 											{/if}
@@ -505,7 +505,7 @@
 								{/each}
 							</div>
 						{:else}
-							<p class="muted-text">No notes yet.</p>
+							<p class="muted-text">Sin notas aún.</p>
 						{/if}
 					</div>
 				</div>
@@ -521,64 +521,64 @@
 		</div>
 
 		<div class="create-form">
-			<h3>New Performance Review</h3>
+			<h3>Nueva Revisión de Desempeño</h3>
 
 			<div class="form-group">
-				<span class="form-label">Officer</span>
+				<span class="form-label">Agente</span>
 				<button
 					class="officer-search-trigger"
 					class:placeholder={!newOfficerName}
 					onclick={() => (showOfficerSearch = true)}
 				>
-					{newOfficerName || 'Click to search for an officer...'}
+					{newOfficerName || 'Clic para buscar un agente...'}
 				</button>
 			</div>
 
 			<div class="form-row">
 				<div class="form-group">
-					<span class="form-label">Category</span>
+					<span class="form-label">Categoría</span>
 					<select class="form-select" bind:value={newCategory}>
-						<option value="positive">Positive</option>
-						<option value="coaching">Coaching</option>
-						<option value="disciplinary">Disciplinary</option>
+						<option value="positive">Positivo</option>
+						<option value="coaching">Orientación</option>
+						<option value="disciplinary">Disciplinario</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<span class="form-label">Incident Date</span>
+					<span class="form-label">Fecha del Incidente</span>
 					<input type="date" class="form-input" bind:value={newIncidentDate} />
 				</div>
 			</div>
 
 			<div class="form-group">
-				<span class="form-label">Title</span>
-				<input type="text" class="form-input" bind:value={newTitle} placeholder="Enter title..." />
+				<span class="form-label">Título</span>
+				<input type="text" class="form-input" bind:value={newTitle} placeholder="Ingresar título..." />
 			</div>
 
 			<div class="form-group">
-				<span class="form-label">Description</span>
-				<textarea class="form-textarea" rows="4" bind:value={newDescription} placeholder="Enter description..."></textarea>
+				<span class="form-label">Descripción</span>
+				<textarea class="form-textarea" rows="4" bind:value={newDescription} placeholder="Ingresar descripción..."></textarea>
 			</div>
 
 			<div class="form-group">
-				<span class="form-label">Incident Location</span>
-				<input type="text" class="form-input" bind:value={newIncidentLocation} placeholder="Enter location..." />
+				<span class="form-label">Ubicación del Incidente</span>
+				<input type="text" class="form-input" bind:value={newIncidentLocation} placeholder="Ingresar ubicación..." />
 			</div>
 
 			<div class="form-row">
 				<div class="form-group">
-					<span class="form-label">Linked Report # (optional)</span>
+					<span class="form-label">Reporte Vinculado # (opcional)</span>
 					<input type="number" class="form-input" bind:value={newLinkedReportId} placeholder="Report ID" />
 				</div>
 				<div class="form-group">
-					<span class="form-label">Linked Case # (optional)</span>
+					<span class="form-label">Caso Vinculado # (opcional)</span>
 					<input type="number" class="form-input" bind:value={newLinkedCaseId} placeholder="Case ID" />
 				</div>
 			</div>
 
 			<div class="form-actions">
-				<button class="action-btn" onclick={() => { showCreateForm = false; resetCreateForm(); }}>Cancel</button>
+				<button class="action-btn" onclick={() => { showCreateForm = false; resetCreateForm(); }}>Cancelar</button>
 				<button class="primary-btn" onclick={handleCreatePPR} disabled={isSubmitting || !newTitle.trim() || !newOfficerCitizenId}>
-					{isSubmitting ? 'Submitting...' : 'Submit'}
+					{isSubmitting ? 'Enviando...' : 'Enviar'}
 				</button>
 			</div>
 		</div>
@@ -592,7 +592,7 @@
 						class:active={categoryFilter === opt}
 						onclick={() => { categoryFilter = opt; }}
 					>
-						{opt === 'all' ? 'All' : formatLabel(opt)}
+						{opt === 'all' ? 'Todos' : formatLabel(opt)}
 					</button>
 				{/each}
 			</div>
@@ -601,18 +601,18 @@
 		<div class="topbar">
 			<div class="search-box">
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-				<input type="text" placeholder="Search PPR entries..." bind:value={searchQuery} />
+				<input type="text" placeholder="Buscar entradas PPR..." bind:value={searchQuery} />
 			</div>
 			<div style="flex:1;"></div>
 			{#if canManage}
 				<button class="primary-btn" onclick={() => { showCreateForm = true; }}>
 					<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-					New PPR
+					Nuevo PPR
 				</button>
 			{/if}
 			<button class="back-btn" onclick={loadEntries} disabled={loading}>
 				<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-				Refresh
+				Actualizar
 			</button>
 		</div>
 
@@ -620,22 +620,22 @@
 			{#if loading && entries.length === 0}
 				<div class="center-state">
 					<div class="loading-spinner"></div>
-					<p>Loading PPR entries...</p>
+					<p>Cargando entradas PPR...</p>
 				</div>
 			{:else if paginatedEntries.length === 0}
 				<div class="center-state">
 					<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-					<h3>No PPR Entries Found</h3>
-					<p>{searchQuery ? "No entries match your search criteria." : "No performance reviews have been created yet."}</p>
+					<h3>No se encontraron Entradas PPR</h3>
+					<p>{searchQuery ? "Ninguna entrada coincide con tu búsqueda." : "Aún no se han creado revisiones de desempeño."}</p>
 				</div>
 			{:else}
 				<div class="table-header">
 					<span>#</span>
-					<span>Officer</span>
-					<span>Category</span>
-					<span>Title</span>
-					<span>Author</span>
-					<span>Date</span>
+					<span>Agente</span>
+					<span>Categoría</span>
+					<span>Título</span>
+					<span>Autor</span>
+					<span>Fecha</span>
 				</div>
 				<div class="table-body">
 					{#each paginatedEntries as item}
@@ -665,7 +665,7 @@
 
 <PersonSearchModal
 	show={showOfficerSearch}
-	title="Search Officers"
+	title="Buscar Agentes"
 	searchQuery={officerSearchQuery}
 	searchResults={searchService.state.results}
 	onClose={() => {

@@ -78,8 +78,8 @@
 				{
 					success: true,
 					profile: {
-						citizenid: "ABC123", firstName: "John", lastName: "Doe",
-						gender: "Male", dob: "1990-01-01", phone: "555-0100",
+						citizenid: "ABC123", firstName: "Juan", lastName: "García",
+						gender: "Masculino", dob: "1990-01-01", phone: "555-0100",
 						arrests: 0, activeWarrants: [], linkedReports: [],
 						ownedVehicles: [], weapons: [],
 						licenses: { driver: true, weapon: false }, customLicenses: []
@@ -111,9 +111,9 @@
 	}
 
 	const TYPE_LABELS: Record<string, string> = {
-		felony: "Felony",
-		misdemeanor: "Misdemeanor",
-		infraction: "Infraction",
+		felony: "Delito Mayor",
+		misdemeanor: "Delito Menor",
+		infraction: "Infracción",
 	};
 
 	const TYPE_COLORS: Record<string, string> = {
@@ -128,14 +128,14 @@
 		<div class="civ-header-left">
 			<span class="material-icons civ-icon">person</span>
 			<span class="civ-title">{playerName}</span>
-			<span class="civ-badge">Civilian Access</span>
+			<span class="civ-badge">Acceso Civil</span>
 		</div>
 		<div class="civ-tabs">
 			<button class="civ-tab" class:active={activeTab === "profile"} onclick={() => activeTab = "profile"}>
-				<span class="material-icons tab-icon">badge</span> My Profile
+				<span class="material-icons tab-icon">badge</span> Mi Perfil
 			</button>
 			<button class="civ-tab" class:active={activeTab === "legislation"} onclick={() => activeTab = "legislation"}>
-				<span class="material-icons tab-icon">gavel</span> Legislation
+				<span class="material-icons tab-icon">gavel</span> Legislación
 			</button>
 		</div>
 		<button class="close-btn" onclick={closeTerminal}>
@@ -148,12 +148,12 @@
 			{#if loadingProfile}
 				<div class="loading-state">
 					<div class="spinner"></div>
-					<span>Loading profile...</span>
+					<span>Cargando perfil...</span>
 				</div>
 			{:else if !profile}
 				<div class="empty-state">
 					<span class="material-icons">error_outline</span>
-					<span>Could not load your profile</span>
+					<span>No se pudo cargar tu perfil</span>
 				</div>
 			{:else}
 				<div class="profile-layout">
@@ -171,29 +171,29 @@
 						</div>
 
 						<div class="info-section">
-							<div class="info-row"><span class="info-label">Gender</span><span class="info-value">{profile.gender}</span></div>
-							<div class="info-row"><span class="info-label">Date of Birth</span><span class="info-value">{profile.dob}</span></div>
-							<div class="info-row"><span class="info-label">Phone</span><span class="info-value">{profile.phone}</span></div>
-							<div class="info-row"><span class="info-label">Fingerprint</span><span class="info-value">{profile.fingerprint || 'N/A'}</span></div>
-							<div class="info-row"><span class="info-label">DNA</span><span class="info-value">{profile.dna || 'N/A'}</span></div>
-							<div class="info-row"><span class="info-label">Arrests</span><span class="info-value">{profile.arrests}</span></div>
+							<div class="info-row"><span class="info-label">Género</span><span class="info-value">{profile.gender}</span></div>
+							<div class="info-row"><span class="info-label">Fecha de Nacimiento</span><span class="info-value">{profile.dob}</span></div>
+							<div class="info-row"><span class="info-label">Teléfono</span><span class="info-value">{profile.phone}</span></div>
+							<div class="info-row"><span class="info-label">Huella Dactilar</span><span class="info-value">{profile.fingerprint || 'N/A'}</span></div>
+							<div class="info-row"><span class="info-label">ADN</span><span class="info-value">{profile.dna || 'N/A'}</span></div>
+							<div class="info-row"><span class="info-label">Arrestos</span><span class="info-value">{profile.arrests}</span></div>
 						</div>
 
 						<div class="info-section">
-							<h3 class="section-title">Licenses</h3>
+							<h3 class="section-title">Licencias</h3>
 							<div class="info-row">
-								<span class="info-label">Driver</span>
-								<span class="info-value license" class:active={profile.licenses?.driver}>{profile.licenses?.driver ? 'Active' : 'None'}</span>
+								<span class="info-label">Conducción</span>
+								<span class="info-value license" class:active={profile.licenses?.driver}>{profile.licenses?.driver ? 'Activa' : 'Ninguna'}</span>
 							</div>
 							<div class="info-row">
-								<span class="info-label">Weapon</span>
-								<span class="info-value license" class:active={profile.licenses?.weapon}>{profile.licenses?.weapon ? 'Active' : 'None'}</span>
+								<span class="info-label">Armas</span>
+								<span class="info-value license" class:active={profile.licenses?.weapon}>{profile.licenses?.weapon ? 'Activa' : 'Ninguna'}</span>
 							</div>
 							{#if profile.customLicenses && profile.customLicenses.length > 0}
 								{#each profile.customLicenses as lic}
 									<div class="info-row">
 										<span class="info-label">{lic.name}</span>
-										<span class="info-value license" class:active={lic.active}>{lic.active ? 'Active' : 'None'}</span>
+										<span class="info-value license" class:active={lic.active}>{lic.active ? 'Activa' : 'Ninguna'}</span>
 									</div>
 								{/each}
 							{/if}
@@ -203,11 +203,11 @@
 					<div class="profile-main">
 						{#if profile.activeWarrants && profile.activeWarrants.length > 0}
 							<div class="section-card danger">
-								<h3 class="section-header"><span class="material-icons">warning</span> Active Warrants</h3>
+								<h3 class="section-header"><span class="material-icons">warning</span> Órdenes de Captura Activas</h3>
 								{#each profile.activeWarrants as warrant}
 									<div class="list-item">
-										<span class="item-id">Report #{warrant.reportid}</span>
-										<span class="item-name">Expires: {new Date(warrant.expirydate).toLocaleDateString()}</span>
+										<span class="item-id">Reporte #{warrant.reportid}</span>
+										<span class="item-name">Válida hasta: {new Date(warrant.expirydate).toLocaleDateString()}</span>
 									</div>
 								{/each}
 							</div>
@@ -215,7 +215,7 @@
 
 						{#if profile.activeBolos && profile.activeBolos.length > 0}
 							<div class="section-card danger">
-								<h3 class="section-header"><span class="material-icons">notification_important</span> Active BOLOs</h3>
+								<h3 class="section-header"><span class="material-icons">notification_important</span> BOLOs Activos</h3>
 								{#each profile.activeBolos as bolo}
 									<div class="list-item">
 										<span class="item-id">#{bolo.reportId}</span>
@@ -228,7 +228,7 @@
 
 						{#if profile.linkedReports && profile.linkedReports.length > 0}
 							<div class="section-card">
-								<h3 class="section-header"><span class="material-icons">description</span> Linked Reports</h3>
+								<h3 class="section-header"><span class="material-icons">description</span> Reportes Relacionados</h3>
 								{#each profile.linkedReports as report}
 									<div class="list-item">
 										<span class="item-id">#{report.id}</span>
@@ -241,7 +241,7 @@
 
 						{#if profile.ownedVehicles && profile.ownedVehicles.length > 0}
 							<div class="section-card">
-								<h3 class="section-header"><span class="material-icons">directions_car</span> Vehicles</h3>
+								<h3 class="section-header"><span class="material-icons">directions_car</span> Vehículos</h3>
 								{#each profile.ownedVehicles as vehicle}
 									<div class="list-item">
 										<span class="item-id">{vehicle.plate}</span>
@@ -253,7 +253,7 @@
 
 						{#if profile.weapons && profile.weapons.length > 0}
 							<div class="section-card">
-								<h3 class="section-header"><span class="material-icons">security</span> Registered Weapons</h3>
+								<h3 class="section-header"><span class="material-icons">security</span> Armas Registradas</h3>
 								{#each profile.weapons as weapon}
 									<div class="list-item">
 										<span class="item-id">{weapon.serial}</span>
@@ -266,7 +266,7 @@
 						{#if !profile.activeWarrants?.length && !profile.activeBolos?.length && !profile.linkedReports?.length && !profile.ownedVehicles?.length && !profile.weapons?.length}
 							<div class="empty-state">
 								<span class="material-icons">check_circle</span>
-								<span>No records on file</span>
+								<span>Sin registros en archivo</span>
 							</div>
 						{/if}
 					</div>
@@ -277,52 +277,51 @@
 			<div class="legislation-layout">
 				<div class="search-bar">
 					<span class="material-icons search-icon">search</span>
-					<input type="text" placeholder="Search penal codes..." bind:value={searchQuery} />
-				</div>
-
-				{#if loadingCharges}
-					<div class="loading-state">
-						<div class="spinner"></div>
-						<span>Loading penal codes...</span>
-					</div>
-				{:else}
-					{#each Object.entries(chargesByType()) as [type, typeCharges]}
-						{#if typeCharges.length > 0}
-							<div class="charge-group">
-								<h3 class="charge-group-title" style="color: {TYPE_COLORS[type] || '#fff'}">
-									{TYPE_LABELS[type] || type} ({typeCharges.length})
-								</h3>
-								<div class="charge-table">
-									<div class="charge-header-row">
-										<span class="ch-code">Code</span>
-										<span class="ch-label">Charge</span>
-										<span class="ch-fine">Fine</span>
-										<span class="ch-time">Jail</span>
-									</div>
-									{#each typeCharges as charge}
-										<div class="charge-row">
-											<span class="ch-code">{charge.code}</span>
-											<span class="ch-label">
-												<strong>{charge.label}</strong>
-												{#if charge.description}
-													<span class="ch-desc">{charge.description}</span>
-												{/if}
-											</span>
-											<span class="ch-fine">${charge.fine.toLocaleString()}</span>
-											<span class="ch-time">{charge.time} mo</span>
+					<input type="text" placeholder="Buscar códigos penales..." bind:value={searchQuery} />
+					{#if loadingCharges}
+						<div class="loading-state">
+							<div class="spinner"></div>
+						<span>Cargando códigos penales...</span>
+						</div>
+					{:else}
+						{#each Object.entries(chargesByType()) as [type, typeCharges]}
+							{#if typeCharges.length > 0}
+								<div class="charge-group">
+									<h3 class="charge-group-title" style="color: {TYPE_COLORS[type] || '#fff'}">
+										{TYPE_LABELS[type] || type} ({typeCharges.length})
+									</h3>
+									<div class="charge-table">
+										<div class="charge-header-row">
+											<span class="ch-code">Código</span>
+											<span class="ch-label">Cargo</span>
+											<span class="ch-fine">Multa</span>
+											<span class="ch-time">Cárcel</span>
 										</div>
-									{/each}
+										{#each typeCharges as charge}
+											<div class="charge-row">
+												<span class="ch-code">{charge.code}</span>
+												<span class="ch-label">
+													<strong>{charge.label}</strong>
+													{#if charge.description}
+														<span class="ch-desc">{charge.description}</span>
+													{/if}
+												</span>
+												<span class="ch-fine">${charge.fine.toLocaleString()}</span>
+												<span class="ch-time">{charge.time} mo</span>
+											</div>
+										{/each}
+									</div>
 								</div>
+							{/if}
+						{/each}
+						{#if filteredCharges().length === 0}
+							<div class="empty-state">
+								<span class="material-icons">search_off</span>
+							<span>No se encontraron cargos</span>
 							</div>
 						{/if}
-					{/each}
-					{#if filteredCharges().length === 0}
-						<div class="empty-state">
-							<span class="material-icons">search_off</span>
-							<span>No charges found</span>
-						</div>
 					{/if}
-				{/if}
+				</div>
 			</div>
 		{/if}
 	</div>

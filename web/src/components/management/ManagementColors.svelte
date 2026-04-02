@@ -26,16 +26,16 @@
 	}
 
 	const THEMES: Theme[] = [
-		{ name: "Default Blue", config: { ...DEFAULT_LEO } },
-		{ name: "LSPD Classic", config: { accent: "59, 130, 246", accentText: "147, 197, 253", background: "18, 20, 28", cardBackground: "12, 14, 22", buttonPrimary: "59, 130, 246" } },
-		{ name: "BCSO Gold", config: { accent: "234, 179, 8", accentText: "253, 224, 71", background: "20, 18, 12", cardBackground: "14, 12, 8", buttonPrimary: "180, 140, 10" } },
-		{ name: "State Trooper", config: { accent: "16, 185, 129", accentText: "167, 243, 208", background: "14, 22, 18", cardBackground: "8, 16, 12", buttonPrimary: "16, 185, 129" } },
-		{ name: "FBI Dark", config: { accent: "100, 100, 120", accentText: "180, 180, 200", background: "12, 12, 14", cardBackground: "8, 8, 10", buttonPrimary: "80, 80, 100" } },
-		{ name: "EMS Red", config: { accent: "220, 50, 50", accentText: "252, 165, 165", background: "22, 16, 16", cardBackground: "16, 10, 10", buttonPrimary: "200, 60, 60" } },
+		{ name: "Azul Predeterminado", config: { ...DEFAULT_LEO } },
+		{ name: "LSPD Clásico", config: { accent: "59, 130, 246", accentText: "147, 197, 253", background: "18, 20, 28", cardBackground: "12, 14, 22", buttonPrimary: "59, 130, 246" } },
+		{ name: "BCSO Oro", config: { accent: "234, 179, 8", accentText: "253, 224, 71", background: "20, 18, 12", cardBackground: "14, 12, 8", buttonPrimary: "180, 140, 10" } },
+		{ name: "Patrullero Estatal", config: { accent: "16, 185, 129", accentText: "167, 243, 208", background: "14, 22, 18", cardBackground: "8, 16, 12", buttonPrimary: "16, 185, 129" } },
+		{ name: "FBI Oscuro", config: { accent: "100, 100, 120", accentText: "180, 180, 200", background: "12, 12, 14", cardBackground: "8, 8, 10", buttonPrimary: "80, 80, 100" } },
+		{ name: "EMS Rojo", config: { accent: "220, 50, 50", accentText: "252, 165, 165", background: "22, 16, 16", cardBackground: "16, 10, 10", buttonPrimary: "200, 60, 60" } },
 		{ name: "GTA V", config: { accent: "114, 204, 68", accentText: "180, 230, 150", background: "16, 20, 14", cardBackground: "10, 14, 8", buttonPrimary: "114, 204, 68" } },
 		{ name: "GTA VI", config: { accent: "255, 90, 150", accentText: "255, 170, 200", background: "22, 14, 24", cardBackground: "16, 8, 18", buttonPrimary: "220, 70, 130" } },
-		{ name: "Cyberpunk", config: { accent: "255, 205, 0", accentText: "255, 230, 100", background: "10, 10, 16", cardBackground: "6, 6, 12", buttonPrimary: "0, 200, 255" } },
-		{ name: "Purple Haze", config: { accent: "139, 92, 246", accentText: "196, 181, 253", background: "18, 14, 26", cardBackground: "12, 8, 20", buttonPrimary: "139, 92, 246" } },
+		{ name: "Ciberpunk", config: { accent: "255, 205, 0", accentText: "255, 230, 100", background: "10, 10, 16", cardBackground: "6, 6, 12", buttonPrimary: "0, 200, 255" } },
+		{ name: "Púrpura Nebuloso", config: { accent: "139, 92, 246", accentText: "196, 181, 253", background: "18, 14, 26", cardBackground: "12, 8, 20", buttonPrimary: "139, 92, 246" } },
 	];
 
 	interface ColorField {
@@ -45,11 +45,11 @@
 	}
 
 	const COLOR_FIELDS: ColorField[] = [
-		{ key: "accent", label: "Accent Color", description: "Main theme color used across navigation, badges, and highlights" },
-		{ key: "accentText", label: "Accent Text", description: "Lighter variant used for text over dark backgrounds" },
-		{ key: "background", label: "Background", description: "Primary MDT background color" },
-		{ key: "cardBackground", label: "Card Background", description: "Background for cards and panels" },
-		{ key: "buttonPrimary", label: "Primary Button", description: "Color for save, confirm, and primary action buttons" },
+		{ key: "accent", label: "Color de Acento", description: "Color de tema principal usado en navegación, insignias y resaltados" },
+		{ key: "accentText", label: "Texto de Acento", description: "Variante más clara usada para texto sobre fondos oscuros" },
+		{ key: "background", label: "Fondo", description: "Color de fondo principal del MDT" },
+		{ key: "cardBackground", label: "Fondo de Tarjeta", description: "Fondo para tarjetas y paneles" },
+		{ key: "buttonPrimary", label: "Botón Principal", description: "Color para botones de guardar, confirmar y acciones principales" },
 	];
 
 	let config: ColorConfig = $state({ ...DEFAULT_LEO });
@@ -116,7 +116,7 @@
 
 	async function revertToDefault() {
 		config = { ...DEFAULT_LEO };
-		selectedTheme = "Default Blue";
+		selectedTheme = "Azul Predeterminado";
 		applyPreview();
 		await saveConfig();
 	}
@@ -136,7 +136,7 @@
 				applyPreview();
 			}
 		} catch (error) {
-			console.error("Failed to load color config:", error);
+			console.error("Error al cargar configuración de colores:", error);
 		} finally {
 			isLoading = false;
 		}
@@ -145,7 +145,7 @@
 	async function saveConfig() {
 		if (isEnvBrowser()) {
 			savedConfig = { ...config };
-			showStatus("Colors saved");
+			showStatus("Colores guardados");
 			return;
 		}
 		try {
@@ -157,13 +157,13 @@
 			);
 			if (result?.success) {
 				savedConfig = { ...config };
-				showStatus("Colors saved - applies to all officers on next MDT open");
+				showStatus("Colores guardados - se aplicarán a todos los oficiales en el próximo MDT");
 			} else {
-				showStatus(result?.message || "Failed to save colors", "error");
+				showStatus(result?.message || "Error al guardar colores", "error");
 			}
 		} catch (error) {
-			console.error("Failed to save color config:", error);
-			showStatus("Failed to save colors", "error");
+			console.error("Error al guardar configuración de colores:", error);
+			showStatus("Error al guardar colores", "error");
 		} finally {
 			isSaving = false;
 		}
@@ -176,12 +176,12 @@
 
 <div class="colors-page">
 	{#if isLoading}
-		<div class="colors-loading">Loading...</div>
+		<div class="colors-loading">Cargando...</div>
 	{:else}
 		<div class="colors-body">
 			<!-- Custom Colors - horizontal -->
 			<div class="section">
-				<span class="card-label">Custom Colors</span>
+				<span class="card-label">Colores Personalizados</span>
 				<div class="colors-hz">
 					{#each COLOR_FIELDS as field}
 						<div class="color-tile">
@@ -199,7 +199,7 @@
 
 			<!-- Themes - horizontal scroll -->
 			<div class="section">
-				<span class="card-label">Themes</span>
+				<span class="card-label">Temas</span>
 				<div class="themes-hz">
 					{#each THEMES as theme}
 						<button
@@ -236,28 +236,28 @@
 
 			<!-- Preview -->
 			<div class="section">
-				<span class="card-label">Preview</span>
+				<span class="card-label">Vista Previa</span>
 				<div class="preview-mockup" style="background: rgb({config.background})">
 					<div class="mock-sidebar" style="background: rgb({config.cardBackground})">
 						<div class="mock-nav-item active" style="background: rgba({config.accent}, 0.15); color: rgb({config.accentText})">
 							<span class="material-icons mock-icon">dashboard</span>
-							<span>Dashboard</span>
-						</div>
-						<div class="mock-nav-item">
-							<span class="material-icons mock-icon">people</span>
-							<span>Citizens</span>
-						</div>
-						<div class="mock-nav-item">
-							<span class="material-icons mock-icon">description</span>
-							<span>Reports</span>
-						</div>
-						<div class="mock-nav-item">
-							<span class="material-icons mock-icon">folder</span>
-							<span>Cases</span>
-						</div>
-						<div class="mock-nav-item">
-							<span class="material-icons mock-icon">gavel</span>
-							<span>Warrants</span>
+								<span>Panel</span>
+							</div>
+							<div class="mock-nav-item">
+								<span class="material-icons mock-icon">people</span>
+								<span>Ciudadanos</span>
+							</div>
+							<div class="mock-nav-item">
+								<span class="material-icons mock-icon">description</span>
+								<span>Reportes</span>
+							</div>
+							<div class="mock-nav-item">
+								<span class="material-icons mock-icon">folder</span>
+								<span>Casos</span>
+							</div>
+							<div class="mock-nav-item">
+								<span class="material-icons mock-icon">gavel</span>
+								<span>Órdenes</span>
 						</div>
 					</div>
 					<div class="mock-main">
@@ -265,7 +265,7 @@
 							<div class="mock-stat">
 								<span class="material-icons mock-icon" style="color: rgba({config.accent}, 0.7)">military_tech</span>
 								<div class="mock-stat-text">
-									<span class="mock-stat-value" style="color: rgb({config.accentText})">Sergeant</span>
+							<span class="mock-stat-value" style="color: rgb({config.accentText})">Sargento</span>
 									<span class="mock-stat-sub">$450/HR</span>
 								</div>
 							</div>
@@ -273,14 +273,14 @@
 								<span class="material-icons mock-icon" style="color: rgba({config.accent}, 0.7)">description</span>
 								<div class="mock-stat-text">
 									<span class="mock-stat-value">12</span>
-									<span class="mock-stat-sub">REPORTS</span>
+							<span class="mock-stat-sub">REPORTES</span>
 								</div>
 							</div>
 							<div class="mock-stat">
 								<span class="material-icons mock-icon" style="color: rgba({config.accent}, 0.7)">groups</span>
 								<div class="mock-stat-text">
 									<span class="mock-stat-value">8</span>
-									<span class="mock-stat-label" style="background: rgb({config.buttonPrimary}); color: #fff; padding: 1px 4px; border-radius: 3px; font-size: 6px;">ON DUTY</span>
+							<span class="mock-stat-label" style="background: rgb({config.buttonPrimary}); color: #fff; padding: 1px 4px; border-radius: 3px; font-size: 6px;">EN TURNO</span>
 								</div>
 							</div>
 							<button class="mock-action-btn" style="background: rgba({config.accent}, 0.1); border: 1px solid rgba({config.accent}, 0.2)">
@@ -290,48 +290,48 @@
 						<div class="mock-columns">
 							<div class="mock-col">
 								<div class="mock-col-header">
-									<span>WARRANTS</span>
+							<span>ÓRDENES</span>
 									<span class="mock-count" style="color: rgb({config.accentText})">2</span>
 								</div>
 								<div class="mock-list-item" style="border-left: 2px solid rgba({config.accent}, 0.5)">
 									<span class="mock-item-name">Marcus Johnson</span>
-									<span class="mock-item-sub">Exp. Invalid Date</span>
+								<span class="mock-item-sub">Exp. Fecha Inválida</span>
 								</div>
 								<div class="mock-list-item" style="border-left: 2px solid rgba({config.accent}, 0.5)">
 									<span class="mock-item-name">James Miller</span>
-									<span class="mock-item-sub">Exp. Invalid Date</span>
+								<span class="mock-item-sub">Exp. Fecha Inválida</span>
 								</div>
 							</div>
 							<div class="mock-col" style="border-left: 1px solid rgba(255,255,255,0.04); border-right: 1px solid rgba(255,255,255,0.04)">
 								<div class="mock-col-header">
-									<span>RECENT REPORTS</span>
+							<span>REPORTES RECIENTES</span>
 									<span class="mock-count" style="color: rgb({config.accentText})">3</span>
 								</div>
 								<div class="mock-list-item">
-									<span class="mock-item-name">Armed Robbery at Fleeca</span>
+								<span class="mock-item-name">Robo a Mano Armada Fleeca</span>
 									<span class="mock-item-sub">1 · Ofc. Smith · 3/21/2026</span>
 								</div>
 								<div class="mock-list-item">
-									<span class="mock-item-name">Traffic Stop - Suspended</span>
+								<span class="mock-item-name">Parada de Tráfico - Suspendido</span>
 									<span class="mock-item-sub">2 · Ofc. Johnson · 3/20/2026</span>
 								</div>
 							</div>
 							<div class="mock-col">
 								<div class="mock-col-header">
-									<span>DISPATCHES</span>
+							<span>DESPACHOS</span>
 									<span class="mock-count" style="color: rgb({config.accentText})">3</span>
 								</div>
 								<div class="mock-dispatch">
 									<span class="mock-dispatch-dot" style="background: #ef4444"></span>
-									<span class="mock-item-sub">· 1 hour ago</span>
+							<span class="mock-item-sub">· hace 1 hora</span>
 								</div>
 								<div class="mock-dispatch">
 									<span class="mock-dispatch-dot" style="background: rgb({config.buttonPrimary})"></span>
-									<span class="mock-item-sub">· 30 minutes ago</span>
+							<span class="mock-item-sub">· hace 30 minutos</span>
 								</div>
 								<div class="mock-dispatch">
 									<span class="mock-dispatch-dot" style="background: #ef4444"></span>
-									<span class="mock-item-sub">· 5 minutes ago</span>
+							<span class="mock-item-sub">· hace 5 minutos</span>
 								</div>
 							</div>
 						</div>
@@ -343,11 +343,11 @@
 							<div class="mock-bolo-row">
 								<div class="mock-list-item" style="flex: 1">
 									<span class="mock-item-name">Marcus Johnson</span>
-									<span class="mock-item-sub">#RPT-001 · <span style="background: rgba({config.accent}, 0.2); color: rgb({config.accentText}); padding: 0 3px; border-radius: 2px; font-size: 6px;">citizen</span></span>
-								</div>
-								<div class="mock-list-item" style="flex: 1">
-									<span class="mock-item-name">Black Kuruma</span>
-									<span class="mock-item-sub">#RPT-003 · <span style="background: rgba({config.accent}, 0.2); color: rgb({config.accentText}); padding: 0 3px; border-radius: 2px; font-size: 6px;">vehicle</span></span>
+								<span class="mock-item-sub">#RPT-001 · <span style="background: rgba({config.accent}, 0.2); color: rgb({config.accentText}); padding: 0 3px; border-radius: 2px; font-size: 6px;">ciudadano</span></span>
+							</div>
+							<div class="mock-list-item" style="flex: 1">
+								<span class="mock-item-name">Kuruma Negra</span>
+								<span class="mock-item-sub">#RPT-003 · <span style="background: rgba({config.accent}, 0.2); color: rgb({config.accentText}); padding: 0 3px; border-radius: 2px; font-size: 6px;">vehículo</span></span>
 								</div>
 							</div>
 						</div>
@@ -361,16 +361,16 @@
 		{#if hasChanges}
 			<button class="btn-reset" onclick={resetToSaved}>
 				<span class="material-icons btn-icon">undo</span>
-				Reset
+				Reiniciar
 			</button>
 		{/if}
 		<button class="btn-save" onclick={saveConfig} disabled={isSaving || !hasChanges}>
 			<span class="material-icons btn-icon">save</span>
-			{isSaving ? "Saving..." : "Save Colors"}
+			{isSaving ? "Guardando..." : "Guardar Colores"}
 		</button>
 		<button class="btn-default" onclick={revertToDefault} disabled={isSaving}>
 			<span class="material-icons btn-icon">restart_alt</span>
-			Revert to Default
+			Restablecer Predeterminado
 		</button>
 		{#if statusMsg}
 			<span class="save-status" class:error={statusMsg.type === "error"}>{statusMsg.text}</span>

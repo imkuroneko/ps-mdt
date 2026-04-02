@@ -194,7 +194,7 @@ export function validateContent(
 			return {
 				isValid: false,
 				sanitized: "",
-				message: "Content is required",
+				message: "El contenido es requerido",
 			};
 		}
 		return { isValid: true, sanitized: "" };
@@ -206,7 +206,7 @@ export function validateContent(
 		return {
 			isValid: false,
 			sanitized: "",
-			message: "Content is required",
+			message: "El contenido es requerido",
 		};
 	}
 
@@ -214,7 +214,7 @@ export function validateContent(
 		return {
 			isValid: false,
 			sanitized: truncateText(trimmed, maxLength),
-			message: `Content exceeds maximum length of ${maxLength} characters`,
+			message: `El contenido excede la longitud máxima de ${maxLength} caracteres`,
 		};
 	}
 
@@ -222,7 +222,7 @@ export function validateContent(
 		return {
 			isValid: false,
 			sanitized: sanitizeText(trimmed),
-			message: "Content contains forbidden characters",
+			message: "El contenido contiene caracteres no permitidos",
 		};
 	}
 
@@ -230,7 +230,7 @@ export function validateContent(
 		return {
 			isValid: false,
 			sanitized: sanitizeText(trimmed),
-			message: "Content contains suspicious patterns",
+			message: "El contenido contiene patrones sospechosos",
 		};
 	}
 

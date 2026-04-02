@@ -43,7 +43,7 @@
 	<div class="person-section">
 		<div class="person-header">
 			<h4 class="person-title">
-				Suspects ({report.involved.suspects.length})
+				Sospechosos ({report.involved.suspects.length})
 			</h4>
 			<button
 				type="button"
@@ -52,7 +52,7 @@
 				aria-expanded={showSuspectSearch}
 				aria-controls="suspect-search"
 			>
-				{showSuspectSearch ? "Cancel" : "Add Suspect"}
+				{showSuspectSearch ? "Cancelar" : "Agregar Sospechoso"}
 			</button>
 		</div>
 
@@ -61,36 +61,36 @@
 				id="suspect-search"
 				class="search-container"
 				role="region"
-				aria-label="Add suspect"
+				aria-label="Agregar sospechoso"
 			>
 				<!-- Search component would go here -->
-				<p class="search-placeholder">Suspect search interface</p>
+				<p class="search-placeholder">Interfaz de búsqueda de sospechosos</p>
 			</div>
 		{/if}
 
 		{#if report.involved.suspects.length > 0}
-			<div class="persons-list" role="list" aria-label="Suspects">
+			<div class="persons-list" role="list" aria-label="Sospechosos">
 				{#each report.involved.suspects as suspect, index}
 					<div class="person-item" role="listitem">
 						<div class="person-info">
 							<div class="person-name">{suspect.fullName}</div>
 							<div class="person-details">
-								Notes: {suspect.notes}
+								Notas: {suspect.notes}
 							</div>
 						</div>
 						<button
 							type="button"
 							on:click={() => onRemoveSuspect(index)}
 							class="remove-person-btn"
-							aria-label="Remove suspect {suspect.fullName}"
+							aria-label="Eliminar sospechoso {suspect.fullName}"
 						>
-							Remove
+							Eliminar
 						</button>
 					</div>
 				{/each}
 			</div>
 		{:else}
-			<p class="no-persons">No suspects added</p>
+			<p class="no-persons">No sospechosos agregados</p>
 		{/if}
 	</div>
 
@@ -98,7 +98,7 @@
 	<div class="person-section">
 		<div class="person-header">
 			<h4 class="person-title">
-				Victims ({report.involved.victims.length})
+				Víctimas ({report.involved.victims.length})
 			</h4>
 			<button
 				type="button"
@@ -107,7 +107,7 @@
 				aria-expanded={showVictimSearch}
 				aria-controls="victim-search"
 			>
-				{showVictimSearch ? "Cancel" : "Add Victim"}
+				{showVictimSearch ? "Cancelar" : "Agregar Víctima"}
 			</button>
 		</div>
 
@@ -116,36 +116,36 @@
 				id="victim-search"
 				class="search-container"
 				role="region"
-				aria-label="Add victim"
+				aria-label="Agregar víctima"
 			>
 				<!-- Search component would go here -->
-				<p class="search-placeholder">Victim search interface</p>
+				<p class="search-placeholder">Interfaz de búsqueda de víctimas</p>
 			</div>
 		{/if}
 
 		{#if report.involved.victims.length > 0}
-			<div class="persons-list" role="list" aria-label="Victims">
+			<div class="persons-list" role="list" aria-label="Víctimas">
 				{#each report.involved.victims as victim, index}
 					<div class="person-item" role="listitem">
 						<div class="person-info">
 							<div class="person-name">{victim.fullName}</div>
 							<div class="person-details">
-								Type: {victim.type}
+								Tipo: {victim.type}
 							</div>
 						</div>
 						<button
 							type="button"
 							on:click={() => onRemoveVictim(index)}
 							class="remove-person-btn"
-							aria-label="Remove victim {victim.fullName}"
+							aria-label="Eliminar víctima {victim.fullName}"
 						>
-							Remove
+							Eliminar
 						</button>
 					</div>
 				{/each}
 			</div>
 		{:else}
-			<p class="no-persons">No victims added</p>
+			<p class="no-persons">No víctimas agregadas</p>
 		{/if}
 	</div>
 
@@ -153,7 +153,7 @@
 	<div class="person-section">
 		<div class="person-header">
 			<h4 class="person-title">
-				Officers ({report.involved.officers.length})
+				Oficiales ({report.involved.officers.length})
 			</h4>
 			<button
 				type="button"
@@ -162,7 +162,7 @@
 				aria-expanded={showOfficerSearch}
 				aria-controls="officer-search"
 			>
-				{showOfficerSearch ? "Cancel" : "Add Officer"}
+				{showOfficerSearch ? "Cancelar" : "Agregar Oficial"}
 			</button>
 		</div>
 
@@ -171,36 +171,36 @@
 				id="officer-search"
 				class="search-container"
 				role="region"
-				aria-label="Add officer"
+				aria-label="Agregar oficial"
 			>
 				<!-- Search component would go here -->
-				<p class="search-placeholder">Officer search interface</p>
+				<p class="search-placeholder">Interfaz de búsqueda de oficiales</p>
 			</div>
 		{/if}
 
 		{#if report.involved.officers.length > 0}
-			<div class="persons-list" role="list" aria-label="Officers">
+			<div class="persons-list" role="list" aria-label="Oficiales">
 				{#each report.involved.officers as officer, index}
 					<div class="person-item" role="listitem">
 						<div class="person-info">
 							<div class="person-name">{officer.fullName}</div>
 							<div class="person-details">
-								Type: {officer.type} | Badge: {officer.badgeId}
+								Tipo: {officer.type} | Placa: {officer.badgeId}
 							</div>
 						</div>
 						<button
 							type="button"
 							on:click={() => onRemoveOfficer(index)}
 							class="remove-person-btn"
-							aria-label="Remove officer {officer.fullName}"
+							aria-label="Eliminar oficial {officer.fullName}"
 						>
-							Remove
+							Eliminar
 						</button>
 					</div>
 				{/each}
 			</div>
 		{:else}
-			<p class="no-persons">No officers added</p>
+			<p class="no-persons">No oficiales agregados</p>
 		{/if}
 	</div>
 </section>

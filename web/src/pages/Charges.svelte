@@ -181,18 +181,18 @@
 	<div class="topbar">
 		<input
 			type="text"
-			placeholder="Search charges..."
+			placeholder="Buscar cargos..."
 			bind:value={searchQuery}
 			class="search-input"
 		/>
 		<div class="topbar-right">
-			<span class="result-count">{filteredCharges.length} charge{filteredCharges.length !== 1 ? "s" : ""}</span>
+			<span class="result-count">{filteredCharges.length} cargo{filteredCharges.length !== 1 ? "s" : ""}</span>
 			<button
 				class="btn-secondary"
 				onclick={loadCharges}
 				disabled={isLoading}
 			>
-				{isLoading ? "Loading..." : "Refresh"}
+				{isLoading ? "Cargando..." : "Actualizar"}
 			</button>
 			{#if canEdit}
 				<button
@@ -201,7 +201,7 @@
 					onclick={toggleEdit}
 				>
 					<span class="material-icons btn-edit-icon">{isEditing ? "check" : "edit"}</span>
-					{isEditing ? "Done" : "Edit Charges"}
+					{isEditing ? "Listo" : "Editar Cargos"}
 				</button>
 			{/if}
 		</div>
@@ -211,15 +211,15 @@
 		{#if isLoading && charges.length === 0}
 			<div class="empty-state">
 				<div class="loading-spinner"></div>
-				<p>Loading charges...</p>
+				<p>Cargando cargos...</p>
 			</div>
 		{:else if filteredCharges.length === 0}
 			<div class="empty-state">
-				<p class="empty-title">No Charges Found</p>
-				<p class="empty-sub">
-					{searchQuery
-						? "No charges match your search criteria."
-						: "No charges have been loaded yet."}
+				<p class="empty-title">No se encontraron Cargos</p>
+					<p class="empty-sub">
+						{searchQuery
+							? "Ningún cargo coincide con tu búsqueda."
+							: "Aún no se han cargado cargos."}
 				</p>
 			</div>
 		{:else}

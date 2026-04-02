@@ -39,14 +39,14 @@
 
 <div class="editor-header">
 	<span class="report-title">
-		{reportId ? "Edit Report" : "Create New Report"}
+		{reportId ? "Editar Reporte" : "Crear Nuevo Reporte"}
 	</span>
 
 	{#if collabActive}
 		<div class="collab-section">
 			<div class="collab-live-badge" class:has-others={collabEditors.length > 0}>
 				<span class="live-dot"></span>
-				<span class="live-text">{collabEditors.length > 0 ? 'Live Editing' : 'Connected'}</span>
+				<span class="live-text">{collabEditors.length > 0 ? 'Edición en Vivo' : 'Conectado'}</span>
 			</div>
 			<div class="collab-avatars">
 				{#if myName && myColor}
@@ -56,7 +56,7 @@
 						onmouseenter={() => hoveredAvatar = '__me__'}
 						onmouseleave={() => hoveredAvatar = null}
 					>
-						You
+						Tú
 						{#if hoveredAvatar === '__me__'}
 							<div class="avatar-tooltip">{myName}</div>
 						{/if}
@@ -83,13 +83,13 @@
 		{#if reportId && onDelete}
 			{#if showDeleteConfirm}
 				<span class="delete-confirm-group">
-					<span class="delete-confirm-text">Delete?</span>
+					<span class="delete-confirm-text">¿Eliminar?</span>
 					<button
 						class="action-btn delete-confirm-btn"
 						onclick={() => { showDeleteConfirm = false; onDelete(); }}
 						type="button"
 					>
-						Yes
+						Sí
 					</button>
 					<button
 						class="action-btn cancel-btn"
@@ -105,9 +105,9 @@
 					onclick={() => (showDeleteConfirm = true)}
 					disabled={isSaving || isLoading}
 					type="button"
-					aria-label="Delete report"
+					aria-label="Eliminar reporte"
 				>
-					Delete
+					Eliminar
 				</button>
 			{/if}
 		{/if}
@@ -116,18 +116,18 @@
 			onclick={onClose}
 			disabled={isSaving}
 			type="button"
-			aria-label="Cancel report editing"
+			aria-label="Cancelar edición de reporte"
 		>
-			Cancel
+			Cancelar
 		</button>
 		<button
 			class="action-btn save-btn"
 			onclick={onSave}
 			disabled={isSaving || isLoading}
 			type="button"
-			aria-label={isSaving ? "Saving report" : "Save report"}
+			aria-label={isSaving ? "Guardando reporte" : "Guardar reporte"}
 		>
-			{isSaving ? "Saving..." : "Save Report"}
+			{isSaving ? "Guardando..." : "Guardar reporte"}
 		</button>
 	</div>
 </div>

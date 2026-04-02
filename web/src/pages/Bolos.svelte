@@ -54,7 +54,7 @@
 		try {
 			bolos = await fetchNui(NUI_EVENTS.CITIZEN.GET_BOLOS, { type: "all", status: "all" });
 		} catch (error) {
-			globalNotifications.error("Failed to fetch BOLOs");
+			globalNotifications.error("Error al obtener los BOLOs");
 			bolos = [];
 		}
 		loading = false;
@@ -114,12 +114,12 @@
 				if (bolo) bolo.status = "resolved";
 				bolos = [...bolos];
 				if (selectedBolo?.id === boloId) selectedBolo.status = "resolved";
-				globalNotifications.success("BOLO marked as resolved");
+				globalNotifications.success("BOLO marcado como resuelto");
 			} else {
-				globalNotifications.error(response?.message || "Failed to resolve BOLO");
+				globalNotifications.error(response?.message || "Error al resolver el BOLO");
 			}
 		} catch {
-			globalNotifications.error("Failed to resolve BOLO");
+			globalNotifications.error("Error al resolver el BOLO");
 		}
 	}
 
@@ -132,12 +132,12 @@
 			if (response?.success) {
 				bolos = bolos.filter((b) => b.id !== boloId);
 				selectedBolo = null;
-				globalNotifications.success("BOLO deleted");
+				globalNotifications.success("BOLO eliminado");
 			} else {
-				globalNotifications.error(response?.message || "Failed to delete BOLO");
+				globalNotifications.error(response?.message || "Error al eliminar el BOLO");
 			}
 		} catch {
-			globalNotifications.error("Failed to delete BOLO");
+			globalNotifications.error("Error al eliminar el BOLO");
 		}
 	}
 
@@ -164,11 +164,11 @@
 
 	function getTypeLabel(type: string) {
 		switch (type) {
-			case "citizen": return "Citizen";
-			case "vehicle": return "Vehicle";
-			case "weapon": return "Weapon";
-			case "property": return "Property";
-			default: return "Other";
+			case "citizen": return "Ciudadano";
+			case "vehicle": return "Vehículo";
+			case "weapon": return "Arma";
+			case "property": return "Propiedad";
+			default: return "Otro";
 		}
 	}
 
@@ -225,15 +225,15 @@
 		</div>
 		<button class="new-btn" onclick={() => (showCreate = true)}>
 			<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-			New BOLO
+			Nuevo BOLO
 		</button>
 	</div>
 
 	<!-- List -->
 	{#if loading}
-		<div class="center-msg"><div class="spinner"></div><span>Loading BOLOs...</span></div>
+		<div class="center-msg"><div class="spinner"></div><span>Cargando BOLOs...</span></div>
 	{:else if filteredBolos.length === 0}
-		<div class="center-msg"><span>No BOLOs found.</span></div>
+		<div class="center-msg"><span>No se encontraron BOLOs.</span></div>
 	{:else}
 		<div class="bolo-list">
 			{#each pagedBolos as bolo (bolo.id)}
@@ -274,7 +274,7 @@
 	<div class="modal-backdrop" onclick={(e) => { if (e.target === e.currentTarget) selectedBolo = null; }}>
 		<div class="modal" role="dialog" aria-modal="true" tabindex="-1">
 			<div class="modal-header">
-				<h3>BOLO Details</h3>
+				<h3>Detalles del BOLO</h3>
 				<button class="close-btn" aria-label="Close" onclick={() => (selectedBolo = null)}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</button>
@@ -285,15 +285,15 @@
 					<span class="status-pill {getStatusClass(selectedBolo.status)}">{selectedBolo.status ?? "unknown"}</span>
 				</div>
 				<div class="modal-grid">
-					<div class="modal-field"><span class="field-label">Type</span><span class="field-value">{getTypeLabel(selectedBolo.type)}</span></div>
-					<div class="modal-field"><span class="field-label">Report ID</span><span class="field-value">{selectedBolo.reportId}</span></div>
-					{#if selectedBolo.reportName}<div class="modal-field"><span class="field-label">Report</span><span class="field-value">{selectedBolo.reportName}</span></div>{/if}
-					{#if selectedBolo.officer}<div class="modal-field"><span class="field-label">Officer</span><span class="field-value">{selectedBolo.officer}</span></div>{/if}
-					{#if selectedBolo.createdAt}<div class="modal-field"><span class="field-label">Created</span><span class="field-value">{selectedBolo.createdAt}</span></div>{/if}
+					<div class="modal-field"><span class="field-label">Tipo</span><span class="field-value">{getTypeLabel(selectedBolo.type)}</span></div>
+					<div class="modal-field"><span class="field-label">ID del Reporte</span><span class="field-value">{selectedBolo.reportId}</span></div>
+					{#if selectedBolo.reportName}<div class="modal-field"><span class="field-label">Reporte</span><span class="field-value">{selectedBolo.reportName}</span></div>{/if}
+					{#if selectedBolo.officer}<div class="modal-field"><span class="field-label">Oficial</span><span class="field-value">{selectedBolo.officer}</span></div>{/if}
+					{#if selectedBolo.createdAt}<div class="modal-field"><span class="field-label">Creado</span><span class="field-value">{selectedBolo.createdAt}</span></div>{/if}
 				</div>
 				{#if selectedBolo.notes && selectedBolo.notes.trim()}
 					<div class="modal-notes">
-						<span class="field-label">Notes</span>
+						<span class="field-label">Notas</span>
 						<p class="notes-body">{selectedBolo.notes}</p>
 					</div>
 				{/if}
@@ -303,19 +303,19 @@
 					{#if selectedBolo.status === 'active'}
 						<button class="resolve-btn" onclick={() => { if (selectedBolo) resolveBolo(selectedBolo.id); }}>
 							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-							Resolve
-						</button>
-					{/if}
+						Resolver
+					</button>
+				{/if}
 					<button class="delete-btn" onclick={() => { if (selectedBolo) deleteBolo(selectedBolo.id); }}>
 						<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-						Delete
+						Eliminar
 					</button>
 				</div>
 				<div class="modal-footer-right">
 					{#if selectedBolo.reportId && selectedBolo.reportId !== "N/A"}
-						<button class="action-btn" onclick={() => { if (selectedBolo) goToReport(selectedBolo.reportId); }}>View Report</button>
+						<button class="action-btn" onclick={() => { if (selectedBolo) goToReport(selectedBolo.reportId); }}>Ver Reporte</button>
 					{/if}
-					<button class="cancel-btn" onclick={() => (selectedBolo = null)}>Close</button>
+					<button class="cancel-btn" onclick={() => (selectedBolo = null)}>Cerrar</button>
 				</div>
 			</div>
 		</div>
@@ -329,29 +329,29 @@
 	<div class="modal-backdrop" onclick={(e) => { if (e.target === e.currentTarget) showCreate = false; }}>
 		<div class="modal" role="dialog" aria-modal="true" tabindex="-1">
 			<div class="modal-header">
-				<h3>New BOLO</h3>
+				<h3>Nuevo BOLO</h3>
 				<button class="close-btn" aria-label="Close" onclick={() => (showCreate = false)}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</button>
 			</div>
 			<div class="modal-body form-body">
-				<div class="form-group"><span class="field-label">Name</span><input class="form-input" bind:value={createForm.name} placeholder="Subject name" /></div>
-				<div class="form-group"><span class="field-label">Type</span>
+				<div class="form-group"><span class="field-label">Nombre</span><input class="form-input" bind:value={createForm.name} placeholder="Nombre del sujeto" /></div>
+				<div class="form-group"><span class="field-label">Tipo</span>
 					<select class="form-input form-select" bind:value={createForm.type}>
-						<option value="citizen">Citizen</option>
-						<option value="vehicle">Vehicle</option>
-						<option value="weapon">Weapon</option>
-						<option value="property">Property</option>
-						<option value="other">Other</option>
+						<option value="citizen">Ciudadano</option>
+						<option value="vehicle">Vehículo</option>
+						<option value="weapon">Arma</option>
+						<option value="property">Propiedad</option>
+						<option value="other">Otro</option>
 					</select>
 				</div>
-				<div class="form-group"><span class="field-label">Subject ID</span><input class="form-input" bind:value={createForm.subjectId} placeholder="Citizen ID / Plate / Serial" /></div>
-				<div class="form-group"><span class="field-label">Report ID</span><input class="form-input" bind:value={createForm.reportId} type="number" placeholder="Link to report" /></div>
-				<div class="form-group form-full"><span class="field-label">Notes</span><textarea class="form-input" rows="4" bind:value={createForm.notes} placeholder="BOLO description and details..."></textarea></div>
+				<div class="form-group"><span class="field-label">ID del Sujeto</span><input class="form-input" bind:value={createForm.subjectId} placeholder="ID Ciudadano / Placa / Número de Serie" /></div>
+				<div class="form-group"><span class="field-label">ID del Reporte</span><input class="form-input" bind:value={createForm.reportId} type="number" placeholder="Vincular al reporte" /></div>
+				<div class="form-group form-full"><span class="field-label">Notas</span><textarea class="form-input" rows="4" bind:value={createForm.notes} placeholder="Descripción y detalles del BOLO..."></textarea></div>
 			</div>
 			<div class="modal-footer">
-				<button class="cancel-btn" onclick={() => (showCreate = false)}>Cancel</button>
-				<button class="primary-btn" onclick={createBolo}>Create BOLO</button>
+				<button class="cancel-btn" onclick={() => (showCreate = false)}>Cancelar</button>
+				<button class="primary-btn" onclick={createBolo}>Crear BOLO</button>
 			</div>
 		</div>
 	</div>

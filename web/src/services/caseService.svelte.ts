@@ -48,8 +48,8 @@ export function createCaseService() {
 			state.page = page;
 			state.hasMore = Boolean(response.hasMore);
 		} catch (error) {
-			console.error("Failed to load cases:", error);
-			state.lastError = "Failed to load cases";
+			console.error("Inconveniente al cargar los casos:", error);
+			state.lastError = "Inconveniente al cargar los casos";
 		} finally {
 			state.isLoading = false;
 		}
@@ -70,8 +70,8 @@ export function createCaseService() {
 			}
 			throw new Error("Case not found");
 		} catch (error) {
-			console.error("Failed to load case:", error);
-			state.lastError = "Failed to load case";
+			console.error("Inconveniente al cargar el caso:", error);
+			state.lastError = "Inconveniente al cargar el caso";
 			return null;
 		} finally {
 			state.isLoading = false;
@@ -94,7 +94,7 @@ export function createCaseService() {
 			);
 			return response;
 		} catch (error) {
-			console.error("Failed to load evidence page:", error);
+			console.error("Inconveniente al cargar la página de evidencia:", error);
 			return { success: false };
 		}
 	}
@@ -115,8 +115,8 @@ export function createCaseService() {
 			}>(NUI_EVENTS.CASE.CREATE_CASE, payload, { success: true });
 			return response;
 		} catch (error) {
-			console.error("Failed to create case:", error);
-			state.lastError = "Failed to create case";
+			console.error("Inconveniente al crear el caso:", error);
+			state.lastError = "Inconveniente al crear el caso";
 			return { success: false };
 		} finally {
 			state.isLoading = false;
@@ -132,8 +132,8 @@ export function createCaseService() {
 			);
 			return response;
 		} catch (error) {
-			console.error("Failed to link report:", error);
-			return { success: false, error: "Failed to link report" };
+			console.error("Inconveniente al vincular el informe:", error);
+			return { success: false, error: "Inconveniente al vincular el informe" };
 		}
 	}
 
@@ -146,7 +146,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to unlink report:", error);
+			console.error("Inconveniente al desvincular el informe:", error);
 			return false;
 		}
 	}
@@ -163,7 +163,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to update case:", error);
+			console.error("Inconveniente al actualizar el caso:", error);
 			return false;
 		}
 	}
@@ -177,7 +177,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to delete case:", error);
+			console.error("Inconveniente al eliminar el caso:", error);
 			return false;
 		}
 	}
@@ -195,7 +195,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to assign officer:", error);
+			console.error("Inconveniente al asignar oficial:", error);
 			return false;
 		}
 	}
@@ -209,7 +209,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to remove officer:", error);
+			console.error("Inconveniente al eliminar oficial:", error);
 			return false;
 		}
 	}
@@ -223,7 +223,7 @@ export function createCaseService() {
 			);
 			return response;
 		} catch (error) {
-			console.error("Failed to add attachment:", error);
+			console.error("Inconveniente al agregar el adjunto:", error);
 			return { success: false };
 		}
 	}
@@ -245,7 +245,7 @@ export function createCaseService() {
 			);
 			return response || [];
 		} catch (error) {
-			console.error("Failed to load evidence custody:", error);
+			console.error("Inconveniente al cargar la custodia de evidencia:", error);
 			return [];
 		}
 	}
@@ -268,7 +268,7 @@ export function createCaseService() {
 			);
 			return response;
 		} catch (error) {
-			console.error("Failed to upload attachment:", error);
+			console.error("Inconveniente al subir el adjunto:", error);
 			return { success: false };
 		}
 	}
@@ -285,7 +285,7 @@ export function createCaseService() {
 			);
 			return response;
 		} catch (error) {
-			console.error("Failed to add evidence:", error);
+			console.error("Inconveniente al agregar evidencia:", error);
 			return { success: false };
 		}
 	}
@@ -302,7 +302,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to update evidence:", error);
+			console.error("Inconveniente al actualizar la evidencia:", error);
 			return false;
 		}
 	}
@@ -320,7 +320,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to transfer evidence:", error);
+			console.error("Inconveniente al transferir evidencia:", error);
 			return false;
 		}
 	}
@@ -334,7 +334,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to delete evidence:", error);
+			console.error("Inconveniente al eliminar evidencia:", error);
 			return false;
 		}
 	}
@@ -348,7 +348,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to remove attachment:", error);
+			console.error("Inconveniente al eliminar el adjunto:", error);
 			return false;
 		}
 	}
@@ -362,7 +362,7 @@ export function createCaseService() {
 			);
 			return response;
 		} catch (error) {
-			console.error("Failed to add evidence image:", error);
+			console.error("Inconveniente al agregar la imagen de evidencia:", error);
 			return { success: false };
 		}
 	}
@@ -376,7 +376,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to remove evidence image:", error);
+			console.error("Inconveniente al eliminar la imagen de evidencia:", error);
 			return false;
 		}
 	}
@@ -400,7 +400,7 @@ export function createCaseService() {
 			);
 			return response || { items: [], total: 0 };
 		} catch (error) {
-			console.error("Failed to load audit logs:", error);
+			console.error("Inconveniente al cargar los registros de auditoría:", error);
 			return { items: [], total: 0 };
 		}
 	}
@@ -414,7 +414,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to add case note:", error);
+			console.error("Inconveniente al agregar la nota del caso:", error);
 			return false;
 		}
 	}
@@ -428,7 +428,7 @@ export function createCaseService() {
 			);
 			return response.success;
 		} catch (error) {
-			console.error("Failed to delete case note:", error);
+			console.error("Inconveniente al eliminar la nota del caso:", error);
 			return false;
 		}
 	}

@@ -226,7 +226,7 @@
 				</div>
 				<div class="stat-content">
 					<span class="stat-value">{dashboardService.reportsInfo.totalThisWeek} <span class="stat-change" class:positive={dashboardService.reportsInfo.changeFromLastWeek > 0} class:negative={dashboardService.reportsInfo.changeFromLastWeek < 0}>{#if dashboardService.reportsInfo.changeFromLastWeek > 0}+{/if}{dashboardService.reportsInfo.changeFromLastWeek}</span></span>
-					<span class="stat-label">Reports this week</span>
+					<span class="stat-label">Reportes esta semana</span>
 				</div>
 			</div>
 			<div class="stat-divider"></div>
@@ -290,12 +290,12 @@
 		<div class="column">
 			<div class="panel">
 				<div class="panel-header">
-					<span class="panel-title">Warrants</span>
+					<span class="panel-title">Órdenes</span>
 					<span class="panel-count">{dashboardService.activeWarrants.length}</span>
 				</div>
 				<div class="panel-body">
 					{#if dashboardService.activeWarrants.length === 0}
-						<div class="empty-state">No active warrants</div>
+						<div class="empty-state">Sin órdenes activas</div>
 					{:else}
 						{#each pagedWarrants as warrant}
 							<button class="list-item" onclick={() => openWarrant(warrant.reportid)}>
@@ -335,7 +335,7 @@
 				</div>
 				<div class="panel-body">
 					{#if (dashboardService.activeBolos || []).length === 0}
-						<div class="empty-state">No active BOLOs</div>
+						<div class="empty-state">Sin BOLOs activos</div>
 					{:else}
 						{#each pagedBolos as bolo}
 							<button class="list-item" onclick={() => viewBolo(bolo.id)}>
@@ -372,12 +372,12 @@
 		<div class="column">
 			<div class="panel">
 				<div class="panel-header">
-					<span class="panel-title">Recent Reports</span>
+					<span class="panel-title">Reportes Recientes</span>
 					<span class="panel-count">{dashboardService.recentReports.length}</span>
 				</div>
 				<div class="panel-body">
 					{#if dashboardService.recentReports.length === 0}
-						<div class="empty-state">No recent reports</div>
+						<div class="empty-state">Sin reportes recientes</div>
 					{:else}
 						{#each dashboardService.recentReports as report}
 							<ReportItem
@@ -390,7 +390,7 @@
 					{/if}
 				</div>
 				{#if dashboardService.recentReportsHasMore}
-					<button class="load-more-btn" onclick={loadMoreReports}>Load more</button>
+					<button class="load-more-btn" onclick={loadMoreReports}>Cargar más</button>
 				{/if}
 			</div>
 		</div>
@@ -400,12 +400,12 @@
 			{#if isDOJ}
 				<div class="panel">
 					<div class="panel-header">
-						<span class="panel-title">Pending Warrant Reviews</span>
+						<span class="panel-title">Revisiones de Órdenes Pendientes</span>
 						<span class="panel-count">{dojWarrantReviews.length}</span>
 					</div>
 					<div class="panel-body">
 						{#if dojWarrantReviews.length === 0}
-							<div class="empty-state">No pending warrants</div>
+							<div class="empty-state">Sin órdenes pendientes</div>
 						{:else}
 							{#each dojWarrantReviews as wr}
 								<button class="list-item-btn" onclick={() => tabService.openTab('warrant_review')}>
@@ -418,12 +418,12 @@
 				</div>
 				<div class="panel">
 					<div class="panel-header">
-						<span class="panel-title">Court Cases</span>
+						<span class="panel-title">Casos Judiciales</span>
 						<span class="panel-count">{dojCourtCases.length}</span>
 					</div>
 					<div class="panel-body">
 						{#if dojCourtCases.length === 0}
-							<div class="empty-state">No court cases</div>
+							<div class="empty-state">Sin casos judiciales</div>
 						{:else}
 							{#each dojCourtCases as cc}
 								<button class="list-item-btn" onclick={() => tabService.openTab('court_cases')}>
@@ -436,12 +436,12 @@
 				</div>
 				<div class="panel">
 					<div class="panel-header">
-						<span class="panel-title">Court Orders</span>
+						<span class="panel-title">Órdenes Judiciales</span>
 						<span class="panel-count">{dojCourtOrders.length}</span>
 					</div>
 					<div class="panel-body">
 						{#if dojCourtOrders.length === 0}
-							<div class="empty-state">No court orders</div>
+							<div class="empty-state">Sin órdenes judiciales</div>
 						{:else}
 							{#each dojCourtOrders as co}
 								<button class="list-item-btn" onclick={() => tabService.openTab('court_orders')}>
@@ -455,7 +455,7 @@
 			{:else}
 				<div class="panel">
 					<div class="panel-header">
-						<span class="panel-title">Dispatches</span>
+						<span class="panel-title">Despachos</span>
 						<span class="panel-count">{(dashboardService.recentDispatches && Array.isArray(dashboardService.recentDispatches) ? dashboardService.recentDispatches : []).length}</span>
 					</div>
 					<div class="panel-body">
@@ -476,7 +476,7 @@
 								{#if expandedDispatch === dispatch.id}
 									<div class="dispatch-detail">
 										<div class="dispatch-detail-header">
-											<span class="detail-label">Attached Units</span>
+											<span class="detail-label">Unidades Asignadas</span>
 											<div class="dispatch-btns">
 												<button
 													class="d-action-btn"
@@ -485,7 +485,7 @@
 															? detachYourselfFromDispatch(dispatch.id)
 															: attachYourselfToDispatch(dispatch.id)}
 												>
-													{dispatchService.isUserAttachedToDispatch(dispatch, playerData) ? "Detach" : "Attach"}
+													{dispatchService.isUserAttachedToDispatch(dispatch, playerData) ? "Desasignar" : "Asignar"}
 												</button>
 												<button
 													class="d-action-btn"

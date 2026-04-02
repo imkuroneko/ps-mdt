@@ -81,7 +81,7 @@
 	{/if}
 
 	<div class="permissions-header">
-		<span class="header-label">Permissions</span>
+		<span class="header-label">Permisos</span>
 		{#if mgmt.jobLabel}
 			<span class="job-tag">{mgmt.jobLabel}</span>
 		{/if}
@@ -90,11 +90,11 @@
 	{#if mgmt.isLoading}
 		<div class="empty-state">
 			<div class="loading-spinner"></div>
-			<p>Loading permissions...</p>
+			<p>Cargando permisos...</p>
 		</div>
 	{:else if mgmt.roles.length === 0}
 		<div class="empty-state">
-			<p>No roles available</p>
+			<p>Sin roles disponibles</p>
 		</div>
 	{:else}
 		<div class="permissions-body">
@@ -107,7 +107,7 @@
 					>
 						<span class="role-name">{role.label}</span>
 						{#if role.isBoss}
-							<span class="boss-tag">All</span>
+							<span class="boss-tag">Todo</span>
 						{/if}
 					</button>
 				{/each}
@@ -118,7 +118,7 @@
 					<div class="role-title-row">
 						<span class="role-title">{currentRole.label}</span>
 						{#if currentRole.isBoss}
-							<span class="boss-note">Boss roles have all permissions enabled</span>
+							<span class="boss-note">Los roles de jefe tienen todos los permisos habilitados</span>
 						{/if}
 					</div>
 
@@ -137,7 +137,7 @@
 												class:all-on={categoryAllEnabled(category.key)}
 												onclick={() => toggleCategory(category.key)}
 											>
-												{categoryAllEnabled(category.key) ? "Disable All" : "Enable All"}
+												{categoryAllEnabled(category.key) ? "Deshabilitar Todo" : "Habilitar Todo"}
 											</button>
 										</div>
 									{/if}
@@ -172,7 +172,7 @@
 								onclick={() => mgmt.saveAllRoles()}
 								disabled={mgmt.isSaving}
 							>
-								{mgmt.isSaving ? "Saving..." : "Save Permissions"}
+								{mgmt.isSaving ? "Guardando..." : "Guardar Permisos"}
 							</button>
 						</div>
 					{/if}

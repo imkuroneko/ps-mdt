@@ -140,20 +140,20 @@
 
 <div class="charges-section">
 	<div class="section-header">
-		<span class="section-label">CHARGES</span>
+		<span class="section-label">CARGOS</span>
 		<div class="header-actions">
 			{#if suspects.length > 0}
 				<select class="suspect-select" bind:value={selectedSuspect}>
-					<option value="">Select suspect...</option>
+					<option value="">Selecciona sospechoso...</option>
 					{#each suspects as suspect}
 						<option value={suspect.citizenid}>{suspect.fullName || suspect.citizenid}</option>
 					{/each}
 				</select>
 				<button class="add-btn" onclick={() => { if (selectedSuspect) showPicker = !showPicker; }} disabled={!selectedSuspect}>
-					+ Add Charge
+					+ Añadir Cargo
 				</button>
 			{:else}
-				<span class="hint-text">Add a suspect first</span>
+				<span class="hint-text">Añade un sospechoso primero</span>
 			{/if}
 		</div>
 	</div>
@@ -164,7 +164,7 @@
 			<input
 				type="text"
 				class="picker-search"
-				placeholder="Search charges..."
+				placeholder="Buscar cargos..."
 				bind:value={chargeSearch}
 			/>
 			<div class="picker-list">
@@ -184,7 +184,7 @@
 					</button>
 				{/each}
 				{#if filteredPenalCodes.length === 0}
-					<p class="no-results">No charges found.</p>
+					<p class="no-results">No se encontraron cargos.</p>
 				{/if}
 			</div>
 		</div>
@@ -192,7 +192,7 @@
 
 	<!-- Charges grouped by suspect -->
 	{#if charges.length === 0}
-		<p class="empty-text">No charges added.</p>
+		<p class="empty-text">Sin cargos añadidos.</p>
 	{:else}
 		{#each [...chargesBySuspect.entries()] as [citizenid, suspectCharges]}
 			<div class="suspect-group">
@@ -214,7 +214,7 @@
 								<button class="count-btn" onclick={() => updateCount(charge, -1)}>-</button>
 								<span class="count-value">x{charge.count}</span>
 								<button class="count-btn" onclick={() => updateCount(charge, 1)}>+</button>
-								<button class="remove-charge-btn" onclick={() => onRemoveCharge(charge.id)} aria-label="Remove charge">
+								<button class="remove-charge-btn" onclick={() => onRemoveCharge(charge.id)} aria-label="Quitar cargo">
 									<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
 								</button>
 							</div>
@@ -224,7 +224,7 @@
 				<!-- Per-suspect totals and actions -->
 				<div class="suspect-footer">
 					<div class="suspect-totals">
-						<span class="total-item">{getSuspectTotalMonths(citizenid)} months</span>
+					<span class="total-item">{getSuspectTotalMonths(citizenid)} meses</span>
 						<span class="total-item">${getSuspectTotalFine(citizenid).toLocaleString()}</span>
 					</div>
 					<div class="suspect-actions">
@@ -233,14 +233,14 @@
 							onclick={() => onSendToJail(citizenid, getSuspectTotalMonths(citizenid))}
 							disabled={!citizenid || getSuspectTotalMonths(citizenid) <= 0}
 						>
-							Send to Jail
+							Enviar a Cárcel
 						</button>
 						<button
 							class="action-btn fine-btn"
 							onclick={() => onGiveCitation(citizenid, getSuspectTotalFine(citizenid))}
 							disabled={!citizenid || getSuspectTotalFine(citizenid) <= 0}
 						>
-							Issue Fine
+							Emitir Multa
 						</button>
 						{#if reductionOffers.length > 0}
 							<button
@@ -248,7 +248,7 @@
 								onclick={() => openReduction(citizenid)}
 								disabled={!citizenid || (getSuspectTotalFine(citizenid) <= 0 && getSuspectTotalMonths(citizenid) <= 0)}
 							>
-								Reduction
+								Reducción
 							</button>
 						{/if}
 					</div>
@@ -258,7 +258,7 @@
 				{#if reductionTarget === citizenid}
 					<div class="reduction-panel">
 						<div class="reduction-header">
-							<span class="reduction-title">Offer Reduction</span>
+							<span class="reduction-title">Ofrecer Reducción</span>
 							<button class="reduction-close" onclick={closeReduction}>
 								<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
 							</button>
@@ -271,7 +271,7 @@
 									class:selected={selectedReduction === pct}
 									onclick={() => selectedReduction = pct}
 								>
-									{pct}% off
+									{pct}% desc
 								</button>
 							{/each}
 						</div>
@@ -279,14 +279,14 @@
 						{#if selectedReduction}
 							<div class="reduction-preview">
 								<div class="reduction-preview-row">
-									<span class="preview-label">Jail</span>
+									<span class="preview-label">Cárcel</span>
 									<span class="preview-original">{getSuspectTotalMonths(citizenid)}mo</span>
 									<span class="preview-arrow">→</span>
 									<span class="preview-reduced">{getReducedMonths(citizenid, selectedReduction)}mo</span>
 									<span class="preview-saved">(-{getSuspectTotalMonths(citizenid) - getReducedMonths(citizenid, selectedReduction)}mo)</span>
 								</div>
 								<div class="reduction-preview-row">
-									<span class="preview-label">Fine</span>
+									<span class="preview-label">Multa</span>
 									<span class="preview-original">${getSuspectTotalFine(citizenid).toLocaleString()}</span>
 									<span class="preview-arrow">→</span>
 									<span class="preview-reduced">${getReducedFine(citizenid, selectedReduction).toLocaleString()}</span>
@@ -300,21 +300,21 @@
 									onclick={applyReductionJail}
 									disabled={getSuspectTotalMonths(citizenid) <= 0}
 								>
-									Jail ({getReducedMonths(citizenid, selectedReduction)}mo)
+									Cárcel ({getReducedMonths(citizenid, selectedReduction)}mo)
 								</button>
 								<button
 									class="action-btn fine-btn"
 									onclick={applyReductionFine}
 									disabled={getSuspectTotalFine(citizenid) <= 0}
 								>
-									Fine (${getReducedFine(citizenid, selectedReduction).toLocaleString()})
+									Multa (${getReducedFine(citizenid, selectedReduction).toLocaleString()})
 								</button>
 								<button
 									class="action-btn both-btn"
 									onclick={applyReductionBoth}
 									disabled={getSuspectTotalMonths(citizenid) <= 0 && getSuspectTotalFine(citizenid) <= 0}
 								>
-									Jail & Fine
+									Cárcel y Multa
 								</button>
 							</div>
 						{/if}
@@ -326,11 +326,11 @@
 		<!-- Grand totals -->
 		<div class="grand-totals">
 			<div class="grand-total-item">
-				<span class="grand-label">Total Jail Time</span>
-				<span class="grand-value">{totalMonths} months</span>
+				<span class="grand-label">Tiempo Total en Cárcel</span>
+				<span class="grand-value">{totalMonths} meses</span>
 			</div>
 			<div class="grand-total-item">
-				<span class="grand-label">Total Fines</span>
+				<span class="grand-label">Multas Totales</span>
 				<span class="grand-value">${totalFine.toLocaleString()}</span>
 			</div>
 		</div>

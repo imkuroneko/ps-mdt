@@ -28,7 +28,7 @@ export function validateNuiMessage(data: any): {
 					isValid: false,
 					sanitized: {},
 					// Generic message - don't reveal size limits
-					message: "Invalid data",
+					message: "Datos inválidos",
 				};
 			}
 
@@ -38,7 +38,7 @@ export function validateNuiMessage(data: any): {
 					isValid: false,
 					sanitized: {},
 					// Generic message - don't reveal what patterns we check
-					message: "Invalid data",
+					message: "Datos inválidos",
 				};
 			}
 
@@ -48,7 +48,7 @@ export function validateNuiMessage(data: any): {
 				isValid: false,
 				sanitized: {},
 				// Generic message - don't reveal serialization details
-				message: "Invalid data",
+				message: "Datos inválidos",
 			};
 		}
 	}
@@ -60,7 +60,7 @@ export function validateNuiMessage(data: any): {
 				isValid: false,
 				sanitized: "",
 				// Generic message - don't reveal content filtering
-				message: "Invalid data",
+				message: "Datos inválidos",
 			};
 		}
 	}

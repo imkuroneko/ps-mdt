@@ -16,9 +16,9 @@
 		<button
 			class="add-btn"
 			onclick={onAdd}
-			title="Add {title}"
-			aria-label="Add {title}"
-		>+ Add</button>
+			title="Añadir {title}"
+			aria-label="Añadir {title}"
+		>+ Añadir</button>
 	</div>
 	{@render children()}
 </div>

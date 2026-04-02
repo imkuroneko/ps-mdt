@@ -381,7 +381,7 @@
 	}
 
 	function formatStored(value: boolean | number | undefined) {
-		return value ? "Stored" : "In Field";
+		return value ? "Almacenado" : "En Campo";
 	}
 
 	onMount(async () => {
@@ -407,7 +407,7 @@
 			<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 			<input
 				type="text"
-				placeholder="Search by title, serial, location, stash..."
+				placeholder="Buscar por título, serie, ubicación, stash..."
 				bind:value={searchQuery}
 				onkeydown={(event) => {
 					if (event.key === "Enter") loadEvidence(1);
@@ -415,7 +415,7 @@
 			/>
 		</div>
 		<button class="action-btn" onclick={() => loadEvidence(1)}>
-			Search
+			Buscar
 		</button>
 		<button class="create-btn" onclick={() => {
 			resetCreateForm();
@@ -430,7 +430,7 @@
 			if (latestCaseId > 0) createForm.caseId = String(latestCaseId);
 			showCreate = true;
 		}}>
-			New Evidence
+			Nueva Evidencia
 		</button>
 	</div>
 
@@ -446,19 +446,19 @@
 		<!-- Evidence List (left) -->
 		<div class="list-panel">
 			{#if isLoading}
-				<div class="empty-state">Loading evidence...</div>
+				<div class="empty-state">Cargando evidencia...</div>
 			{:else if items.length === 0}
-				<div class="empty-state">No evidence found.</div>
+				<div class="empty-state">No se encontró evidencia.</div>
 			{:else}
 				<div class="table-header">
-					<span class="col-title">Title</span>
-					<span class="col-type">Type</span>
-					<span class="col-serial">Serial</span>
-					<span class="col-case">Case</span>
-					<span class="col-report">Report</span>
-					<span class="col-location">Location</span>
-					<span class="col-stored">Status</span>
-					<span class="col-date">Date</span>
+					<span class="col-title">Título</span>
+					<span class="col-type">Tipo</span>
+					<span class="col-serial">Serie</span>
+					<span class="col-case">Caso</span>
+					<span class="col-report">Reporte</span>
+					<span class="col-location">Ubicación</span>
+					<span class="col-stored">Estado</span>
+					<span class="col-date">Fecha</span>
 				</div>
 				{#each items as item}
 					<button class="table-row" class:selected={selectedEvidenceId === item.id} onclick={() => selectEvidence(item)}>
@@ -502,33 +502,33 @@
 			{#if selectedEvidenceId}
 				<!-- Custody Log -->
 				<div class="section">
-					<div class="section-title">Link Evidence</div>
+					<div class="section-title">Vincular Evidencia</div>
 					<div class="section-actions">
 						<input
 							class="form-input"
-							placeholder="Case ID or CASE-2026-..."
+							placeholder="ID de Caso o CASE-2026-..."
 							bind:value={linkCaseId}
 						/>
 						<button class="action-btn" onclick={handleLinkEvidenceCase}>
-							Link to Case
+							Vincular a Caso
 						</button>
 						<button class="action-btn" onclick={handleCreateCaseFromEvidence}>
-							Create Case
+							Crear Caso
 						</button>
 					</div>
 					<div class="section-actions">
 						<input
 							class="form-input"
-							placeholder="Report ID"
+							placeholder="ID de Reporte"
 							bind:value={linkReportId}
 						/>
 						<button class="action-btn" onclick={handleLinkEvidenceReport}>
-							Link to Report
+							Vincular a Reporte
 						</button>
 					</div>
-					<div class="section-title" style="margin-top: 8px;">Custody Log</div>
+					<div class="section-title" style="margin-top: 8px;">Registro de Custodia</div>
 					{#if custodyEntries.length === 0}
-						<p class="muted-text">No custody updates yet.</p>
+						<p class="muted-text">Sin actualizaciones de custodia aún.</p>
 					{:else}
 						<div class="custody-list">
 							{#each custodyEntries as entry}
@@ -536,7 +536,7 @@
 									<span class="custody-action {entry.action}">{entry.action}</span>
 									<span class="custody-detail">
 										{#if entry.action === "viewed"}
-											{entry.to_citizenid || "Unknown"}
+											{entry.to_citizenid || "Desconocido"}
 										{:else if entry.action === "transferred"}
 											{entry.from_citizenid || "?"} &rarr; {entry.to_citizenid || "?"}
 										{:else}
@@ -557,19 +557,19 @@
 
 				<!-- Transfer Evidence -->
 				<div class="section">
-					<div class="section-title">Transfer Evidence</div>
+					<div class="section-title">Transferir Evidencia</div>
 					<div class="transfer-row">
-						<input class="form-input" placeholder="Citizen ID" bind:value={transferCitizenId} />
-						<input class="form-input" placeholder="Transfer notes" bind:value={transferNotes} />
+						<input class="form-input" placeholder="ID de Ciudadano" bind:value={transferCitizenId} />
+						<input class="form-input" placeholder="Notas de transferencia" bind:value={transferNotes} />
 						<button class="action-btn" onclick={handleTransferEvidence}>
-							Transfer
+							Transferir
 						</button>
 					</div>
 				</div>
 
 				<!-- Upload Image -->
 				<div class="section">
-					<div class="section-title">Upload Evidence Image</div>
+					<div class="section-title">Cargar Imagen de Evidencia</div>
 					<div class="upload-row">
 						<input
 							type="file"
@@ -580,13 +580,13 @@
 								evidenceImageFile = input.files && input.files[0] ? input.files[0] : null;
 							}}
 						/>
-						<input class="form-input" placeholder="Image label" bind:value={evidenceImageLabel} />
+						<input class="form-input" placeholder="Etiqueta de imagen" bind:value={evidenceImageLabel} />
 						<button class="create-btn" disabled={isUploading} onclick={handleUploadEvidenceImage}>
-							{isUploading ? "Uploading..." : "Upload"}
+							{isUploading ? "Cargando..." : "Cargar"}
 						</button>
 					</div>
 					{#if isUploading}
-						<p class="uploading-text">Uploading image, please wait...</p>
+						<p class="uploading-text">Cargando imagen, por favor espera...</p>
 					{:else if evidenceImageFile}
 						<p class="muted-text" style="margin-top:6px;">
 							{evidenceImageFile.name} ({formatBytes(evidenceImageFile.size)})
@@ -600,12 +600,12 @@
 				<!-- Open Stash -->
 				{#if selectedEvidence?.stash_id}
 					<div class="section">
-						<div class="section-title">Evidence Stash</div>
+						<div class="section-title">Stash de Evidencia</div>
 						<div class="stash-row">
 							<span class="stash-id">{selectedEvidence.stash_id}</span>
 							<button class="action-btn" onclick={() => openStash(selectedEvidence.stash_id)}>
 								<span class="material-icons" style="font-size:14px; margin-right:4px;">inventory_2</span>
-								Open Stash
+								Abrir Stash
 							</button>
 						</div>
 					</div>
@@ -614,7 +614,7 @@
 				<!-- Uploaded Images -->
 				{#if selectedEvidence?.images && selectedEvidence.images.length > 0}
 					<div class="section">
-						<div class="section-title">Evidence Images</div>
+						<div class="section-title">Imágenes de Evidencia</div>
 						<div class="image-gallery">
 							{#each selectedEvidence.images as img}
 								<div class="image-item">
@@ -635,7 +635,7 @@
 			{:else}
 				<div class="empty-detail">
 					<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.25; margin-bottom:10px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-					<p>Select an evidence item to view custody and uploads.</p>
+					<p>Selecciona un elemento de evidencia para ver custodia y cargas.</p>
 				</div>
 			{/if}
 		</div>
@@ -648,7 +648,7 @@
 		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 		<div class="modal" role="dialog" aria-modal="true" onclick={(event) => event.stopPropagation()}>
 			<div class="modal-header">
-				<h3>New Evidence</h3>
+				<h3>Nueva Evidencia</h3>
 				<button class="close-btn" onclick={() => (showCreate = false)}>
 					<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</button>
@@ -657,27 +657,27 @@
 				<!-- Row 1: IDs + Title + Type -->
 				<div class="form-grid form-grid-4">
 					<div class="form-group">
-						<span class="form-label">Case ID</span>
-						<input bind:value={createForm.caseId} placeholder="Numeric or CASE-..." class="form-input" />
+						<span class="form-label">ID de Caso</span>
+						<input bind:value={createForm.caseId} placeholder="Numérico o CASE-..." class="form-input" />
 					</div>
 					<div class="form-group">
-						<span class="form-label">Report ID</span>
-						<input bind:value={createForm.reportId} placeholder="Report ID" class="form-input" />
+						<span class="form-label">ID de Reporte</span>
+						<input bind:value={createForm.reportId} placeholder="ID de Reporte" class="form-input" />
 					</div>
 					<div class="form-group">
-						<span class="form-label">Title</span>
-						<input bind:value={createForm.title} placeholder="Evidence title" class="form-input" />
+						<span class="form-label">Título</span>
+						<input bind:value={createForm.title} placeholder="Título de la evidencia" class="form-input" />
 					</div>
 					<div class="form-group">
-						<span class="form-label">Type</span>
+						<span class="form-label">Tipo</span>
 						<select bind:value={createForm.type} class="form-input">
-							<option value="Physical">Physical</option>
+							<option value="Physical">Físico</option>
 							<option value="Digital">Digital</option>
-							<option value="Document">Document</option>
-							<option value="Weapon">Weapon</option>
-							<option value="Drug">Drug</option>
-							<option value="Vehicle">Vehicle</option>
-							<option value="Other">Other</option>
+							<option value="Document">Documento</option>
+							<option value="Weapon">Arma</option>
+							<option value="Drug">Droga</option>
+							<option value="Vehicle">Vehículo</option>
+							<option value="Other">Otro</option>
 						</select>
 					</div>
 				</div>
@@ -686,26 +686,26 @@
 				<div class="form-grid">
 					{#if typeConfig.description}
 						<div class="form-group" style="grid-column: span 2;">
-							<span class="form-label">Description</span>
-							<input bind:value={createForm.description} placeholder={typeConfig.descriptionPlaceholder || "Describe the evidence"} class="form-input" />
+							<span class="form-label">Descripción</span>
+							<input bind:value={createForm.description} placeholder={typeConfig.descriptionPlaceholder || "Describe la evidencia"} class="form-input" />
 						</div>
 					{/if}
 					{#if typeConfig.serial}
 						<div class="form-group">
-							<span class="form-label">{typeConfig.serialLabel || "Serial #"}</span>
-							<input bind:value={createForm.serial} placeholder={typeConfig.serialPlaceholder || "Serial number"} class="form-input" />
+							<span class="form-label">{typeConfig.serialLabel || "Serie #"}</span>
+							<input bind:value={createForm.serial} placeholder={typeConfig.serialPlaceholder || "Número de serie"} class="form-input" />
 						</div>
 					{/if}
 					{#if typeConfig.plate}
 						<div class="form-group">
-							<span class="form-label">Plate Number</span>
-							<input bind:value={createForm.plateNumber} placeholder="License plate" class="form-input" />
+							<span class="form-label">Número de Placa</span>
+							<input bind:value={createForm.plateNumber} placeholder="Placa de matrícula" class="form-input" />
 						</div>
 					{/if}
 					{#if typeConfig.quantity}
 						<div class="form-group">
-							<span class="form-label">Quantity</span>
-							<input bind:value={createForm.quantity} placeholder="Amount / weight" class="form-input" />
+							<span class="form-label">Cantidad</span>
+							<input bind:value={createForm.quantity} placeholder="Cantidad / peso" class="form-input" />
 						</div>
 					{/if}
 				</div>
@@ -713,12 +713,12 @@
 				<!-- Row 3: Location + conditional Stash -->
 				<div class="form-grid">
 					<div class="form-group" style={typeConfig.stash ? "" : "grid-column: span 3;"}>
-						<span class="form-label">Location</span>
-						<input bind:value={createForm.location} placeholder="Location found" class="form-input" />
+						<span class="form-label">Ubicación</span>
+						<input bind:value={createForm.location} placeholder="Ubicación encontrada" class="form-input" />
 					</div>
 					{#if typeConfig.stash}
 						<div class="form-group">
-							<span class="form-label">Stash ID</span>
+							<span class="form-label">ID de Stash</span>
 							<input bind:value={createForm.stashId} placeholder="LOCKER-001" class="form-input mono-input" />
 						</div>
 					{/if}
@@ -727,15 +727,15 @@
 				{#if typeConfig.stored}
 					<label class="checkbox-label">
 						<input type="checkbox" bind:checked={createForm.stored} />
-						<span>Evidence is stored / secured</span>
+						<span>La evidencia está almacenada / segura</span>
 					</label>
 				{/if}
 				<div class="form-group">
-					<span class="form-label">Notes</span>
-					<textarea rows="4" bind:value={createForm.notes} placeholder="Additional notes..." class="form-input"></textarea>
+					<span class="form-label">Notas</span>
+					<textarea rows="4" bind:value={createForm.notes} placeholder="Notas adicionales..." class="form-input"></textarea>
 				</div>
 				<div class="form-group">
-					<span class="form-label">Attach Images</span>
+					<span class="form-label">Adjuntar Imágenes</span>
 					<input
 						type="file"
 						accept=".jpg,.jpeg,.png,.webp"
@@ -766,8 +766,8 @@
 				<p class="error-text">{evidenceError}</p>
 			{/if}
 			<div class="modal-footer">
-				<button class="cancel-btn" onclick={() => (showCreate = false)}>Cancel</button>
-				<button class="save-btn" onclick={handleCreateEvidence}>Create Evidence</button>
+				<button class="cancel-btn" onclick={() => (showCreate = false)}>Cancelar</button>
+				<button class="save-btn" onclick={handleCreateEvidence}>Crear Evidencia</button>
 			</div>
 		</div>
 	</div>

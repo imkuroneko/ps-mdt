@@ -91,7 +91,7 @@ Config.Dispatch = {
 }
 
 -- Wolfknight Plate Reader Settings
-Config.UseWolfknightRadar = true -- Enable/disable Wolfknight radar integration
+Config.UseWolfknightRadar = false -- Enable/disable Wolfknight radar integration
 Config.WolfknightNotifyTime = 5000 -- Duration (ms) for plate reader notifications
 Config.PlateScanForDriversLicense = true -- Check driver's license on plate scan
 

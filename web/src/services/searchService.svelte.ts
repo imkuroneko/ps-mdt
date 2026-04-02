@@ -40,8 +40,8 @@ export function createSearchService() {
 			state.results = results;
 			return results;
 		} catch (error) {
-			console.error("Failed to search officers:", error);
-			state.lastError = "Failed to search officers";
+			console.error("Inconvenientes al buscar oficiales:", error);
+			state.lastError = "Inconvenientes al buscar oficiales";
 			state.results = [];
 			return [];
 		} finally {
@@ -72,8 +72,8 @@ export function createSearchService() {
 			state.results = results;
 			return results;
 		} catch (error) {
-			console.error("Failed to search players:", error);
-			state.lastError = "Failed to search players";
+			console.error("Inconvenientes al buscar jugadores:", error);
+			state.lastError = "Inconvenientes al buscar jugadores";
 			state.results = [];
 			return [];
 		} finally {

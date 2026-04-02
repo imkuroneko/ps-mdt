@@ -330,7 +330,7 @@
 		<div class="topbar">
 			<button class="back-btn" onclick={goBack}>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-				Back to Cases
+				Volver a Casos
 			</button>
 			<span class="topbar-case-number">{selectedCase.court_case.case_number}</span>
 			<span class="pill {getStatusPillClass(selectedCase.court_case.status)}">{formatLabel(selectedCase.court_case.status)}</span>
@@ -340,50 +340,50 @@
 			<div class="detail-layout">
 				<div class="detail-main">
 					<div class="section">
-						<div class="section-title">Case Information</div>
+						<div class="section-title">Información del Caso</div>
 						<h3 class="case-title">{selectedCase.court_case.title}</h3>
 						<div class="field-row">
 							<div class="field-group">
-								<span class="field-label">Case Number</span>
+								<span class="field-label">Número de Caso</span>
 								<span class="field-value">{selectedCase.court_case.case_number}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Case Type</span>
+								<span class="field-label">Tipo de Caso</span>
 								<span class="field-value">{formatLabel(selectedCase.court_case.case_type)}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Status</span>
+								<span class="field-label">Estado</span>
 								<span class="pill {getStatusPillClass(selectedCase.court_case.status)}">{formatLabel(selectedCase.court_case.status)}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Filed Date</span>
+								<span class="field-label">Fecha de Presentación</span>
 								<span class="field-value">{formatDateValue(selectedCase.court_case.filed_date)}</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="section">
-						<div class="section-title">Defendant</div>
+						<div class="section-title">Demandado</div>
 						<div class="field-row">
 							<div class="field-group">
-								<span class="field-label">Name</span>
+								<span class="field-label">Nombre</span>
 								<span class="field-value">{selectedCase.court_case.defendant_name || "-"}</span>
 							</div>
 							<div class="field-group">
-								<span class="field-label">Citizen ID</span>
+								<span class="field-label">ID de Ciudadano</span>
 								<span class="field-value mono">{selectedCase.court_case.defendant_citizenid || "-"}</span>
 							</div>
 						</div>
 					</div>
 
 					<div class="section">
-						<div class="section-title">Hearing</div>
+						<div class="section-title">Audiencia</div>
 						<div class="field-row">
 							<div class="field-group" style="flex:1;">
-								<span class="field-label">Hearing Date</span>
+								<span class="field-label">Fecha de Audiencia</span>
 								<div class="inline-edit-row">
 									<input type="datetime-local" class="form-input" bind:value={editingHearingDate} />
-									<button class="save-field-btn" onclick={saveHearingDate}>Save</button>
+									<button class="save-field-btn" onclick={saveHearingDate}>Guardar</button>
 								</div>
 							</div>
 						</div>
@@ -398,7 +398,7 @@
 
 					{#if selectedCase.linked_reports.length > 0}
 						<div class="section">
-							<div class="section-title">Linked Reports</div>
+							<div class="section-title">Reportes Vinculados</div>
 							<div class="linked-items">
 								{#each selectedCase.linked_reports as report}
 									<span class="linked-chip">#{report.id} - {report.title}</span>
@@ -410,7 +410,7 @@
 
 				<div class="detail-side">
 					<div class="section">
-						<div class="section-title">Update Status</div>
+						<div class="section-title">Actualizar Estado</div>
 						<select class="form-select" value={selectedCase.court_case.status} onchange={(e) => handleUpdateCase({ status: (e.target as HTMLSelectElement).value })}>
 							{#each statusOptions.filter((s) => s !== "all") as opt}
 								<option value={opt}>{formatLabel(opt)}</option>
@@ -420,11 +420,11 @@
 
 					<div class="section">
 						<div class="section-header-row">
-							<span class="section-title">Judge</span>
+							<span class="section-title">Juez</span>
 							{#if selectedCase.court_case.presiding_judge_name}
-								<button class="add-btn" onclick={() => clearParty("judge")}>x Remove</button>
+								<button class="add-btn" onclick={() => clearParty("judge")}>x Eliminar</button>
 							{:else}
-								<button class="add-btn" onclick={() => (partySearchTarget = "judge")}>+ Add</button>
+								<button class="add-btn" onclick={() => (partySearchTarget = "judge")}>+ Añadir</button>
 							{/if}
 						</div>
 						{#if selectedCase.court_case.presiding_judge_name}
@@ -433,11 +433,11 @@
 					</div>
 					<div class="section">
 						<div class="section-header-row">
-							<span class="section-title">Prosecutor</span>
+							<span class="section-title">Fiscal</span>
 							{#if selectedCase.court_case.prosecutor_name}
-								<button class="add-btn" onclick={() => clearParty("prosecutor")}>x Remove</button>
+								<button class="add-btn" onclick={() => clearParty("prosecutor")}>x Eliminar</button>
 							{:else}
-								<button class="add-btn" onclick={() => (partySearchTarget = "prosecutor")}>+ Add</button>
+								<button class="add-btn" onclick={() => (partySearchTarget = "prosecutor")}>+ Añadir</button>
 							{/if}
 						</div>
 						{#if selectedCase.court_case.prosecutor_name}
@@ -446,11 +446,11 @@
 					</div>
 					<div class="section">
 						<div class="section-header-row">
-							<span class="section-title">Defense</span>
+							<span class="section-title">Defensa</span>
 							{#if selectedCase.court_case.defense_attorney_name}
-								<button class="add-btn" onclick={() => clearParty("defense")}>x Remove</button>
+								<button class="add-btn" onclick={() => clearParty("defense")}>x Eliminar</button>
 							{:else}
-								<button class="add-btn" onclick={() => (partySearchTarget = "defense")}>+ Add</button>
+								<button class="add-btn" onclick={() => (partySearchTarget = "defense")}>+ Añadir</button>
 							{/if}
 						</div>
 						{#if selectedCase.court_case.defense_attorney_name}
@@ -464,7 +464,7 @@
 		<!-- LIST VIEW -->
 		<div class="topbar">
 			<div class="search-box">
-				<input type="text" placeholder="Search cases..." bind:value={searchQuery} />
+				<input type="text" placeholder="Buscar casos..." bind:value={searchQuery} />
 			</div>
 			<div class="filter-pills">
 				{#each statusOptions as opt}
@@ -474,9 +474,9 @@
 				{/each}
 			</div>
 			<div class="topbar-actions">
-				<span class="result-count">{allFilteredCases.length} case{allFilteredCases.length !== 1 ? "s" : ""}</span>
-				<button class="action-btn" onclick={loadCases} disabled={isLoading}>{isLoading ? "Loading..." : "Refresh"}</button>
-				<button class="primary-btn" onclick={() => (showCreateModal = true)}>New Court Case</button>
+				<span class="result-count">{allFilteredCases.length} caso{allFilteredCases.length !== 1 ? "s" : ""}</span>
+				<button class="action-btn" onclick={loadCases} disabled={isLoading}>{isLoading ? "Cargando..." : "Actualizar"}</button>
+				<button class="primary-btn" onclick={() => (showCreateModal = true)}>Nuevo Caso Judicial</button>
 			</div>
 		</div>
 
@@ -484,22 +484,22 @@
 			{#if isLoading && cases.length === 0}
 				<div class="center-state">
 					<div class="loading-spinner"></div>
-					<p>Loading court cases...</p>
+					<p>Cargando casos judiciales...</p>
 				</div>
 			{:else if allFilteredCases.length === 0}
 				<div class="center-state">
-					<h3>No Court Cases Found</h3>
-					<p>{searchQuery ? "No cases match your search criteria." : "No court cases available."}</p>
+					<h3>No se encontraron casos judiciales</h3>
+					<p>{searchQuery ? "Ningún caso coincide con tus criterios de búsqueda." : "No hay casos judiciales disponibles."}</p>
 				</div>
 			{:else}
 				<div class="table-header">
-					<span>Case #</span>
-					<span>Title</span>
-					<span>Defendant</span>
-					<span>Type</span>
-					<span>Status</span>
-					<span>Hearing</span>
-					<span>Filed</span>
+					<span>Caso #</span>
+					<span>Título</span>
+					<span>Demandado</span>
+					<span>Tipo</span>
+					<span>Estado</span>
+					<span>Audiencia</span>
+					<span>Presentado</span>
 				</div>
 				<div class="table-body">
 					{#each paginatedCases as item}
@@ -524,27 +524,27 @@
 	<div class="modal-backdrop" onclick={() => (showCreateModal = false)} role="presentation">
 		<div class="modal" onclick={(e) => e.stopPropagation()} role="dialog">
 			<div class="modal-header">
-				<span class="modal-title">New Court Case</span>
+				<span class="modal-title">Nuevo Caso Judicial</span>
 				<button class="modal-close" onclick={() => (showCreateModal = false)}>
 					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label class="form-label">Title</label>
-					<input type="text" class="form-input" placeholder="e.g. State v. John Doe" bind:value={newCase.title} />
+					<label class="form-label">Título</label>
+					<input type="text" class="form-input" placeholder="p.ej. Estado v. Juan Pérez" bind:value={newCase.title} />
 				</div>
 				<div class="form-group">
-					<label class="form-label">Case Type</label>
+					<label class="form-label">Tipo de Caso</label>
 					<select class="form-select" bind:value={newCase.case_type}>
-						<option value="criminal">Criminal</option>
+						<option value="criminal">Penal</option>
 						<option value="civil">Civil</option>
-						<option value="appeal">Appeal</option>
-						<option value="motion">Motion</option>
+						<option value="appeal">Apelación</option>
+						<option value="motion">Moción</option>
 					</select>
 				</div>
 				<div class="form-group">
-					<label class="form-label">Defendant</label>
+					<label class="form-label">Demandado</label>
 					{#if newCase.defendant_citizenid}
 						<div class="selected-citizen">
 							<span class="citizen-name">{newCase.defendant_name}</span>
@@ -552,13 +552,13 @@
 							<button type="button" class="remove-citizen-btn" onclick={() => { newCase.defendant_citizenid = ""; newCase.defendant_name = ""; }}>x</button>
 						</div>
 					{:else}
-						<button type="button" class="form-input search-citizen-btn" onclick={() => (showDefendantSearch = true)}>Search citizen...</button>
+						<button type="button" class="form-input search-citizen-btn" onclick={() => (showDefendantSearch = true)}>Buscar ciudadano...</button>
 					{/if}
 				</div>
 				</div>
 			<div class="modal-footer">
-				<button class="back-btn" onclick={() => (showCreateModal = false)}>Cancel</button>
-				<button class="primary-btn" disabled={!newCase.title.trim()} onclick={handleCreateCase}>Create Case</button>
+				<button class="back-btn" onclick={() => (showCreateModal = false)}>Cancelar</button>
+				<button class="primary-btn" disabled={!newCase.title.trim()} onclick={handleCreateCase}>Crear Caso</button>
 			</div>
 		</div>
 	</div>
@@ -566,7 +566,7 @@
 
 <PersonSearchModal
 	show={showDefendantSearch}
-	title="Search Defendant"
+	title="Buscar Demandado"
 	searchResults={defendantSearchResults}
 	onClose={() => { showDefendantSearch = false; defendantSearchResults = []; }}
 	onSearch={handleDefendantSearch}
@@ -575,7 +575,7 @@
 
 <PersonSearchModal
 	show={partySearchTarget !== null}
-	title={partySearchTarget === "judge" ? "Search Judge" : partySearchTarget === "prosecutor" ? "Search Prosecutor" : "Search Defense Attorney"}
+	title={partySearchTarget === "judge" ? "Buscar Juez" : partySearchTarget === "prosecutor" ? "Buscar Fiscal" : "Buscar Abogado Defensor"}
 	searchResults={partySearchResults}
 	onClose={() => { partySearchTarget = null; partySearchResults = []; }}
 	onSearch={handlePartySearch}
@@ -586,36 +586,36 @@
 <div class="modal-backdrop" onclick={() => (showNewDocModal = false)} role="presentation">
 	<div class="modal" onclick={(e) => e.stopPropagation()} role="dialog">
 		<div class="modal-header">
-			<span class="modal-title">New Legal Document</span>
+			<span class="modal-title">Nuevo Documento Legal</span>
 			<button class="modal-close" onclick={() => (showNewDocModal = false)}>
 				<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
 			</button>
 		</div>
 		<div class="modal-body">
 			<div class="form-group">
-				<label class="form-label">Title</label>
+				<label class="form-label">Título</label>
 				<input type="text" class="form-input" bind:value={newDocData.title} />
 			</div>
 			<div class="form-group">
-				<label class="form-label">Type</label>
+				<label class="form-label">Tipo</label>
 				<select class="form-select" bind:value={newDocData.type}>
-					<option value="brief">Brief</option>
-					<option value="motion">Motion</option>
-					<option value="ruling">Ruling</option>
-					<option value="opinion">Opinion</option>
-					<option value="plea_deal">Plea Deal</option>
-					<option value="sentencing">Sentencing</option>
-					<option value="other">Other</option>
+					<option value="brief">Resumen</option>
+					<option value="motion">Moción</option>
+					<option value="ruling">Fallo</option>
+					<option value="opinion">Opinión</option>
+					<option value="plea_deal">Acuerdo de Culpabilidad</option>
+					<option value="sentencing">Sentencia</option>
+					<option value="other">Otro</option>
 				</select>
 			</div>
 			<div class="form-group">
-				<label class="form-label">Content</label>
-				<textarea class="form-textarea" rows="6" placeholder="Document content..." bind:value={newDocData.content}></textarea>
+				<label class="form-label">Contenido</label>
+				<textarea class="form-textarea" rows="6" placeholder="Contenido del documento..." bind:value={newDocData.content}></textarea>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="back-btn" onclick={() => (showNewDocModal = false)}>Cancel</button>
-			<button class="primary-btn" disabled={!newDocData.title.trim()} onclick={handleCreateDocument}>Create Document</button>
+			<button class="back-btn" onclick={() => (showNewDocModal = false)}>Cancelar</button>
+			<button class="primary-btn" disabled={!newDocData.title.trim()} onclick={handleCreateDocument}>Crear Documento</button>
 		</div>
 	</div>
 </div>

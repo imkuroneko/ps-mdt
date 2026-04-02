@@ -28,11 +28,11 @@
 
 	function handleAddNewInstance(): void {
 		if (!canAddTab) {
-			globalNotifications.error(`Maximum ${MAX_TABS} tabs allowed`);
+			globalNotifications.error(`Máximo ${MAX_TABS} pestañas permitidas`);
 			return;
 		}
 		const instanceNumber = tabService.instances.length + 1;
-		const instanceName = `Instance ${instanceNumber}`;
+		const instanceName = `Instancia ${instanceNumber}`;
 		const instanceId = `instance-${Date.now()}` as ComponentId;
 		tabService.addInstance(instanceId, instanceName);
 	}
@@ -53,7 +53,7 @@
 			<button
 				class="add-instance-btn"
 				onclick={handleAddNewInstance}
-				aria-label="Add new instance"
+				aria-label="Agregar nueva instancia"
 			>
 				<span class="material-icons">add</span>
 			</button>

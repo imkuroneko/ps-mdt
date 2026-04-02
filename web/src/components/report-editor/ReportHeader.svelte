@@ -8,7 +8,7 @@
 
 <header class="editor-header">
 	<h1 class="editor-title">
-		{isEditing ? "Edit Report" : "Create New Report"}
+		{isEditing ? "Editar Reporte" : "Crear Nuevo Reporte"}
 	</h1>
 	<div class="header-actions">
 		<button
@@ -17,19 +17,19 @@
 			disabled={isSaving}
 			type="button"
 			aria-label={isEditing
-				? "Cancel editing report"
-				: "Cancel creating report"}
+				? "Cancelar edición del reporte"
+				: "Cancelar creación del reporte"}
 		>
-			Cancel
+			Cancelar
 		</button>
 		<button
 			class="btn btn-primary"
 			onclick={onSave}
 			disabled={isSaving || isLoading}
 			type="button"
-			aria-label={isSaving ? "Saving report..." : "Save report"}
+			aria-label={isSaving ? "Guardando reporte..." : "Guardar reporte"}
 		>
-			{isSaving ? "Saving..." : "Save Report"}
+			{isSaving ? "Guardando..." : "Guardar reporte"}
 		</button>
 	</div>
 </header>
